@@ -23,10 +23,13 @@ Class Login_model extends CI_Model
 
  function loginUser($nim, $password)
  {
-  $this -> db -> select('nim, password');
+
+ 
+  $this -> db -> select('nim, nama');
   $this -> db -> from('mahasiswa');
   $this -> db -> where('nim', $nim);
   $this -> db -> where('password', MD5($password));
+  $this -> db -> where('status','1');
   $this -> db -> limit(1);
 
   $query = $this -> db -> get();
@@ -38,8 +41,7 @@ Class Login_model extends CI_Model
  else
  {
    return false;
- }
-}
+ }}
 
 
 }

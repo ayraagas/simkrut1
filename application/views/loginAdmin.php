@@ -35,32 +35,6 @@
         </div>
       </form>
     </div>
-    <div class="card alt">
-      <div class="toggle"></div>
-      <h1 class="title">Register
-        <div class="close"></div>
-      </h1>
-      <form action="<?php base_url('registerUser/do_register') ?>" method="POST">
-        <div class="input-container">
-          <input type="text" id="Username" name="username" required="required"/>
-          <label for="Username">Username</label>
-          <div class="bar"></div>
-        </div>
-        <div class="input-container">
-          <input type="password" id="Password" name="password" required="required"/>
-          <label for="Password">Password</label>
-          <div class="bar"></div>
-        </div>
-        <div class="input-container">
-          <input type="password" id="Repeat Password" required="required"/>
-          <label for="Repeat Password">Repeat Password</label>
-          <div class="bar"></div>
-        </div>
-        <div class="button-container">
-          <button type="submit" value="Sign up" name="register"><span>Sign Up</span></button>
-        </div>
-      </form>
-    </div>
   </div>
   <script src='<?php echo base_url('assets/js/jquery.min.js') ?>'></script>
 

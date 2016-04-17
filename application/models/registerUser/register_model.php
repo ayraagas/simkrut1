@@ -8,7 +8,7 @@ class Register_model extends CI_Model {
 	{
 		$data=array(
 			'nim'=>$this->input->post('nim'),
-			'namalengkap'=>$this->input->post('namalengkap'),
+			'nama'=>$this->input->post('namalengkap'),
 			'password'=>md5($this->input->post('password')),
 			'status'=>$this->input->post('status')
 			);

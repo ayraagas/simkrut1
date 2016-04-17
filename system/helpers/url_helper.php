@@ -529,7 +529,7 @@ if ( ! function_exists('url_title'))
  */
 if ( ! function_exists('redirect'))
 {
-	function redirect($uri = '', $method = 'location', $http_response_code = 302)
+	function redirect($uri = '', $method = 'location',$wait_time = 0, $http_response_code = 302)
 	{
 		if ( ! preg_match('#^https?://#i', $uri))
 		{
@@ -538,7 +538,7 @@ if ( ! function_exists('redirect'))
 
 		switch($method)
 		{
-			case 'refresh'	: header("Refresh:0;url=".$uri);
+			case 'refresh'	: header("Refresh:".$wait_time.";url=".$uri);
 				break;
 			default			: header("Location: ".$uri, TRUE, $http_response_code);
 				break;

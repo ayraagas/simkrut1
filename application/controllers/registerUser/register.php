@@ -6,12 +6,13 @@ if($this->input->post('register'))//$_POST["register"];
 {
 $this->load->model('registerUser/register_model');//loads the user_model.php file in models folder
 if($this->register_model->add_user())
-{
-	echo "hi ".$this->input->post('nim')." Registred successfully" ;
+{	
+	redirect('login', 'refresh');
 }
 else
 {
 	echo "Registration failed";
+	redirect('login', 'refresh');
 }
 }
 }
