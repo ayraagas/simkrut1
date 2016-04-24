@@ -45,6 +45,6 @@
 <!-- AdminLTE for demo purposes -->
 <script src="assets/dist/js/demo.js"></script>
 
-<<script src="assets/dist/addinput.js" type="text/javascript" charset="utf-8" async defer></script>
+<script src="assets/dist/addinput.js" type="text/javascript" charset="utf-8" async defer></script>
 </body>
 </html>

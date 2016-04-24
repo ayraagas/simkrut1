@@ -3,25 +3,47 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Daftar extends CI_Controller {
 
-	public function daftarasman()
-	{
-		
-          $session_data = $this->session->userdata('logged_in');
-          $this->load->view('header');
-          $this->load->view('sidebar_mhs');
-          $this->load->view('content_asman_mhs');
-          $this->load->view('footer');
-     }
+  public function __construct()
+  {
+    parent::__construct();
+    $this->load->model('daftar/daftar_asman_model');
 
-     public function daftarasprak()
-     {
+    //Do your magic here
+  }
 
-         $session_data = $this->session->userdata('logged_in');
-         $this->load->view('header');
-         $this->load->view('sidebar_mhs');
-         $this->load->view('content_asprak_mhs');
-         $this->load->view('footer');
-    }
+  public function daftarasman()
+  {
+
+    $session_data = $this->session->userdata('logged_in');
+    $data['nama'] = $session_data['nama'];
+    $this->load->view('header',$data);
+    $this->load->view('sidebar_mhs');
+    $this->load->view('content_asman_mhs');
+    $this->load->view('footer');
+  }
+
+  public function tambahasman()
+  {
+   if ($this->input->post('submit')) {
+        $a  =  $this->input->post('ipk');
+        
+        $object = array(
+            'ipk' => $a
+          );
+        $query = $this->daftar_asman_model->insert($object);
+   }
+ }
+
+ public function daftarasprak()
+ {
+
+   $session_data = $this->session->userdata('logged_in');
+   $data['nama'] = $session_data['nama'];
+   $this->load->view('header',$data);
+   $this->load->view('sidebar_mhs');
+   $this->load->view('content_asprak_mhs');
+   $this->load->view('footer');
+ }
 
 }
 

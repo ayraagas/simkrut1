@@ -42,5 +42,9 @@ $route['default_controller'] = "login/login";
 $route['404_override'] = '';
 
 
+
+$route['ajax/check_nim']	= 'registerUser/register/check_nim';
+
+
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

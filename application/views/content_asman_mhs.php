@@ -10,53 +10,53 @@
           <div class="box-body">
             <div class="form-group">
               <label for="ipk">IPK</label>
-              <input type="text" name="IPK" class="form-control" placeholder="Masukkan IPK contoh : 3.55 *jangan pakai koma!*">
+              <input type="text" name="ipk" class="form-control" placeholder="Masukkan IPK contoh : 3.55 *jangan pakai koma!*">
             </div>
           <div class="form-group">
             <label>Masukkan Nilai Matakuliah</label>
                 <div class="radio">
                 <h4>Algoritma dan Pemrograman 2</h4>
                     <label>
-                      <input type="radio" name="nilai_mk" id="optionsRadios1">
+                      <input type="radio" name="nilai_mk[18]" id="optionsRadios1" value="A">
                      A
                     </label>
                     <label>
-                      <input type="radio" name="nilai_mk" id="optionsRadios1">
+                      <input type="radio" name="nilai_mk" id="optionsRadios1" value="A-">
                      A-
                     </label>
                     <label>
-                      <input type="radio" name="nilai_mk" id="optionsRadios1">
+                      <input type="radio" name="nilai_mk" id="optionsRadios1" value="A/B">
                      A/B
                     </label>
                     <label>
-                    <input type="radio" name="nilai_mk" id="optionsRadios1">
+                    <input type="radio" name="nilai_mk" id="optionsRadios1" value="B+">
                      B+
                     </label>
                     <label>
-                    <input type="radio" name="nilai_mk" id="optionsRadios1">
+                    <input type="radio" name="nilai_mk" id="optionsRadios1" value="B">
                      B
                     </label>
                   </div>
                     <div class="radio">
                 <h4>Basisdata</h4>
                     <label>
-                      <input type="radio" name="nilai_mk" id="optionsRadios1">
+                      <input type="radio" name="nilai_mk" id="optionsRadios1" value="A">
                      A
                     </label>
                     <label>
-                      <input type="radio" name="nilai_mk" id="optionsRadios1">
+                      <input type="radio" name="nilai_mk" id="optionsRadios1" value="A-">
                      A-
                     </label>
                     <label>
-                      <input type="radio" name="nilai_mk" id="optionsRadios1">
+                      <input type="radio" name="nilai_mk" id="optionsRadios1" value="A/B">
                      A/B
                     </label>
                     <label>
-                    <input type="radio" name="nilai_mk" id="optionsRadios1">
+                    <input type="radio" name="nilai_mk" id="optionsRadios1" value="B+">
                      B+
                     </label>
                     <label>
-                    <input type="radio" name="nilai_mk" id="optionsRadios1">
+                    <input type="radio" name="nilai_mk" id="optionsRadios1" value="B">
                      B
                     </label>
                   </div>

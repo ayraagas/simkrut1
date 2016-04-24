@@ -20,15 +20,14 @@ class VerifyLogin extends CI_Controller {
    {
      //Field validation failed.  User redirected to login page
     $this->load->view('loginAdmin');
-    $this->load->view('sweetalert/alertlogin');
+    $this->load->view('sweetalert/alertlogin_admin');
    }
    else
    {
      //Go to private area
-     redirect('home', 'refresh');
+     redirect('home_admin', 'refresh');
     }
     }
-   }
  
  function check_database($password)
  {
@@ -44,7 +43,6 @@ class VerifyLogin extends CI_Controller {
      foreach($result as $row)
      {
        $sess_array = array(
-         'id' => $row->id,
          'username' => $row->username
          );
        $this->session->set_userdata('logged_in', $sess_array);
@@ -56,6 +54,5 @@ class VerifyLogin extends CI_Controller {
      $this->form_validation->set_message('check_database');
      return false;
    }
- }
-}
+ }}
 ?>
