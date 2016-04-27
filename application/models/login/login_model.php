@@ -3,7 +3,7 @@ Class Login_model extends CI_Model
 {
  function login($username, $password)
  {
-  $this -> db -> select('username, password');
+  $this -> db -> select('id', 'username, password');
   $this -> db -> from('admin');
   $this -> db -> where('username', $username);
   $this -> db -> where('password', MD5($password));
@@ -25,7 +25,7 @@ Class Login_model extends CI_Model
  {
 
  
-  $this -> db -> select('nim, nama');
+  $this -> db -> select('id, nim, nama');
   $this -> db -> from('mahasiswa');
   $this -> db -> where('nim', $nim);
   $this -> db -> where('password', MD5($password));

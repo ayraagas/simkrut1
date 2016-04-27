@@ -46,6 +46,7 @@ class VerifyLoginUser extends CI_Controller {
      {
        
        $sess_array = array(
+         'id'  => $row->id,
          'nim' => $row->nim,
          'nama'=> $row->nama
        );

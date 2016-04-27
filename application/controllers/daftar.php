@@ -6,7 +6,7 @@ class Daftar extends CI_Controller {
   public function __construct()
   {
     parent::__construct();
-    $this->load->model('daftar/daftar_asman_model');
+    $this->load->model('matakuliah_model');
 
     //Do your magic here
   }
@@ -16,9 +16,12 @@ class Daftar extends CI_Controller {
 
     $session_data = $this->session->userdata('logged_in');
     $data['nama'] = $session_data['nama'];
+    $content_data = array(
+      'matakuliah'  => $this->matakuliah_model->get_all()
+    );
     $this->load->view('header',$data);
     $this->load->view('sidebar_mhs');
-    $this->load->view('content_asman_mhs');
+    $this->load->view('content_asman_mhs', $content_data);
     $this->load->view('footer');
   }
 

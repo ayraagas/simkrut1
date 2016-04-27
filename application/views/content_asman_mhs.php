@@ -6,7 +6,7 @@
         </div>
         <!-- /.box-header -->
         <!-- form start -->
-        <form role="form">
+        <form role="form" action="asman/daftar" method="POST">
           <div class="box-body">
             <div class="form-group">
               <label for="ipk">IPK</label>
@@ -14,53 +14,18 @@
             </div>
           <div class="form-group">
             <label>Masukkan Nilai Matakuliah</label>
-                <div class="radio">
-                <h4>Algoritma dan Pemrograman 2</h4>
-                    <label>
-                      <input type="radio" name="nilai_mk[18]" id="optionsRadios1" value="A">
-                     A
-                    </label>
-                    <label>
-                      <input type="radio" name="nilai_mk" id="optionsRadios1" value="A-">
-                     A-
-                    </label>
-                    <label>
-                      <input type="radio" name="nilai_mk" id="optionsRadios1" value="A/B">
-                     A/B
-                    </label>
-                    <label>
-                    <input type="radio" name="nilai_mk" id="optionsRadios1" value="B+">
-                     B+
-                    </label>
-                    <label>
-                    <input type="radio" name="nilai_mk" id="optionsRadios1" value="B">
-                     B
-                    </label>
-                  </div>
-                    <div class="radio">
-                <h4>Basisdata</h4>
-                    <label>
-                      <input type="radio" name="nilai_mk" id="optionsRadios1" value="A">
-                     A
-                    </label>
-                    <label>
-                      <input type="radio" name="nilai_mk" id="optionsRadios1" value="A-">
-                     A-
-                    </label>
-                    <label>
-                      <input type="radio" name="nilai_mk" id="optionsRadios1" value="A/B">
-                     A/B
-                    </label>
-                    <label>
-                    <input type="radio" name="nilai_mk" id="optionsRadios1" value="B+">
-                     B+
-                    </label>
-                    <label>
-                    <input type="radio" name="nilai_mk" id="optionsRadios1" value="B">
-                     B
-                    </label>
-                  </div>
-
+            <?php $nilai = array("A", "A-", "A/B", "B+", "B"); ?>
+            <?php foreach ($matakuliah as $mk) { ?>
+            <div class="form-group">
+              <label><?php echo $mk->nama; ?></label>
+              <select class="form-control" name="matakuliah[<?php echo $mk->id; ?>]">
+                <option></option>
+                <?php foreach ($nilai as $n) { ?>
+                <option value="<?php echo $n; ?>"><?php echo $n; ?></option>
+                <?php } ?>
+              </select>
+            </div>
+            <?php } ?>
           </div>
             </div>
             <div class="box-footer">
