@@ -12,10 +12,10 @@
               <label for="angkatan">Angkatan</label>
               <input type="text" class="form-control" name="angkatan" placeholder="Contoh : 2012"></input>
               </div>
-                <div class="form-group">
+                <!-- <div class="form-group">
                   <label for="exampleInputEmail1">IPK</label>
                   <input type="text" class="form-control" placeholder="Masukkan IPK contoh : 3.55 *jangan pakai koma!*">
-                </div>
+                </div> -->
                  <div class="form-group">
                   <label>Pilih Matakuliah dan Isi nilai Matakuliah</label>
                   <select class="form-control">

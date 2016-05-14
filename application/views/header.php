@@ -7,6 +7,8 @@
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <base href="<?php echo base_url(); ?>" />
+  <!-- DataTables -->
+  <link rel="stylesheet" href="assets/plugins/datatables/dataTables.bootstrap.css">
   <!-- Bootstrap 3.3.6 -->
   <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
   <!-- Font Awesome -->

@@ -17,6 +17,11 @@
 </script>
 <!-- Bootstrap 3.3.6 -->
 <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+<!-- DataTables -->
+<script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="assets/plugins/datatables/dataTables.bootstrap.min.js"></script>
+<!-- SlimScroll -->
+<script src="assets/plugins/slimScroll/jquery.slimscroll.min.js"></script>
 <!-- Morris.js charts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
 <script src="assets/plugins/morris/morris.min.js"></script>
@@ -41,10 +46,22 @@
 <!-- AdminLTE App -->
 <script src="assets/dist/js/app.min.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="assets/dist/js/pages/dashboard.js"></script>
+<!-- <script src="assets/dist/js/pages/dashboard.js"></script> -->
 <!-- AdminLTE for demo purposes -->
 <script src="assets/dist/js/demo.js"></script>
-
 <script src="assets/dist/addinput.js" type="text/javascript" charset="utf-8" async defer></script>
+<script>
+  $(function () {
+    $("#example1").DataTable();
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": true,
+    });
+  });
+</script>
 </body>
 </html>

@@ -24,6 +24,7 @@ class Asman_model extends CI_Model {
 	}
 
 }
+a
 
 /* End of file asman_model.php */
 /* Location: ./application/models/asman_model.php */

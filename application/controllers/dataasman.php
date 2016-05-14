@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Data extends CI_Controller {
+class Dataasman extends CI_Controller {
 
 	public function __construct()
 	{
@@ -9,7 +9,7 @@ class Data extends CI_Controller {
 		//Do your magic here
 	}
 
-	public function dataasman()
+	public function index()
 	{
 		$session_data = $this->session->userdata('logged_in');
 		$data['nama'] = $session_data['username'];
