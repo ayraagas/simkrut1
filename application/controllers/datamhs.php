@@ -26,22 +26,27 @@ class Datamhs extends CI_Controller {
 
 	public function change()
 	{
+		$id= $this->input->get('id');
+		$status = $this->input->get('status');
+		if ($status == 0) {
+			$data = array(
+			'status' => '1'
+			);
+		} else {
+			$data = array(
+			'status' => '0'
+			);
+		}
+		$this->mhs_model->change_status($id,$data);
 			
-			$id= $this->input->post('id');
-			$status = $this->input->post('status');
-			if ($status == 0) {
-				$data = array(
-				'status' => '1'
-				);
-			} else {
-				$data = array(
-				'status' => '0'
-				);
-			}
-			$this->mhs_model->change_status($id,$data);
+		redirect('datamhs','refresh');
+	}
 
-			
-			redirect('datamhs','refresh');
+	public function delete() {
+		$id= $this->input->get('id');
+		$this->mhs_model->delete_mhs($id);
+		
+		redirect('datamhs','refresh');
 	}
 
 }

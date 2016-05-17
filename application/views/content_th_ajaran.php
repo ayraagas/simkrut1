@@ -13,14 +13,14 @@
                 <th>Tahun</th>
                 <th>Semester</th>
                 <th>Status</th>
-                <!--  <th>Aksi</th> -->
+                 <th>Aksi</th>
               </tr>
             </thead>
             <tbody>
 
              <?php foreach ($tahunajaran as $thn) { ?>
-              <form role="form" method="POST" action="<?php echo 'tahunajaran/change' ?>">
                 <tr>
+                  <form role="form" method="POST" action="<?php echo 'tahunajaran/change' ?>">
                   <td><?php echo $thn->tahun; ?></td>
                   <td><?php echo $thn->semester; ?></td>
                   <input type="hidden" name="id" value="<?php echo $thn->id; ?>">
@@ -31,8 +31,8 @@
                 <td><?php echo 'Aktif'; ?></td>
               <?php endif; ?>
               <td><button type="submit" class="btn btn-info">Change</button></td>
+              </form>
             </tr>
-          </form>
           <?php } ?>
         </div>
       </tbody>
@@ -41,7 +41,7 @@
           <th>Nim</th>
           <th>Nama</th>
           <th>Status</th>
-          <!--  <th>Aksi</th> -->
+           <th>Aksi</th>
         </tr>
       </tfoot>
     </table>

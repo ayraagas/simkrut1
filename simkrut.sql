@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 17, 2016 at 12:40 PM
+-- Generation Time: May 17, 2016 at 07:55 AM
 -- Server version: 5.6.26
 -- PHP Version: 5.6.12
 
@@ -37,7 +37,42 @@ CREATE TABLE IF NOT EXISTS `admin` (
 --
 
 INSERT INTO `admin` (`id`, `username`, `password`) VALUES
-(1, 'admin', 'e172dd95f4feb21412a692e73929961e');
+(1, 'admin', '21232f297a57a5a743894a0e4a801fc3');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `asisten`
+--
+
+CREATE TABLE IF NOT EXISTS `asisten` (
+  `id` int(10) NOT NULL,
+  `id_tahun_ajaran` int(10) NOT NULL,
+  `id_mahasiswa` int(10) NOT NULL,
+  `tipe` varchar(20) NOT NULL,
+  `status` enum('0','1','','') NOT NULL DEFAULT '0' COMMENT '0=''tidak diterima'' , 1=''diterima'''
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `asisten`
+--
+
+INSERT INTO `asisten` (`id`, `id_tahun_ajaran`, `id_mahasiswa`, `tipe`, `status`) VALUES
+(1, 1, 1, 'Mandiri', '0'),
+(2, 9, 1, 'Mandiri', '0'),
+(3, 9, 2, 'Mandiri', '0');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `asisten_dosen`
+--
+
+CREATE TABLE IF NOT EXISTS `asisten_dosen` (
+  `id` int(10) NOT NULL,
+  `id_asisten_mandiri` int(10) NOT NULL,
+  `id_dosen` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -48,21 +83,29 @@ INSERT INTO `admin` (`id`, `username`, `password`) VALUES
 CREATE TABLE IF NOT EXISTS `data_asisten_mandiri` (
   `id` int(10) NOT NULL,
   `id_matakuliah` int(10) NOT NULL,
-  `id_mahasiswa` int(10) NOT NULL,
-  `nilai_mk` varchar(5) NOT NULL
+  `nilai` varchar(10) NOT NULL,
+  `id_asisten` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `data_mahasiswa`
+-- Table structure for table `dosen`
 --
 
-CREATE TABLE IF NOT EXISTS `data_mahasiswa` (
+CREATE TABLE IF NOT EXISTS `dosen` (
   `id` int(10) NOT NULL,
-  `id_mahasiswa` int(10) NOT NULL,
-  `ipk` float NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `nama` varchar(100) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `dosen`
+--
+
+INSERT INTO `dosen` (`id`, `nama`) VALUES
+(1, 'Novi Setiani'),
+(2, 'Nur Wijayaning'),
+(3, 'Hendrik');
 
 -- --------------------------------------------------------
 
@@ -75,16 +118,9 @@ CREATE TABLE IF NOT EXISTS `mahasiswa` (
   `nim` varchar(8) NOT NULL,
   `nama` varchar(50) NOT NULL,
   `password` text NOT NULL,
+  `ipk` float DEFAULT NULL,
   `status` enum('0','1','','','','') NOT NULL COMMENT '0=inactive , 1=active'
 ) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `mahasiswa`
---
-
-INSERT INTO `mahasiswa` (`id`, `nim`, `nama`, `password`, `status`) VALUES
-(1, '12523017', 'Agas Arya Widodo', 'ea1d3fbbb2f58eb2f72a81eb85c7dcd1', '1'),
-(22, '12523042', 'Alif Gibran Syarvani', '15d81a7922fb166706435cc7af138882', '0');
 
 -- --------------------------------------------------------
 
@@ -193,14 +229,21 @@ CREATE TABLE IF NOT EXISTS `tahun_ajaran` (
   `tahun` varchar(10) NOT NULL,
   `semester` varchar(10) NOT NULL,
   `status` enum('0','1') NOT NULL COMMENT '0=''inactive'' 1=''active'''
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tahun_ajaran`
 --
 
 INSERT INTO `tahun_ajaran` (`id`, `tahun`, `semester`, `status`) VALUES
-(1, '2015/2016', 'Genap', '1');
+(1, '2015/2016', 'Genap', '0'),
+(2, '2016/2017', 'Ganjil', '0'),
+(9, '2016/2017', 'Genap', '1'),
+(10, '2017/2018', 'Ganjil', '0'),
+(11, '2017/2018', 'Genap', '0'),
+(12, '2018/2019', 'Ganjil', '0'),
+(13, '2018/2019', 'Genap', '0'),
+(14, '2020/2021', 'Ganjil', '0');
 
 --
 -- Indexes for dumped tables
@@ -214,17 +257,28 @@ ALTER TABLE `admin`
   ADD UNIQUE KEY `username` (`username`);
 
 --
+-- Indexes for table `asisten`
+--
+ALTER TABLE `asisten`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `asisten_dosen`
+--
+ALTER TABLE `asisten_dosen`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `data_asisten_mandiri`
 --
 ALTER TABLE `data_asisten_mandiri`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `data_mahasiswa`
+-- Indexes for table `dosen`
 --
-ALTER TABLE `data_mahasiswa`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `id_mahasiswa` (`id_mahasiswa`);
+ALTER TABLE `dosen`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `mahasiswa`
@@ -256,15 +310,25 @@ ALTER TABLE `tahun_ajaran`
 ALTER TABLE `admin`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
+-- AUTO_INCREMENT for table `asisten`
+--
+ALTER TABLE `asisten`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT for table `asisten_dosen`
+--
+ALTER TABLE `asisten_dosen`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `data_asisten_mandiri`
 --
 ALTER TABLE `data_asisten_mandiri`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `data_mahasiswa`
+-- AUTO_INCREMENT for table `dosen`
 --
-ALTER TABLE `data_mahasiswa`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `dosen`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `mahasiswa`
 --
@@ -279,7 +343,7 @@ ALTER TABLE `matakuliah`
 -- AUTO_INCREMENT for table `tahun_ajaran`
 --
 ALTER TABLE `tahun_ajaran`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

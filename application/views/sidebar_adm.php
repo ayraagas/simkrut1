@@ -1,13 +1,13 @@
  <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu">
           <li class="header">MAIN NAVIGATION</li>
-          <li class="active treeview">
+          <li class="treeview">
             <a href="#">
-              <i class="fa fa-edit"></i> <span>Data</span>
+              <i class="fa fa-edit"></i> <span>Data Mahasiswa</span>
               <i class="fa fa-angle-left pull-right"></i>
             </a>
             <ul class="treeview-menu">
-              <li><a href="data/dataasprak"><i class="fa fa-circle-o"></i>Data Calon Asisten Praktikum</a></li>
+              <li><a href="dataasprak"><i class="fa fa-circle-o"></i>Data Calon Asisten Praktikum</a></li>
               <li><a href="dataasman"><i class="fa fa-circle-o"></i>Data Calon Asisten Mandiri</a></li>
             </ul>
           </li>
@@ -21,6 +21,16 @@
               <li><a href="tahunajaran"><i class="fa fa-circle-o"></i>Aktivasi Tahun Ajaran</a></li>
             </ul>
           </li>
+             <li class="treeview">
+            <a href="#">
+              <i class="fa fa-edit"></i> <span>Data Admin</span>
+              <i class="fa fa-angle-left pull-right"></i>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="datamk"><i class="fa fa-circle-o"></i>Data Matakuliah</a></li>
+              <li><a href="datadosen"><i class="fa fa-circle-o"></i>Data Dosen</a></li>
+            </ul>
+          </li>
            <li class="treeview">
             <a href="#">
               <i class="fa fa-exclamation-triangle"></i> <span>Grafik</span>
@@ -28,6 +38,7 @@
             </a>
             <ul class="treeview-menu">
               <li><a href="#"><i class="fa fa-circle-o"></i>Grafik Calon Asisten Praktikum</a></li>
+               <li><a href="grafik/asman"><i class="fa fa-circle-o"></i>Grafik Calon Asisten Mandiri</a></li>
             </ul>
           </li>
 

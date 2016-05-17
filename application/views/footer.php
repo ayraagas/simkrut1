@@ -49,19 +49,12 @@
 <!-- <script src="assets/dist/js/pages/dashboard.js"></script> -->
 <!-- AdminLTE for demo purposes -->
 <script src="assets/dist/js/demo.js"></script>
+<!-- ChartJS 1.0.1 -->
+<script src="assets/plugins/chartjs/Chart.min.js"></script>
 <script src="assets/dist/addinput.js" type="text/javascript" charset="utf-8" async defer></script>
-<script>
-  $(function () {
-    $("#example1").DataTable();
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": true,
-    });
-  });
-</script>
+<script src="assets/sweetalert/dist/sweetalert.min.js"></script>
+<link rel="stylesheet" type="text/css" href="assets/sweetalert/dist/sweetalert.css">
+<script src="assets/js/content_datamhs.js"></script>
+<script src="assets/js/grafik.js"></script>
 </body>
 </html>
