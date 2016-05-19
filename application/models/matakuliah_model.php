@@ -11,6 +11,12 @@ class Matakuliah_model extends CI_Model {
 	public function tambah($data_mk) {
 			$this->db->insert("matakuliah",$data_mk);
 	}
+
+	public function delete_mk($id)
+	{
+		$this->db->where('id', $id);
+		$this->db->delete('matakuliah');
+	}
 }
 
 /* End of file matakuliah_model.php */

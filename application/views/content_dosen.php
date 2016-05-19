@@ -11,14 +11,15 @@
             <thead>
               <tr>
                 <th>Nama</th>
-                <!--  <th>Aksi</th> -->
+                 <th>Aksi</th>
               </tr>
             </thead>
             <tbody>
 
              <?php foreach ($dosen as $dsn) { ?>
               <tr>
-                <td><?php echo $dsn->nama; ?></td>
+                <td><?php echo $dsn->nama; ?></td><td>
+                <a href="<?php echo 'datadosen/delete'."?id={$dsn->id}"; ?>" class="btn btn-danger btn-delete">Delete</a></td>
               </tr>
             </form>
             <?php } ?>
@@ -27,7 +28,7 @@
         <tfoot>
           <tr>
             <th>Nama</th>
-            <!--  <th>Aksi</th> -->
+             <th>Aksi</th>
           </tr>
         </tfoot>
       </table>

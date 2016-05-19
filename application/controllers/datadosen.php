@@ -34,6 +34,13 @@ class Datadosen extends CI_Controller {
 
 		redirect('datadosen','refresh');
 	}
+
+	public function delete() {
+		$id= $this->input->get('id');
+		$this->dosen_model->delete_dosen($id);
+		
+		redirect('datadosen','refresh');
+	}
 }
 
 /* End of file datadosen.php */

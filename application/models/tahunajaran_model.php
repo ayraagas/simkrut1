@@ -25,6 +25,12 @@ class Tahunajaran_model extends CI_Model {
 			$this->db->insert("tahun_ajaran",$data_thajaran);
 	}
 
+	public function delete_thn($id)
+	{
+		$this->db->where('id', $id);
+		$this->db->delete('tahun_ajaran');
+	}
+
 	public function get_graph_data($tipe) {
 		$sql = "SELECT t.tahun, t.semester, (SELECT COUNT(*) FROM asisten a WHERE a.tipe = '$tipe' AND a.id_tahun_ajaran = t.id) AS jumlah FROM tahun_ajaran t";
 		$query = $this->db->query($sql, FALSE);

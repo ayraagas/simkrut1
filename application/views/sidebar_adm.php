@@ -37,7 +37,7 @@
               <i class="fa fa-angle-left pull-right"></i>
             </a>
             <ul class="treeview-menu">
-              <li><a href="#"><i class="fa fa-circle-o"></i>Grafik Calon Asisten Praktikum</a></li>
+              <li><a href="grafik/asprak"><i class="fa fa-circle-o"></i>Grafik Calon Asisten Praktikum</a></li>
                <li><a href="grafik/asman"><i class="fa fa-circle-o"></i>Grafik Calon Asisten Mandiri</a></li>
             </ul>
           </li>

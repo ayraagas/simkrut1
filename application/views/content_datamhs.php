@@ -6,7 +6,7 @@
           <h3 class="box-title">Data Mahasiswa</h3>
         </div>
         <div class="box-body">
-            <table id="table-mhs" class="table table-bordered table-hover">
+            <table id="example2" class="table table-bordered table-hover">
               <thead>
                 <tr>
                   <th>NIM</th>
@@ -38,7 +38,7 @@
                     <a href="<?php echo 'datamhs/change'."?id={$mhs->id}&status={$mhs->status}"; ?>" class="btn btn-info">Change</a>
                     <a href="<?php echo 'datamhs/delete'."?id={$mhs->id}"; ?>" class="btn btn-danger btn-delete">Delete</a>
                    </td>
-                  </form>
+                 <!-- </form> -->
                 </tr>
             
           <?php } ?>

@@ -7,7 +7,7 @@ class Datamk extends CI_Controller {
 	{
 		parent::__construct();
 		//Do your magic here
-		$this->load->model('Matakuliah_model');
+		$this->load->model('matakuliah_model');
 	}
 
 	public function index()
@@ -16,7 +16,7 @@ class Datamk extends CI_Controller {
 		$data['nama'] = $session_data['username'];
 
 		$content_data = array(
-			'matakuliah'  => $this->Matakuliah_model->get_all()
+			'matakuliah'  => $this->matakuliah_model->get_all()
 			);
 		$this->load->view('header',$data);
 		$this->load->view('sidebar_adm');
@@ -32,8 +32,15 @@ class Datamk extends CI_Controller {
 			'semester'	=> $this->input->post('semester'),
 			'jenis'		=> $this->input->post('jenis')
 			);
-		$this->Matakuliah_model->tambah($data_mk);
+		$this->matakuliah_model->tambah($data_mk);
 
+		redirect('datamk','refresh');
+	}
+
+	public function delete() {
+		$id= $this->input->get('id');
+		$this->matakuliah_model->delete_mk($id);
+		
 		redirect('datamk','refresh');
 	}
 

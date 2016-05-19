@@ -13,7 +13,7 @@
                 <th>Nama</th>
                 <th>Semester</th>
                 <th>Jenis</th>
-                <!--  <th>Aksi</th> -->
+               <th>Aksi</th>
               </tr>
             </thead>
             <tbody>
@@ -23,8 +23,10 @@
                 <td><?php echo $mk->nama; ?></td>
                 <td><?php echo $mk->semester; ?></td>
                 <td><?php echo $mk->jenis; ?></td>
+                   <td>
+            <a href="<?php echo 'datamk/delete'."?id={$mk->id}"; ?>" class="btn btn-danger btn-delete">Delete</a>
+          </td>
               </tr>
-            </form>
             <?php } ?>
           </div>
         </tbody>
@@ -33,7 +35,7 @@
             <th>Nama</th>
             <th>Semester</th>
             <th>Jenis</th>
-            <!--  <th>Aksi</th> -->
+           <!--   <th>Aksi</th> -->
           </tr>
         </tfoot>
       </table>

@@ -20,6 +20,19 @@
 <!-- DataTables -->
 <script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="assets/plugins/datatables/dataTables.bootstrap.min.js"></script>
+<script>
+  $(function () {
+    $("#example1").DataTable();
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": true
+    });
+  });
+</script>
 <!-- SlimScroll -->
 <script src="assets/plugins/slimScroll/jquery.slimscroll.min.js"></script>
 <!-- Morris.js charts -->
@@ -54,7 +67,8 @@
 <script src="assets/dist/addinput.js" type="text/javascript" charset="utf-8" async defer></script>
 <script src="assets/sweetalert/dist/sweetalert.min.js"></script>
 <link rel="stylesheet" type="text/css" href="assets/sweetalert/dist/sweetalert.css">
-<script src="assets/js/content_datamhs.js"></script>
+<script src="assets/js/warn_delete.js"></script>
 <script src="assets/js/grafik.js"></script>
+
 </body>
 </html>

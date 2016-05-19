@@ -12,6 +12,12 @@ class Dosen_model extends CI_Model {
 			$this->db->insert("dosen",$data_dosen);
 	}
 
+	public function delete_dosen($id)
+	{
+		$this->db->where('id', $id);
+		$this->db->delete('dosen');
+	}
+
 }
 
 /* End of file dosen_model.php */

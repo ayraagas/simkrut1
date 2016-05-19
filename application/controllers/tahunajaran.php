@@ -56,6 +56,14 @@ public function __construct()
 		redirect('tahunajaran','refresh');
 	}
 
+	public function delete() {
+		$id= $this->input->get('id');
+		$this->tahunajaran_model->delete_thn($id);
+		
+		redirect('tahunajaran','refresh');
+	}
+
+
 
 
 }
