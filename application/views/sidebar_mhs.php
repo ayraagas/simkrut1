@@ -7,8 +7,8 @@
               <i class="fa fa-angle-left pull-right"></i>
             </a>
             <ul class="treeview-menu">
-              <li><a href="daftar/asprak"><i class="fa fa-circle-o"></i>Daftar Asisten Praktikum</a></li>
-              <li><a href=daftar/asman><i class="fa fa-circle-o"></i>Daftar Asisten Mandiri</a></li>
+              <li><a href="asprak"><i class="fa fa-circle-o"></i>Daftar Asisten Praktikum</a></li>
+              <li><a href=asman><i class="fa fa-circle-o"></i>Daftar Asisten Mandiri</a></li>
             </ul>
           </li>
           <li class="treeview">

@@ -6,7 +6,7 @@
         </div>
         <!-- /.box-header -->
         <!-- form start -->
-        <form role="form" action="" method="POST">
+        <form role="form" action="asman/daftar" method="POST">
           <div class="box-body">
             <div class="form-group">
               <label for="ipk">IPK</label>
@@ -31,6 +31,7 @@
                    <?php }?>
                  </div>
                </div>
+               <input type="hidden" name="tipe" value="Mandiri"></input>
                <div class="box-footer">
                 <button type="submit" class="btn btn-primary">Submit</button>
               </div>
