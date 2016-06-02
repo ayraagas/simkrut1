@@ -2,7 +2,7 @@
      <section class="content">
        <div class="box box-primary">
         <div class="box-header with-border">
-          <h3 class="box-title">Daftar Calon Asisten Mandiri <!-- Semester Genap 2015/2016 --></h3>
+          <h3 class="box-title">Daftar Calon Asisten Mandiri Semester <?php echo "$tahunajaran->semester $tahunajaran->tahun"; ?> <!-- Semester Genap 2015/2016 --></h3>
         </div>
         <!-- /.box-header -->
         <!-- form start -->

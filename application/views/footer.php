@@ -26,11 +26,20 @@
     $('#example2').DataTable({
       "paging": true,
       "lengthChange": false,
-      "searching": false,
+      "searching": true,
       "ordering": true,
       "info": true,
       "autoWidth": true
     });
+
+$(document).on( "click", '#terima',function(e) {
+  
+        var id = $(this).data('id');
+       
+        $(".id_asisten").val(id);
+
+    });
+
   });
 </script>
 <!-- SlimScroll -->

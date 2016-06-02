@@ -12,7 +12,6 @@ class Grafik extends CI_Controller {
 	public function asman()
 	{
 		
-
 		$session_data = $this->session->userdata('logged_in');
 
 		$content_data = array(
@@ -28,7 +27,6 @@ class Grafik extends CI_Controller {
 	public function asprak()
 	{
 		
-
 		$session_data = $this->session->userdata('logged_in');
 
 		$content_data = array(

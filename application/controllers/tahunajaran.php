@@ -25,11 +25,8 @@ public function __construct()
 	public function change()
 	{
 			
-			$id= $this->input->post('id');
-			$status = $this->input->post('status');
-			$data1 = array(
-				'status' => '0'
-				);
+			$id= $this->input->get('id');
+			$status = $this->input->get('status');
 			if ($status == 0) {
 				$data = array(
 				'status' => '1'
@@ -39,6 +36,10 @@ public function __construct()
 				'status' => '0'
 				);
 			}
+			$data1 = array(
+				'status' => '0'
+				);
+		
 			$this->tahunajaran_model->change_status($id,$data,$data1);
 
 			

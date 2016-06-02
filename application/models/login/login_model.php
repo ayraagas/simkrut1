@@ -21,8 +21,8 @@ Class Login_model extends CI_Model
  }
 }
 
- function loginUser($nim, $password)
- {
+function loginUser($nim, $password)
+{
 
  
   $this -> db -> select('id, nim, nama');

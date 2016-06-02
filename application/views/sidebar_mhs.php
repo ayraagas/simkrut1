@@ -18,7 +18,7 @@
             </a>
             <ul class="treeview-menu">
               <li><a href="#"><i class="fa fa-circle-o"></i>Asisten Praktikum</a></li>
-              <li><a href="#"><i class="fa fa-circle-o"></i>Asisten Mandiri</a></li>
+              <li><a href="pengumuman_asman"><i class="fa fa-circle-o"></i>Asisten Mandiri</a></li>
             </ul>
           </li>
         </ul>
@@ -30,12 +30,12 @@
     <div class="content-wrapper">
       <!-- Content Header (Page header) -->
       <section class="content-header">
-        <h1>
+      <!--   <h1>
           Dashboard
           <small>Control panel</small>
-        </h1>
-        <ol class="breadcrumb">
+        </h1> -->
+      <!--   <ol class="breadcrumb">
           <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
           <li class="active">Dashboard</li>
-        </ol>
+        </ol> -->
       </section>

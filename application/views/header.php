@@ -79,9 +79,9 @@
 
                 <!-- Menu Footer-->
                 <li class="user-footer">
-                  <div class="pull-left">
+                 <!--  <div class="pull-left">
                     <aclass="btn btn-default btn-flat">Profile</a>
-                  </div>
+                  </div> -->
                   <div class="pull-right">
                     <a href="home/logout" class="btn btn-default btn-flat">Sign out</a>
                   </div>
