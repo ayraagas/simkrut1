@@ -13,36 +13,40 @@
  	}
 
  	public function index()
- 	{	$session_data = $this->session->userdata('logged_in');
+ 	{	if($this->session->userdata('logged_in')){
+ 		$session_data = $this->session->userdata('logged_in');
 
- 	$id_mhs 	  =  $session_data['id'];
- 	$chk_thn 	  =	 $this->asman_model->check_tahun();
+ 		$id_mhs 	  =  $session_data['id'];
+ 		$chk_thn 	  =	 $this->asman_model->check_tahun();
 
- 	$content_data = array(
+ 		$content_data = array(
  			'matakuliah'  => $this->matakuliah_model->get_all(),
  			'tahunajaran' => $this->tahunajaran_model->get_aktif(),
  			'nama'		=> $session_data['nama']
  			);
 
- 	if ($chk_thn == '0') {
- 		$this->load->view('header',$content_data);
- 		$this->load->view('sidebar_mhs');
- 		$this->load->view('content_asman_nonaktif');
- 		$this->load->view('footer');
- 	} elseif($this->asman_model->check_daftar($session_data['id'], $this->tahunajaran_model->get_aktif()->id))
- 	{
+ 		if ($chk_thn == '0') {
+ 			$this->load->view('header',$content_data);
+ 			$this->load->view('sidebar_mhs');
+ 			$this->load->view('content_asman_nonaktif');
+ 			$this->load->view('footer');
+ 		} elseif($this->asman_model->check_daftar($session_data['id'], $this->tahunajaran_model->get_aktif()->id))
+ 		{
 
- 		$this->load->view('header',$content_data);
- 		$this->load->view('sidebar_mhs');
- 		$this->load->view('content_asman_done');
- 		$this->load->view('footer');
- 	}else{
+ 			$this->load->view('header',$content_data);
+ 			$this->load->view('sidebar_mhs');
+ 			$this->load->view('content_asman_done');
+ 			$this->load->view('footer');
+ 		}else{
 
- 		$this->load->view('header',$content_data);
- 		$this->load->view('sidebar_mhs');
- 		$this->load->view('content_asman_mhs',$content_data);
- 		$this->load->view('footer');}
+ 			$this->load->view('header',$content_data);
+ 			$this->load->view('sidebar_mhs');
+ 			$this->load->view('content_asman_mhs',$content_data);
+ 			$this->load->view('footer');}
 
+ 		}else{
+ 			   redirect('login','refresh');
+ 		}
 
  	}
 

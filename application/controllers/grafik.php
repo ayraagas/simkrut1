@@ -11,8 +11,7 @@ class Grafik extends CI_Controller {
 
 	public function asman()
 	{
-		
-		$session_data = $this->session->userdata('logged_in');
+		if($this->session->userdata('logged_in')){$session_data = $this->session->userdata('logged_in');
 
 		$content_data = array(
 			'nama'		=> $session_data['username']
@@ -21,13 +20,15 @@ class Grafik extends CI_Controller {
 		$this->load->view('header',$content_data);
 		$this->load->view('sidebar_adm');
 		$this->load->view('content_grafik_asman',$content_data);
-		$this->load->view('footer');
+		$this->load->view('footer');}else{
+			redirect('login','refresh');
+		}
+		
 	}
 
 	public function asprak()
 	{
-		
-		$session_data = $this->session->userdata('logged_in');
+		if($this->session->userdata('logged_in')){$session_data = $this->session->userdata('logged_in');
 
 		$content_data = array(
 			'nama'		=> $session_data['username']
@@ -36,7 +37,10 @@ class Grafik extends CI_Controller {
 		$this->load->view('header',$content_data);
 		$this->load->view('sidebar_adm');
 		$this->load->view('content_grafik_asprak',$content_data);
-		$this->load->view('footer');
+		$this->load->view('footer');}else{
+			redirect('login','refresh');
+		}
+		
 	}
 
 }

@@ -31,9 +31,19 @@
               <li><a href="datadosen"><i class="fa fa-circle-o"></i>Data Dosen</a></li>
             </ul>
           </li>
+          <li class="treeview">
+            <a href="kriteria">
+              <i class="fa fa-hashtag"></i> <span>Kelola Kriteria</span>
+             <!--  <i class="fa fa-angle-left pull-right"></i> -->
+            </a>
+            <!-- <ul class="treeview-menu">
+              <li><a href=""><i class="fa fa-circle-o"></i>Data Matakuliah</a></li>
+              <li><a href=""><i class="fa fa-circle-o"></i>Data Dosen</a></li>
+            </ul> -->
+          </li>
            <li class="treeview">
             <a href="#">
-              <i class="fa fa-exclamation-triangle"></i> <span>Grafik</span>
+              <i class="fa fa-area-chart"></i> <span>Grafik</span>
               <i class="fa fa-angle-left pull-right"></i>
             </a>
             <ul class="treeview-menu">
@@ -50,13 +60,14 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
       <!-- Content Header (Page header) -->
-      <section class="content-header">
-        <h1>
-          Dashboard
-          <!-- <small>Control panel</small> -->
-        </h1>
-     <!--    <ol class="breadcrumb">
-          <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-          <li class="active">Dashboard</li>
-        </ol> -->
-      </section>
+    <!--   <section class="content-header">
+      <h1>
+        Dashboard
+        <small>Control panel</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Dashboard</li>
+      </ol>
+    </section>
+     -->

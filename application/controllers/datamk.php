@@ -11,7 +11,7 @@ class Datamk extends CI_Controller {
 	}
 
 	public function index()
-	{
+	{if($this->session->userdata('logged_in')){
 		$session_data = $this->session->userdata('logged_in');
 		$data['nama'] = $session_data['username'];
 
@@ -21,7 +21,10 @@ class Datamk extends CI_Controller {
 		$this->load->view('header',$data);
 		$this->load->view('sidebar_adm');
 		$this->load->view('content_mk', $content_data);
-		$this->load->view('footer');
+		$this->load->view('footer');}else{
+			redirect('login','refresh');
+		}
+
 	}
 
 
@@ -40,10 +43,24 @@ class Datamk extends CI_Controller {
 	public function delete() {
 		$id= $this->input->get('id');
 		$this->matakuliah_model->delete_mk($id);
-		
-		redirect('datamk','refresh');
-	}
+		if ($this->db->_error_number() == 1451)
+		{
 
+			$session_data = $this->session->userdata('logged_in');
+			$data['nama'] = $session_data['username'];
+
+			$content_data = array(
+				'matakuliah'  => $this->matakuliah_model->get_all()
+				);
+			$this->load->view('header',$data);
+			$this->load->view('sweetalert/alertdelete');
+			$this->load->view('sidebar_adm');
+			$this->load->view('content_mk', $content_data);
+			$this->load->view('footer');
+		} else{
+			redirect('datamk','refresh');
+		}
+	}
 
 
 }

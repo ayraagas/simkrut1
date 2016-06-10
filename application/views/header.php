@@ -12,9 +12,9 @@
   <!-- Bootstrap 3.3.6 -->
   <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="assets/css/font-awesome.min.css">
   <!-- Ionicons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+  <link rel="stylesheet" href="assets/css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="assets/dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -35,6 +35,8 @@
 
   <!-- grafik css -->
   <link rel="stylesheet" href="assets/css/grafik.css">
+  <!-- sweetalert -->
+  <link rel="stylesheet" type="text/css" href="assets/sweetalert/dist/sweetalert.css">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -64,13 +66,13 @@
           <ul class="nav navbar-nav">
             <li class="dropdown user user-menu">
               <a class="dropdown-toggle" data-toggle="dropdown">
-                <img src="assets/dist/img/user9-160x160.jpg" class="user-image" alt="User Image">
+                <img src="assets/dist/img/user9-160x160.png" class="user-image" alt="User Image">
                 <span class="hidden-xs"><?php echo $nama; ?></span>
               </a>
               <ul class="dropdown-menu">
                 <!-- User image -->
                 <li class="user-header">
-                <img src="assets/dist/img/user9-160x160.jpg" class="img-circle" alt="User Image">
+                <img src="assets/dist/img/user9-160x160.png" class="img-circle" alt="User Image">
                   <p>
                    <?php echo $nama; ?>
                   </p>
@@ -101,7 +103,7 @@
         <!-- Sidebar user panel -->
         <div class="user-panel">
           <div class="pull-left image">
-            <img src="assets/dist/img/user9-160x160.jpg" class="img-circle" alt="User Image">
+            <img src="assets/dist/img/user9-160x160.png" class="img-circle" alt="User Image">
           </div>
           <div class="pull-left info">
             <p><?php echo $nama; ?></p>
