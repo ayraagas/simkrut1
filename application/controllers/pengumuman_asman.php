@@ -10,21 +10,23 @@ class Pengumuman_asman extends CI_Controller {
 		//Do your magic here
 	}
 	public function index()
-	{if($this->session->userdata('logged_in')){$session_data = $this->session->userdata('logged_in');
-	$content_data = array(
-		'nama'		=> $session_data['nama'],
-		'pengumuman'=> $this->asman_model->pengumuman()
-		);
-	$this->load->view('header',$content_data);
-	$this->load->view('sidebar_mhs');
-	$this->load->view('content_pengumuman_asman',$content_data);
-	$this->load->view('footer');}else{
-		redirect('login','refresh');
+	{
+		if($this->session->userdata('logged_in_mhs')){
+			$session_data = $this->session->userdata('logged_in_mhs');
+			$content_data = array(
+				'nama'		=> $session_data['nama'],
+				'pengumuman'=> $this->asman_model->pengumuman()
+				);
+			$this->load->view('header',$content_data);
+			$this->load->view('sidebar_mhs');
+			$this->load->view('content_pengumuman_asman',$content_data);
+			$this->load->view('footer');}else{
+				redirect('login','refresh');
+			}
+
+		}
+
 	}
-	
-}
 
-}
-
-/* End of file pengumuman_asman.php */
+	/* End of file pengumuman_asman.php */
 /* Location: ./application/controllers/pengumuman_asman.php */

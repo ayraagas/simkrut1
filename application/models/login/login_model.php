@@ -45,7 +45,7 @@ function loginUser($nim, $password)
 }
 
 public function checkOldPass($passwordlama)
-{   $session_data = $this->session->userdata('logged_in');
+{   $session_data = $this->session->userdata('logged_in_mhs');
     $this->db->where('nama', $session_data['nama']);
     $this->db->where('password', MD5($passwordlama));
     $query = $this->db->get('mahasiswa');
@@ -60,7 +60,7 @@ public function saveNewPass($passwordbaru)
     $data = array(
            'password' =>MD5($passwordbaru) 
         );
-   $session_data = $this->session->userdata('logged_in');
+   $session_data = $this->session->userdata('logged_in_mhs');
     $this->db->where('nama', $session_data['nama']);
     $this->db->update('mahasiswa', $data);
     return true;

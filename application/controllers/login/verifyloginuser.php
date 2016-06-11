@@ -50,7 +50,7 @@ class VerifyLoginUser extends CI_Controller {
          'nim' => $row->nim,
          'nama'=> $row->nama
        );
-       $this->session->set_userdata('logged_in', $sess_array);
+       $this->session->set_userdata('logged_in_mhs', $sess_array);
      }
      return TRUE;
    }

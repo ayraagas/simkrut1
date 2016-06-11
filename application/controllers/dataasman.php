@@ -21,7 +21,7 @@ class Dataasman extends CI_Controller {
 		'asisten_mandiri'  => $this->asman_model->get_data_asman(),
 		'nama'		=> $session_data['username'],
 		'tahunajaran' => $this->tahunajaran_model->get_aktif(),
-		'dosen' => $this->dosen_model->get_all()
+		'dosen' => $this->dosen_model->get_all_daftar()
 		);
 
 	if ($chk_thn == '0') {

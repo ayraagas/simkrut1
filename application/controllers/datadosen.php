@@ -38,7 +38,7 @@
 			redirect('datadosen','refresh');
 		}
 
-		function readExcel()
+		/*function readExcel()
 		{
 			
 	    $result =   $this->csvreader->parse_file('Test.csv');//path to csv file
@@ -52,7 +52,7 @@
 		
 
 	}
-
+*/
 
 
 	public function delete() {

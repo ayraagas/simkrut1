@@ -9,9 +9,9 @@ class Home extends CI_Controller {
  
  function index()
  {
-   if($this->session->userdata('logged_in'))
+   if($this->session->userdata('logged_in_mhs'))
    {
-     $session_data = $this->session->userdata('logged_in');
+     $session_data = $this->session->userdata('logged_in_mhs');
      $data['nama'] = $session_data['nama'];
      $this->load->view('header',$data);
      $this->load->view('sidebar_mhs');
@@ -28,7 +28,7 @@ class Home extends CI_Controller {
  
  function logout()
  {
-   $this->session->unset_userdata('logged_in');
+   $this->session->unset_userdata('logged_in_mhs');
    session_destroy();
    redirect('/', 'refresh');
  }

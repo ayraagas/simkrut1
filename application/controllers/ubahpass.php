@@ -11,8 +11,8 @@ class Ubahpass extends CI_Controller {
 
 	public function index()
 	{	
-		if($this->session->userdata('logged_in')){
-			$session_data = $this->session->userdata('logged_in');
+		if($this->session->userdata('logged_in_mhs')){
+			$session_data = $this->session->userdata('logged_in_mhs');
 
 			$content_data = array(
 				'nama'		=> $session_data['nama']
@@ -31,7 +31,7 @@ class Ubahpass extends CI_Controller {
 				$this->_change_submit($post_data);
 				return;
 			}
-			$session_data = $this->session->userdata('logged_in');
+			$session_data = $this->session->userdata('logged_in_mhs');
 
 			$content_data = array(
 				'nama'		=> $session_data['nama']

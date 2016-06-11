@@ -24,7 +24,7 @@
                 <td><?php echo $kr->bobot; ?></td>
                 <td><?php echo $kr->kategori; ?></td>
                 <td>
-                 <a href="<?php echo 'datakriteria/ubah'."?id={$kr->id}"; ?>" class="btn btn-danger btn-delete">Ubah</a>
+                 <a href="<?php echo 'datakriteria/ubah'."?id={$kr->id}"; ?>" class="btn btn-warning">Ubah</a>
                  <a href="<?php echo 'datakriteria/delete'."?id={$kr->id}"; ?>" class="btn btn-danger btn-delete">Delete</a></td>
                </tr>
              </form>
@@ -63,16 +63,15 @@
               <label class="col-sm-2 control-label" >Bobot</label>
 
               <div class="col-sm-10">
-                <input type="text" class="form-control" name="bobot">
+                <input type="number" min="1" max="5" class="form-control" name="bobot">
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-2 control-label" >Kategori</label>
-
               <div class="col-sm-10">
                 <select name="kategori">
-                  <option value=""></option>
-                  
+                  <option value="benefit">Benefit</option>
+                  <option value="cost">Cost</option>
                 </select>
               </div>
             </div>

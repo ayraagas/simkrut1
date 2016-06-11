@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 02, 2016 at 12:23 PM
+-- Generation Time: Jun 11, 2016 at 10:14 PM
 -- Server version: 5.6.26
 -- PHP Version: 5.6.12
 
@@ -77,20 +77,16 @@ CREATE TABLE IF NOT EXISTS `data_asisten_mandiri` (
   `id_asisten` int(10) NOT NULL,
   `id_dosen` int(10) NOT NULL,
   `kelas` varchar(5) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `data_asisten_mandiri`
 --
 
 INSERT INTO `data_asisten_mandiri` (`id`, `id_matakuliah`, `nilai`, `id_asisten`, `id_dosen`, `kelas`) VALUES
-(6, 18, 'A-', 6, 4, 'A'),
+(6, 18, 'A-', 6, 0, ''),
 (7, 124, 'A/B', 6, 1, 'A'),
-(8, 125, 'B', 6, 0, NULL),
-(9, 21, 'A', 6, 0, NULL),
-(10, 18, 'A-', 7, 4, 'F'),
-(11, 124, 'A', 7, 0, NULL),
-(12, 125, 'B+', 7, 0, NULL);
+(10, 18, 'A-', 7, 4, 'F');
 
 -- --------------------------------------------------------
 
@@ -101,7 +97,7 @@ INSERT INTO `data_asisten_mandiri` (`id`, `id_matakuliah`, `nilai`, `id_asisten`
 CREATE TABLE IF NOT EXISTS `dosen` (
   `id` int(10) NOT NULL,
   `nama` varchar(100) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `dosen`
@@ -110,8 +106,28 @@ CREATE TABLE IF NOT EXISTS `dosen` (
 INSERT INTO `dosen` (`id`, `nama`) VALUES
 (0, ''),
 (1, 'Novi Setiani'),
-(2, 'Nur Wijayaning'),
 (4, 'Hendrik');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `kriteria`
+--
+
+CREATE TABLE IF NOT EXISTS `kriteria` (
+  `id` int(10) NOT NULL,
+  `nama` varchar(255) NOT NULL,
+  `bobot` int(10) NOT NULL,
+  `kategori` enum('benefit','cost') NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `kriteria`
+--
+
+INSERT INTO `kriteria` (`id`, `nama`, `bobot`, `kategori`) VALUES
+(1, 'Wawancara', 10, 'benefit'),
+(2, 'Nilai', 5, 'benefit');
 
 -- --------------------------------------------------------
 
@@ -126,7 +142,7 @@ CREATE TABLE IF NOT EXISTS `mahasiswa` (
   `password` text NOT NULL,
   `ipk` float DEFAULT NULL,
   `status` enum('0','1') NOT NULL COMMENT '0=inactive , 1=active'
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `mahasiswa`
@@ -134,7 +150,8 @@ CREATE TABLE IF NOT EXISTS `mahasiswa` (
 
 INSERT INTO `mahasiswa` (`id`, `nim`, `nama`, `password`, `ipk`, `status`) VALUES
 (1, '12523017', 'Agas Arya Widodo', 'ea1d3fbbb2f58eb2f72a81eb85c7dcd1', 4, '1'),
-(2, '12523042', 'Alif Gibran Syarvani', 'ea1d3fbbb2f58eb2f72a81eb85c7dcd1', 3.8, '1');
+(2, '12523042', 'Alif Gibran Syarvani', 'ea1d3fbbb2f58eb2f72a81eb85c7dcd1', 3.8, '1'),
+(3, '12523020', 'Anif Shofiana Durri', 'ea1d3fbbb2f58eb2f72a81eb85c7dcd1', NULL, '1');
 
 -- --------------------------------------------------------
 
@@ -147,7 +164,7 @@ CREATE TABLE IF NOT EXISTS `matakuliah` (
   `nama` varchar(100) NOT NULL,
   `semester` varchar(10) NOT NULL COMMENT 'genap atau ganjil',
   `jenis` varchar(10) NOT NULL COMMENT 'wajib atau pilihan'
-) ENGINE=InnoDB AUTO_INCREMENT=170 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=171 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `matakuliah`
@@ -168,7 +185,6 @@ INSERT INTO `matakuliah` (`id`, `nama`, `semester`, `jenis`) VALUES
 (31, 'Sosio Teknologi Informasi', 'Genap', 'Wajib'),
 (32, 'Statistika & Probabilitas', 'Genap', 'Wajib'),
 (33, 'Struktur Data', 'Genap', 'Wajib'),
-(34, 'Algoritma dan Pemrograman 1', 'Ganjil', 'Wajib'),
 (35, 'Aljabar Linier dan Matriks', 'Ganjil', 'Wajib'),
 (36, 'Bahasa Inggris', 'Ganjil', 'Wajib'),
 (37, 'Grafika Komputer', 'Ganjil', 'Wajib'),
@@ -230,7 +246,22 @@ INSERT INTO `matakuliah` (`id`, `nama`, `semester`, `jenis`) VALUES
 (166, 'Pr. Pemrograman Berorientasi Obyek', 'Ganjil', 'Praktikum'),
 (167, 'Pr. Jaringan komputer', 'Ganjil', 'Praktikum'),
 (168, 'Pr. Struktur Data', 'Genap', 'Praktikum'),
-(169, 'Pr. Pemrograman Web', 'Genap', 'Praktikum');
+(169, 'Pr. Pemrograman Web', 'Genap', 'Praktikum'),
+(170, 'Algoritma dan Pemrograman 1', 'Ganjil', 'Wajib');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `subkriteria`
+--
+
+CREATE TABLE IF NOT EXISTS `subkriteria` (
+  `id` int(10) NOT NULL,
+  `nama` varchar(255) NOT NULL,
+  `bobot` int(10) NOT NULL,
+  `kategori` enum('benefit','cost','','') NOT NULL,
+  `id_kriteria` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -243,7 +274,7 @@ CREATE TABLE IF NOT EXISTS `tahun_ajaran` (
   `tahun` varchar(10) NOT NULL,
   `semester` varchar(10) NOT NULL,
   `status` enum('0','1') NOT NULL COMMENT '0=''inactive'' 1=''active'''
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tahun_ajaran`
@@ -254,7 +285,7 @@ INSERT INTO `tahun_ajaran` (`id`, `tahun`, `semester`, `status`) VALUES
 (2, '2016/2017', 'Ganjil', '0'),
 (9, '2016/2017', 'Genap', '0'),
 (10, '2017/2018', 'Ganjil', '0'),
-(11, '2017/2018', 'Genap', '0');
+(15, '2017/2018', 'Genap', '0');
 
 --
 -- Indexes for dumped tables
@@ -281,8 +312,8 @@ ALTER TABLE `asisten`
 ALTER TABLE `data_asisten_mandiri`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_matakuliah` (`id_matakuliah`,`id_asisten`,`id_dosen`),
-  ADD KEY `data_asisten_mandiri_ibfk_2` (`id_asisten`),
-  ADD KEY `id_dosen` (`id_dosen`);
+  ADD KEY `id_dosen` (`id_dosen`),
+  ADD KEY `data_asisten_mandiri_ibfk_2` (`id_asisten`);
 
 --
 -- Indexes for table `dosen`
@@ -290,6 +321,12 @@ ALTER TABLE `data_asisten_mandiri`
 ALTER TABLE `dosen`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id` (`id`);
+
+--
+-- Indexes for table `kriteria`
+--
+ALTER TABLE `kriteria`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `mahasiswa`
@@ -304,6 +341,13 @@ ALTER TABLE `mahasiswa`
 ALTER TABLE `matakuliah`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `nama` (`nama`);
+
+--
+-- Indexes for table `subkriteria`
+--
+ALTER TABLE `subkriteria`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_kriteria` (`id_kriteria`);
 
 --
 -- Indexes for table `tahun_ajaran`
@@ -329,27 +373,37 @@ ALTER TABLE `asisten`
 -- AUTO_INCREMENT for table `data_asisten_mandiri`
 --
 ALTER TABLE `data_asisten_mandiri`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `dosen`
 --
 ALTER TABLE `dosen`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `kriteria`
+--
+ALTER TABLE `kriteria`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `mahasiswa`
 --
 ALTER TABLE `mahasiswa`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `matakuliah`
 --
 ALTER TABLE `matakuliah`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=170;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=171;
+--
+-- AUTO_INCREMENT for table `subkriteria`
+--
+ALTER TABLE `subkriteria`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `tahun_ajaran`
 --
 ALTER TABLE `tahun_ajaran`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
 --
 -- Constraints for dumped tables
 --
@@ -358,16 +412,22 @@ ALTER TABLE `tahun_ajaran`
 -- Constraints for table `asisten`
 --
 ALTER TABLE `asisten`
-  ADD CONSTRAINT `asisten_ibfk_1` FOREIGN KEY (`id_tahun_ajaran`) REFERENCES `tahun_ajaran` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `asisten_ibfk_2` FOREIGN KEY (`id_mahasiswa`) REFERENCES `mahasiswa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `asisten_ibfk_1` FOREIGN KEY (`id_tahun_ajaran`) REFERENCES `tahun_ajaran` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `asisten_ibfk_2` FOREIGN KEY (`id_mahasiswa`) REFERENCES `mahasiswa` (`id`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `data_asisten_mandiri`
 --
 ALTER TABLE `data_asisten_mandiri`
-  ADD CONSTRAINT `data_asisten_mandiri_ibfk_1` FOREIGN KEY (`id_matakuliah`) REFERENCES `matakuliah` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `data_asisten_mandiri_ibfk_2` FOREIGN KEY (`id_asisten`) REFERENCES `asisten` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `data_asisten_mandiri_ibfk_3` FOREIGN KEY (`id_dosen`) REFERENCES `dosen` (`id`);
+  ADD CONSTRAINT `data_asisten_mandiri_ibfk_1` FOREIGN KEY (`id_matakuliah`) REFERENCES `matakuliah` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `data_asisten_mandiri_ibfk_2` FOREIGN KEY (`id_asisten`) REFERENCES `asisten` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `data_asisten_mandiri_ibfk_3` FOREIGN KEY (`id_dosen`) REFERENCES `dosen` (`id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `subkriteria`
+--
+ALTER TABLE `subkriteria`
+  ADD CONSTRAINT `subkriteria_ibfk_1` FOREIGN KEY (`id_kriteria`) REFERENCES `kriteria` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

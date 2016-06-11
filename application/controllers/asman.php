@@ -13,8 +13,8 @@
  	}
 
  	public function index()
- 	{	if($this->session->userdata('logged_in')){
- 		$session_data = $this->session->userdata('logged_in');
+ 	{	if($this->session->userdata('logged_in_mhs')){
+ 		$session_data = $this->session->userdata('logged_in_mhs');
 
  		$id_mhs 	  =  $session_data['id'];
  		$chk_thn 	  =	 $this->asman_model->check_tahun();
@@ -60,7 +60,7 @@
  	}
 
  	private function _daftar_submit($post_data) {
- 		$session_data = $this->session->userdata('logged_in');
+ 		$session_data = $this->session->userdata('logged_in_mhs');
  		$data_asman = array(
  			'user_id'		=> $session_data['id'],
  			'ipk'			=> $post_data['ipk'],
