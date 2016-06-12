@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 11, 2016 at 10:14 PM
+-- Generation Time: Jun 12, 2016 at 11:17 AM
 -- Server version: 5.6.26
 -- PHP Version: 5.6.12
 
@@ -119,15 +119,15 @@ CREATE TABLE IF NOT EXISTS `kriteria` (
   `nama` varchar(255) NOT NULL,
   `bobot` int(10) NOT NULL,
   `kategori` enum('benefit','cost') NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `kriteria`
 --
 
 INSERT INTO `kriteria` (`id`, `nama`, `bobot`, `kategori`) VALUES
-(1, 'Wawancara', 10, 'benefit'),
-(2, 'Nilai', 5, 'benefit');
+(2, 'Nilai', 5, 'benefit'),
+(3, 'Tes Praktek', 5, 'benefit');
 
 -- --------------------------------------------------------
 
@@ -383,7 +383,7 @@ ALTER TABLE `dosen`
 -- AUTO_INCREMENT for table `kriteria`
 --
 ALTER TABLE `kriteria`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `mahasiswa`
 --

@@ -40,6 +40,17 @@ $(document).on( "click", '#terima',function(e) {
 
     });
 
+$(document).on("click", "#ubahkriteria", function (e) {
+    var id= $(this).data('id');
+    var nama= $(this).data('nama');
+    var bobot= $(this).data('bobot');
+    var kategori= $(this).data('kategori');
+    $("#id").val(id);
+    $("#nama").val(nama);
+    $("#bobot").val(bobot);
+    $('#kategori').val(kategori);
+    $("#kategori").children("option").filter(":selected").text(kategori);
+});
   });
 </script>
 <!-- SlimScroll -->

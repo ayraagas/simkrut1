@@ -32,7 +32,7 @@
             </ul>
           </li>
           <li class="treeview">
-            <a href="kriteria">
+            <a href="datakriteria">
               <i class="fa fa-hashtag"></i> <span>Kelola Kriteria</span>
              <!--  <i class="fa fa-angle-left pull-right"></i> -->
             </a>

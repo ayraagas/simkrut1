@@ -24,8 +24,9 @@
                 <td><?php echo $kr->bobot; ?></td>
                 <td><?php echo $kr->kategori; ?></td>
                 <td>
-                 <a href="<?php echo 'datakriteria/ubah'."?id={$kr->id}"; ?>" class="btn btn-warning">Ubah</a>
-                 <a href="<?php echo 'datakriteria/delete'."?id={$kr->id}"; ?>" class="btn btn-danger btn-delete">Delete</a></td>
+                <button type="button" class="btn btn-primary fa fa-eye"> SubKriteria</button>
+                 <button type="button" class="btn btn-warning fa fa-pencil-square-o" id="ubahkriteria" data-toggle="modal" data-target="#myModal1" data-id='<?php echo $kr->id; ?>' data-nama='<?php echo $kr->nama; ?>' data-bobot='<?php echo $kr->bobot; ?>' data-kategori='<?php echo $kr->kategori; ?>' "> Ubah</button>
+                 <a href="<?php echo 'datakriteria/delete'."?id={$kr->id}"; ?>" class="btn btn-danger btn-delete fa fa-minus-circle"> Delete</a></td>
                </tr>
              </form>
              <?php } ?>
@@ -76,7 +77,49 @@
               </div>
             </div>
           </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
+   <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Ubah Kriteria</h4>
+        </div>
+        <div class="modal-body">
+        <form class="form-horizontal" method="POST" action="<?php echo 'datakriteria/ubah' ?>">
+          <div class="box-body">
+            <div class="form-group">
+              <label class="col-sm-2 control-label" >Nama</label>
+              <div class="col-sm-10">
+              <input type="hidden" name="id" id="id" value="<?php $id ?>">
+                <input type="text" class="form-control" name="nama" id="nama" value="<?php $nama ?>">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label" >Bobot</label>
+
+              <div class="col-sm-10">
+                <input type="number" min="1" max="5" class="form-control" name="bobot" id="bobot" value="<?php $bobot ?>">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label" >Kategori</label>
+              <div class="col-sm-10">
+                <select name="kategori" id="kategori">
+                  <option value="benefit">benefit</option>
+                  <option value="cost">cost</option>
+                </select>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-primary">Submit</button>
