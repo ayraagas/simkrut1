@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 12, 2016 at 11:17 AM
+-- Generation Time: Jun 17, 2016 at 11:22 AM
 -- Server version: 5.6.26
 -- PHP Version: 5.6.12
 
@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS `asisten` (
   `id_mahasiswa` int(10) NOT NULL,
   `tipe` varchar(20) NOT NULL,
   `status` enum('0','1','','') DEFAULT NULL COMMENT '0=''tidak diterima'' , 1=''diterima'''
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `asisten`
@@ -62,7 +62,8 @@ INSERT INTO `asisten` (`id`, `id_tahun_ajaran`, `id_mahasiswa`, `tipe`, `status`
 (3, 9, 2, 'Mandiri', '0'),
 (4, 9, 2, 'Praktikum', '0'),
 (6, 1, 1, 'Mandiri', NULL),
-(7, 1, 2, 'Mandiri', NULL);
+(7, 1, 2, 'Mandiri', NULL),
+(8, 1, 4, 'Mandiri', NULL);
 
 -- --------------------------------------------------------
 
@@ -77,7 +78,7 @@ CREATE TABLE IF NOT EXISTS `data_asisten_mandiri` (
   `id_asisten` int(10) NOT NULL,
   `id_dosen` int(10) NOT NULL,
   `kelas` varchar(5) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `data_asisten_mandiri`
@@ -86,7 +87,10 @@ CREATE TABLE IF NOT EXISTS `data_asisten_mandiri` (
 INSERT INTO `data_asisten_mandiri` (`id`, `id_matakuliah`, `nilai`, `id_asisten`, `id_dosen`, `kelas`) VALUES
 (6, 18, 'A-', 6, 0, ''),
 (7, 124, 'A/B', 6, 1, 'A'),
-(10, 18, 'A-', 7, 4, 'F');
+(10, 18, 'A-', 7, 4, 'F'),
+(11, 18, 'A', 8, 4, 'A'),
+(12, 125, 'A/B', 8, 0, NULL),
+(13, 21, 'A-', 8, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -97,7 +101,7 @@ INSERT INTO `data_asisten_mandiri` (`id`, `id_matakuliah`, `nilai`, `id_asisten`
 CREATE TABLE IF NOT EXISTS `dosen` (
   `id` int(10) NOT NULL,
   `nama` varchar(100) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `dosen`
@@ -106,7 +110,15 @@ CREATE TABLE IF NOT EXISTS `dosen` (
 INSERT INTO `dosen` (`id`, `nama`) VALUES
 (0, ''),
 (1, 'Novi Setiani'),
-(4, 'Hendrik');
+(4, 'Hendrik'),
+(5, 'Almed Hamzah'),
+(6, 'Chandra Kusuma Dewa'),
+(7, 'Nur Wijayaning Rahayu'),
+(8, 'Ahmad Fathan Hidayatullah'),
+(9, 'Aridanyati Arifin'),
+(10, 'Rahadian Kurniawan'),
+(11, 'Taufiq Hidayat'),
+(12, 'Syarif Hidayat');
 
 -- --------------------------------------------------------
 
@@ -119,7 +131,7 @@ CREATE TABLE IF NOT EXISTS `kriteria` (
   `nama` varchar(255) NOT NULL,
   `bobot` int(10) NOT NULL,
   `kategori` enum('benefit','cost') NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `kriteria`
@@ -127,7 +139,8 @@ CREATE TABLE IF NOT EXISTS `kriteria` (
 
 INSERT INTO `kriteria` (`id`, `nama`, `bobot`, `kategori`) VALUES
 (2, 'Nilai', 5, 'benefit'),
-(3, 'Tes Praktek', 5, 'benefit');
+(3, 'Tes Praktek', 5, 'benefit'),
+(4, 'Wawancara', 5, 'benefit');
 
 -- --------------------------------------------------------
 
@@ -142,7 +155,7 @@ CREATE TABLE IF NOT EXISTS `mahasiswa` (
   `password` text NOT NULL,
   `ipk` float DEFAULT NULL,
   `status` enum('0','1') NOT NULL COMMENT '0=inactive , 1=active'
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `mahasiswa`
@@ -151,7 +164,8 @@ CREATE TABLE IF NOT EXISTS `mahasiswa` (
 INSERT INTO `mahasiswa` (`id`, `nim`, `nama`, `password`, `ipk`, `status`) VALUES
 (1, '12523017', 'Agas Arya Widodo', 'ea1d3fbbb2f58eb2f72a81eb85c7dcd1', 4, '1'),
 (2, '12523042', 'Alif Gibran Syarvani', 'ea1d3fbbb2f58eb2f72a81eb85c7dcd1', 3.8, '1'),
-(3, '12523020', 'Anif Shofiana Durri', 'ea1d3fbbb2f58eb2f72a81eb85c7dcd1', NULL, '1');
+(3, '12523020', 'Anif Shofiana Durri', 'ea1d3fbbb2f58eb2f72a81eb85c7dcd1', NULL, '1'),
+(4, '12523054', 'Agung Setio Budi', 'ea1d3fbbb2f58eb2f72a81eb85c7dcd1', 3.85, '1');
 
 -- --------------------------------------------------------
 
@@ -259,9 +273,18 @@ CREATE TABLE IF NOT EXISTS `subkriteria` (
   `id` int(10) NOT NULL,
   `nama` varchar(255) NOT NULL,
   `bobot` int(10) NOT NULL,
-  `kategori` enum('benefit','cost','','') NOT NULL,
+  `kategori` enum('benefit','cost') NOT NULL,
   `id_kriteria` int(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `subkriteria`
+--
+
+INSERT INTO `subkriteria` (`id`, `nama`, `bobot`, `kategori`, `id_kriteria`) VALUES
+(3, 'Kerjasama', 5, 'benefit', 4),
+(5, 'Komitmen', 4, 'benefit', 4),
+(6, 'sdfsdf', 3, 'benefit', 2);
 
 -- --------------------------------------------------------
 
@@ -368,27 +391,27 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `asisten`
 --
 ALTER TABLE `asisten`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `data_asisten_mandiri`
 --
 ALTER TABLE `data_asisten_mandiri`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `dosen`
 --
 ALTER TABLE `dosen`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `kriteria`
 --
 ALTER TABLE `kriteria`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `mahasiswa`
 --
 ALTER TABLE `mahasiswa`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `matakuliah`
 --
@@ -398,7 +421,7 @@ ALTER TABLE `matakuliah`
 -- AUTO_INCREMENT for table `subkriteria`
 --
 ALTER TABLE `subkriteria`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `tahun_ajaran`
 --
@@ -413,14 +436,14 @@ ALTER TABLE `tahun_ajaran`
 --
 ALTER TABLE `asisten`
   ADD CONSTRAINT `asisten_ibfk_1` FOREIGN KEY (`id_tahun_ajaran`) REFERENCES `tahun_ajaran` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `asisten_ibfk_2` FOREIGN KEY (`id_mahasiswa`) REFERENCES `mahasiswa` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `asisten_ibfk_2` FOREIGN KEY (`id_mahasiswa`) REFERENCES `mahasiswa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `data_asisten_mandiri`
 --
 ALTER TABLE `data_asisten_mandiri`
   ADD CONSTRAINT `data_asisten_mandiri_ibfk_1` FOREIGN KEY (`id_matakuliah`) REFERENCES `matakuliah` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `data_asisten_mandiri_ibfk_2` FOREIGN KEY (`id_asisten`) REFERENCES `asisten` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `data_asisten_mandiri_ibfk_2` FOREIGN KEY (`id_asisten`) REFERENCES `asisten` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `data_asisten_mandiri_ibfk_3` FOREIGN KEY (`id_dosen`) REFERENCES `dosen` (`id`) ON UPDATE CASCADE;
 
 --
