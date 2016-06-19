@@ -26,9 +26,7 @@
                       <?php } ?>
                     </select>
                   </div>
-                  <?php } ?>
-                  <?phph } else {?>
-                   <?php }?>
+                  <?php } }?>
                  </div>
                </div>
                <input type="hidden" name="tipe" value="Mandiri"></input>

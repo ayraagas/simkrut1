@@ -75,6 +75,7 @@
                 <option></option>
                 <option  value="Wajib">Wajib</option>
                 <option  value="Pilihan">Pilihan</option>
+                <option  value="Praktikum">Praktikum</option>
               </select>
             </div>
           </div>

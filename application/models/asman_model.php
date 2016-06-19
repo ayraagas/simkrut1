@@ -34,6 +34,7 @@ class Asman_model extends CI_Model {
 	public function check_daftar($id_mahasiswa, $id_tahun_ajaran) {
 		$this->db->where("id_mahasiswa", $id_mahasiswa);
 		$this->db->where("id_tahun_ajaran", $id_tahun_ajaran);
+		$this->db->where("tipe", 'Mandiri');
 		return ($this->db->count_all_results("asisten") > 0);
 	}
 
