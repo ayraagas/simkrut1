@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 17, 2016 at 11:22 AM
+-- Generation Time: Jun 19, 2016 at 06:23 PM
 -- Server version: 5.6.26
 -- PHP Version: 5.6.12
 
@@ -51,19 +51,19 @@ CREATE TABLE IF NOT EXISTS `asisten` (
   `id_mahasiswa` int(10) NOT NULL,
   `tipe` varchar(20) NOT NULL,
   `status` enum('0','1','','') DEFAULT NULL COMMENT '0=''tidak diterima'' , 1=''diterima'''
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `asisten`
 --
 
 INSERT INTO `asisten` (`id`, `id_tahun_ajaran`, `id_mahasiswa`, `tipe`, `status`) VALUES
-(2, 9, 1, 'Mandiri', '0'),
-(3, 9, 2, 'Mandiri', '0'),
-(4, 9, 2, 'Praktikum', '0'),
+(2, 9, 1, 'Mandiri', NULL),
+(3, 9, 2, 'Mandiri', NULL),
 (6, 1, 1, 'Mandiri', NULL),
 (7, 1, 2, 'Mandiri', NULL),
-(8, 1, 4, 'Mandiri', NULL);
+(8, 1, 4, 'Mandiri', NULL),
+(11, 1, 1, 'Praktikum', NULL);
 
 -- --------------------------------------------------------
 
@@ -91,6 +91,29 @@ INSERT INTO `data_asisten_mandiri` (`id`, `id_matakuliah`, `nilai`, `id_asisten`
 (11, 18, 'A', 8, 4, 'A'),
 (12, 125, 'A/B', 8, 0, NULL),
 (13, 21, 'A-', 8, 0, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `data_asisten_praktikum`
+--
+
+CREATE TABLE IF NOT EXISTS `data_asisten_praktikum` (
+  `id` int(10) NOT NULL,
+  `id_matakuliah` int(10) NOT NULL,
+  `nilai` int(10) NOT NULL,
+  `id_asisten` int(10) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `data_asisten_praktikum`
+--
+
+INSERT INTO `data_asisten_praktikum` (`id`, `id_matakuliah`, `nilai`, `id_asisten`) VALUES
+(5, 183, 2, 11),
+(6, 186, 5, 11),
+(7, 187, 3, 11),
+(8, 167, 2, 11);
 
 -- --------------------------------------------------------
 
@@ -153,6 +176,7 @@ CREATE TABLE IF NOT EXISTS `mahasiswa` (
   `nim` varchar(8) NOT NULL,
   `nama` varchar(50) NOT NULL,
   `password` text NOT NULL,
+  `angkatan` varchar(10) NOT NULL,
   `ipk` float DEFAULT NULL,
   `status` enum('0','1') NOT NULL COMMENT '0=inactive , 1=active'
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
@@ -161,11 +185,11 @@ CREATE TABLE IF NOT EXISTS `mahasiswa` (
 -- Dumping data for table `mahasiswa`
 --
 
-INSERT INTO `mahasiswa` (`id`, `nim`, `nama`, `password`, `ipk`, `status`) VALUES
-(1, '12523017', 'Agas Arya Widodo', 'ea1d3fbbb2f58eb2f72a81eb85c7dcd1', 4, '1'),
-(2, '12523042', 'Alif Gibran Syarvani', 'ea1d3fbbb2f58eb2f72a81eb85c7dcd1', 3.8, '1'),
-(3, '12523020', 'Anif Shofiana Durri', 'ea1d3fbbb2f58eb2f72a81eb85c7dcd1', NULL, '1'),
-(4, '12523054', 'Agung Setio Budi', 'ea1d3fbbb2f58eb2f72a81eb85c7dcd1', 3.85, '1');
+INSERT INTO `mahasiswa` (`id`, `nim`, `nama`, `password`, `angkatan`, `ipk`, `status`) VALUES
+(1, '12523017', 'Agas Arya Widodo', 'ea1d3fbbb2f58eb2f72a81eb85c7dcd1', '2012', 4, '1'),
+(2, '12523042', 'Alif Gibran Syarvani', 'ea1d3fbbb2f58eb2f72a81eb85c7dcd1', '', 3.8, '1'),
+(3, '12523020', 'Anif Shofiana Durri', 'ea1d3fbbb2f58eb2f72a81eb85c7dcd1', '', NULL, '1'),
+(4, '12523054', 'Agung Setio Budi', 'ea1d3fbbb2f58eb2f72a81eb85c7dcd1', '', 3.85, '1');
 
 -- --------------------------------------------------------
 
@@ -177,8 +201,8 @@ CREATE TABLE IF NOT EXISTS `matakuliah` (
   `id` int(10) NOT NULL,
   `nama` varchar(100) NOT NULL,
   `semester` varchar(10) NOT NULL COMMENT 'genap atau ganjil',
-  `jenis` varchar(10) NOT NULL COMMENT 'wajib atau pilihan'
-) ENGINE=InnoDB AUTO_INCREMENT=171 DEFAULT CHARSET=latin1;
+  `jenis` varchar(10) NOT NULL COMMENT 'wajib, pilihan, praktikum'
+) ENGINE=InnoDB AUTO_INCREMENT=191 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `matakuliah`
@@ -186,7 +210,6 @@ CREATE TABLE IF NOT EXISTS `matakuliah` (
 
 INSERT INTO `matakuliah` (`id`, `nama`, `semester`, `jenis`) VALUES
 (18, 'Algoritma dan Pemrograman 2', 'Genap', 'Wajib'),
-(19, 'Basisdata', 'Genap', 'Wajib'),
 (20, 'Data Mining', 'Genap', 'Wajib'),
 (21, 'Etika Profesi', 'Genap', 'Wajib'),
 (22, 'Manajemen Teknologi Informasi', 'Genap', 'Wajib'),
@@ -261,7 +284,15 @@ INSERT INTO `matakuliah` (`id`, `nama`, `semester`, `jenis`) VALUES
 (167, 'Pr. Jaringan komputer', 'Ganjil', 'Praktikum'),
 (168, 'Pr. Struktur Data', 'Genap', 'Praktikum'),
 (169, 'Pr. Pemrograman Web', 'Genap', 'Praktikum'),
-(170, 'Algoritma dan Pemrograman 1', 'Ganjil', 'Wajib');
+(170, 'Algoritma dan Pemrograman 1', 'Ganjil', 'Wajib'),
+(182, 'Basis Data', 'Genap', 'Wajib'),
+(183, 'Algoritma dan Pemrograman 1	(P)', 'Ganjil', 'Praktikum'),
+(184, 'Basis Data(P)', 'Genap', 'Wajib'),
+(185, 'Sistem Operasi(P)', 'Genap', 'Praktikum'),
+(186, 'Jaringan Komputer(P)', 'Ganjil', 'Praktikum'),
+(187, 'Pemrograman Berorientasi Obyek(P)', 'Ganjil', 'Praktikum'),
+(188, 'Struktur Data(P)', 'Genap', 'Praktikum'),
+(189, 'Pemrograman Web(P)', 'Genap', 'Praktikum');
 
 -- --------------------------------------------------------
 
@@ -339,6 +370,12 @@ ALTER TABLE `data_asisten_mandiri`
   ADD KEY `data_asisten_mandiri_ibfk_2` (`id_asisten`);
 
 --
+-- Indexes for table `data_asisten_praktikum`
+--
+ALTER TABLE `data_asisten_praktikum`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `dosen`
 --
 ALTER TABLE `dosen`
@@ -391,12 +428,17 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `asisten`
 --
 ALTER TABLE `asisten`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `data_asisten_mandiri`
 --
 ALTER TABLE `data_asisten_mandiri`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
+--
+-- AUTO_INCREMENT for table `data_asisten_praktikum`
+--
+ALTER TABLE `data_asisten_praktikum`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `dosen`
 --
@@ -416,7 +458,7 @@ ALTER TABLE `mahasiswa`
 -- AUTO_INCREMENT for table `matakuliah`
 --
 ALTER TABLE `matakuliah`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=171;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=191;
 --
 -- AUTO_INCREMENT for table `subkriteria`
 --
