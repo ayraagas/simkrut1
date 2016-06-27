@@ -24,7 +24,7 @@
                 <td><?php echo $skr->bobot; ?></td>
                 <td><?php echo $skr->kategori; ?></td>
                 <td>
-                 <button type="button" class="btn btn-warning fa fa-pencil-square-o" id="ubahsubkriteria" data-toggle="modal" data-target="#myModal1" data-id='<?php echo $skr->id; ?>' data-nama='<?php echo $skr->nama; ?>' data-bobot='<?php echo $skr->bobot; ?>' data-kategori='<?php echo $skr->kategori; ?>' "> Ubah</button>
+                 <button type="button" class="btn btn-warning fa fa-pencil-square-o" id="ubahsubkriteria" data-toggle="modal" data-target="#ubahSub" data-id='<?php echo $skr->id; ?>' data-nama='<?php echo $skr->nama; ?>' data-bobot='<?php echo $skr->bobot; ?>' data-kategori='<?php echo $skr->kategori; ?>' "> Ubah</button>
                  <a href="<?php echo 'datasubkriteria/delete'."?id={$skr->id}"; ?>" class="btn btn-danger btn-delete fa fa-minus-circle"> Delete</a></td>
                </tr>
              </form>
@@ -54,7 +54,7 @@
           <div class="box-body">
             <div class="form-group">
               <label class="col-sm-2 control-label" >Nama</label>
-                <input type="hidden" name="id_kriteria" value="<?php echo $id_kriteria ?>">
+                <input type="hidden" name="id_kriteria" value="<?php echo $id_kriteria; ?>">
               <div class="col-sm-10">
                 <input type="text" class="form-control" name="nama">
               </div>
@@ -82,10 +82,10 @@
         </div>
       </form>
     </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-   <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    
+   <div class="modal fade" id="ubahSub" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -93,7 +93,7 @@
           <h4 class="modal-title">Ubah Sub Kriteria</h4>
         </div>
         <div class="modal-body">
-        <form class="form-horizontal" method="POST" action="<?php echo 'datasubkriteria/ubah' ?>">
+        <form class="form-horizontal" method="POST" action="<?php echo 'datasubkriteria/ubah'; ?>">
           <div class="box-body">
             <div class="form-group">
               <label class="col-sm-2 control-label" >Nama</label>
@@ -124,10 +124,9 @@
           <button type="submit" class="btn btn-primary">Submit</button>
         </div>
       </form>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
+</div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
 
 <!-- /.box-body -->
 </div>

@@ -13,56 +13,57 @@ class Dataasman extends CI_Controller {
 	}
 
 	public function index()
-	{if($this->session->userdata('logged_in')){$session_data = $this->session->userdata('logged_in');
+	{
+		if($this->session->userdata('logged_in')){$session_data = $this->session->userdata('logged_in');
 
-	$chk_thn 	  =	 $this->asman_model->check_tahun();
+		$chk_thn 	  =	 $this->asman_model->check_tahun();
 
-	$content_data = array(
-		'asisten_mandiri'  => $this->asman_model->get_data_asman(),
-		'nama'		=> $session_data['username'],
-		'tahunajaran' => $this->tahunajaran_model->get_aktif(),
-		'dosen' => $this->dosen_model->get_all_daftar()
-		);
+		$content_data = array(
+			'asisten_mandiri'  => $this->asman_model->get_data_asman(),
+			'nama'		=> $session_data['username'],
+			'tahunajaran' => $this->tahunajaran_model->get_aktif(),
+			'dosen' => $this->dosen_model->get_all_daftar()
+			);
 
-	if ($chk_thn == '0') {
-		$this->load->view('header',$content_data);
-		$this->load->view('sidebar_adm');
-		$this->load->view('content_asman_adm_nonaktif');
-		$this->load->view('footer');
-	}else{
+		if ($chk_thn == '0') {
+			$this->load->view('header',$content_data);
+			$this->load->view('sidebar_adm');
+			$this->load->view('content_asman_adm_nonaktif');
+			$this->load->view('footer');
+		}else{
 
-		$this->load->view('header',$content_data);
-		$this->load->view('sidebar_adm');
-		$this->load->view('content_asman_adm',$content_data);
-		$this->load->view('footer');
-	}}else{
-		redirect('login','refresh');
+			$this->load->view('header',$content_data);
+			$this->load->view('sidebar_adm');
+			$this->load->view('content_asman_adm',$content_data);
+			$this->load->view('footer');
+		}}else{
+			redirect('login','refresh');
+		}
+
 	}
 
-}
+	public function terima() {
+		if ($post_data = $this->input->post()) {
+			$this->_terima_submit($post_data);
+			return;
+		}
+		redirect('dataasman','refresh');
 
-public function terima() {
-	if ($post_data = $this->input->post()) {
-		$this->_terima_submit($post_data);
-		return;
 	}
-	redirect('dataasman','refresh');
 
-}
+	private function _terima_submit($post_data){
 
-private function _terima_submit($post_data){
+		$session_data = $this->session->userdata('logged_in');
 
-	$session_data = $this->session->userdata('logged_in');
+		$data_asman = array(
+			'id_asisten'		=> $post_data['id_asisten'],
+			'id_dosen'			=> $post_data['dosen'],
+			'kelas'				=> $post_data['kelas']
+			);
 
-	$data_asman = array(
-		'id_asisten'		=> $post_data['id_asisten'],
-		'id_dosen'			=> $post_data['dosen'],
-		'kelas'				=> $post_data['kelas']
-		);
-
-	$this->asman_model->terima($data_asman);
-	redirect('dataasman','refresh');
-}
+		$this->asman_model->terima($data_asman);
+		redirect('dataasman','refresh');
+	}
 
 }
 

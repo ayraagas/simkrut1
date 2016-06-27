@@ -7,6 +7,7 @@
         </div>
         <div class="box-body">
           <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Tambah</button>
+           <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addViaCSV">Tambah via CSV</button>
           <table id="example2" class="table table-bordered table-hover">
             <thead>
               <tr>
@@ -52,10 +53,37 @@
                 </div>
               </div>
             </div>
-
           </div>
-          <div class="modal-footer">
+      <div class="modal-footer">
             <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </form>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+ <div class="modal fade" id="addViaCSV" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Upload CSV Dosen</h4>
+          </div>
+          <div class="modal-body">
+           <form enctype='multipart/form-data' class="form-horizontal" method="POST" action="<?php echo 'datadosen/upload' ?>">
+            <div class="box-body">
+              <div class="form-group">
+                <label class="col-sm-2 control-label" >Upload File : </label>
+
+                <div class="col-sm-10">
+                <input type="file" size="50" class="form-control" name="filename">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="submit" name="submit" class="btn btn-primary" value="upload">Submit</button>
           </div>
         </form>
       </div><!-- /.modal-content -->

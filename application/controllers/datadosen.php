@@ -7,7 +7,8 @@
 			parent::__construct();
 		//Do your magic here
 			$this->load->model('dosen_model');
-			$this->load->library('csvreader');
+
+
 		}
 
 		public function index()
@@ -37,47 +38,58 @@
 
 			redirect('datadosen','refresh');
 		}
+		public function upload(){
 
-		/*function readExcel()
-		{
+			$config['upload_path'] = './uploads/';
+			$config['allowed_types'] = 'text/comma-separated-values|application/csv|application/excel|application/vnd.ms-excel|application/vnd.msexcel|text/anytext';
 			
-	    $result =   $this->csvreader->parse_file('Test.csv');//path to csv file
+			$this->load->library('upload', $config);
+			
+			if (!$this->upload->do_upload()){
+				$error = array('error' => $this->upload->display_errors());
+				// echo "failed";
+			}
+			else{
+				$file_info = $this->upload->data();
+				$csvfilepath = "uploads/" . $file_info['file_name'];
+				$handle = fopen($csvfilepath, "r");
 
-	    $data['csvData'] =  $result;
-	    $this->load->view('view_csv', $data);  
-	}
+				while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+					$import="INSERT INTO dosen (nama) VALUES('$data[0]')";
 
-	public function tambah_csv(){
-		
-		
+					mysql_query($import) or die(mysql_error());
+				}
 
-	}
-*/
+				fclose($handle);
+				echo "success";
+			}
 
 
-	public function delete() {
-		$id= $this->input->get('id');
-		$this->dosen_model->delete_dosen($id);
+		}
 
-		if ($this->db->_error_number() == 1451)
-		{
-			$session_data = $this->session->userdata('logged_in');
+		public function delete() {
+			$id= $this->input->get('id');
+			$this->dosen_model->delete_dosen($id);
 
-			$content_data = array(
-				'dosen'  => $this->dosen_model->get_all(),
-				'nama'		=> $session_data['username']
-				);
+			if ($this->db->_error_number() == 1451)
+			{
+				$session_data = $this->session->userdata('logged_in');
 
-			$this->load->view('header',$content_data);
-			$this->load->view('sweetalert/alertdelete');
-			$this->load->view('sidebar_adm');
-			$this->load->view('content_dosen',$content_data);
-			$this->load->view('footer');
-		}else{
-			redirect('datadosen','refresh');
+				$content_data = array(
+					'dosen'  => $this->dosen_model->get_all(),
+					'nama'		=> $session_data['username']
+					);
+
+				$this->load->view('header',$content_data);
+				$this->load->view('sweetalert/alertdelete');
+				$this->load->view('sidebar_adm');
+				$this->load->view('content_dosen',$content_data);
+				$this->load->view('footer');
+			}else{
+				redirect('datadosen','refresh');
+			}
 		}
 	}
-}
 
-/* End of file datadosen.php */
+	/* End of file datadosen.php */
 	/* Location: ./application/controllers/datadosen.php */

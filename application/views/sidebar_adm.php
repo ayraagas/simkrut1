@@ -7,7 +7,13 @@
               <i class="fa fa-angle-left pull-right"></i>
             </a>
             <ul class="treeview-menu">
-              <li><a href="dataasprak"><i class="fa fa-circle-o"></i>Data Calon Asisten Praktikum</a></li>
+              <li><a href="dataasprak"><i class="fa fa-circle-o"></i>Data Calon Asisten Praktikum
+              <i class="fa fa-angle-left pull-right"></i></a>
+              <ul class="treeview-menu">
+                    <li><a href="dataasprak/alternatif"><i class="fa fa-circle-o"></i> Data Alternatif</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
+                  </ul>
+              </li>
               <li><a href="dataasman"><i class="fa fa-circle-o"></i>Data Calon Asisten Mandiri</a></li>
             </ul>
           </li>

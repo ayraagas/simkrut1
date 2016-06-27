@@ -18,8 +18,9 @@
 <!-- Bootstrap 3.3.6 -->
 <script src="assets/bootstrap/js/bootstrap.min.js"></script>
 <!-- DataTables -->
-<script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="assets/plugins/datatables/dataTables.bootstrap.min.js"></script>
+<!-- <script src="assets/plugins/datatables/jquery.dataTables.min.js"></script> -->
+<!-- <script src="assets/plugins/datatables/dataTables.bootstrap.min.js"></script> -->
+<script src="assets/datatables/datatables.min.js"></script>
 <script>
   $(function () {
     $("#example1").DataTable();
@@ -29,7 +30,8 @@
       "searching": true,
       "ordering": true,
       "info": true,
-      "autoWidth": true
+      "autoWidth": true,
+      "responsive": true
     });
 
 $(document).on( "click", '#terima',function(e) {
@@ -51,6 +53,19 @@ $(document).on("click", "#ubahkriteria", function (e) {
     $('#kategori').val(kategori);
     $("#kategori").children("option").filter(":selected").text(kategori);
 });
+
+$(document).on("click", "#ubahsubkriteria", function (e) {
+    var id= $(this).data('id');
+    var nama= $(this).data('nama');
+    var bobot= $(this).data('bobot');
+    var kategori= $(this).data('kategori');
+    $("#id").val(id);
+    $("#nama").val(nama);
+    $("#bobot").val(bobot);
+    $('#kategori').val(kategori);
+    $("#kategori").children("option").filter(":selected").text(kategori);
+});
+
   });
 </script>
 <!-- SlimScroll -->
