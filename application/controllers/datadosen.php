@@ -1,18 +1,20 @@
-	<?php
-	defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
-	class Datadosen extends CI_Controller {
-		public function __construct()
-		{
-			parent::__construct();
-		//Do your magic here
-			$this->load->model('dosen_model');
+class Datadosen extends CI_Controller {
+	public function __construct()
+	{
+		parent::__construct();
+//Do your magic here
+		$this->load->model('dosen_model');
+		$this->load->library('csvimport');
+	// $this->load->spark('csvimport/0.0.1');
 
+	}
 
-		}
-
-		public function index()
-		{if($this->session->userdata('logged_in')){
+	public function index()
+	{
+		if($this->session->userdata('logged_in')){
 			$session_data = $this->session->userdata('logged_in');
 
 			$content_data = array(
@@ -38,35 +40,6 @@
 
 			redirect('datadosen','refresh');
 		}
-		public function upload(){
-
-			$config['upload_path'] = './uploads/';
-			$config['allowed_types'] = 'text/comma-separated-values|application/csv|application/excel|application/vnd.ms-excel|application/vnd.msexcel|text/anytext';
-			
-			$this->load->library('upload', $config);
-			
-			if (!$this->upload->do_upload()){
-				$error = array('error' => $this->upload->display_errors());
-				// echo "failed";
-			}
-			else{
-				$file_info = $this->upload->data();
-				$csvfilepath = "uploads/" . $file_info['file_name'];
-				$handle = fopen($csvfilepath, "r");
-
-				while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-					$import="INSERT INTO dosen (nama) VALUES('$data[0]')";
-
-					mysql_query($import) or die(mysql_error());
-				}
-
-				fclose($handle);
-				echo "success";
-			}
-
-
-		}
-
 		public function delete() {
 			$id= $this->input->get('id');
 			$this->dosen_model->delete_dosen($id);
@@ -89,7 +62,72 @@
 				redirect('datadosen','refresh');
 			}
 		}
-	}
 
-	/* End of file datadosen.php */
-	/* Location: ./application/controllers/datadosen.php */
+		public function importcsv() {
+	 // $data['dosen'] = $this->dosen_model->get_dosen();
+		$data['error'] = '';    //initialize image upload error array to empty
+
+		$config['upload_path'] = 'assets/uploads/';
+		$config['allowed_types'] = 'csv';
+		$config['max_size'] = '1000';
+
+		$this->load->library('upload', $config);
+
+
+// If upload failed, display error
+		if (!$this->upload->do_upload()) {
+			if($this->session->userdata('logged_in')){
+				$session_data = $this->session->userdata('logged_in');
+
+				$content_data = array(
+					'dosen'  => $this->dosen_model->get_all(),
+					'nama'		=> $session_data['username'],
+					'error' => $this->upload->display_errors()
+					);
+
+				$this->load->view('header',$content_data);
+				$this->load->view('sidebar_adm');
+				$this->load->view('content_dosen',$content_data);
+				$this->load->view('footer');}else{
+					redirect('login','refresh');
+				}
+			} else {
+				$file_data = $this->upload->data();
+				$file_path =  'assets/uploads/'.$file_data['file_name'];
+
+				if ($this->csvimport->get_array($file_path)) {
+					$csv_array = $this->csvimport->get_array($file_path);
+					foreach ($csv_array as $row) {
+						$insert_data = array(
+							'nama'=>$row['nama']
+							);
+						$this->dosen_model->insert_csv($insert_data);
+					}
+					$this->session->set_flashdata('success', 'Csv Data Imported Succesfully');
+					redirect('datadosen');
+        // echo "<pre>"; print_r($insert_data);
+				} else {
+					if($this->session->userdata('logged_in')){
+						$session_data = $this->session->userdata('logged_in');
+
+						$content_data = array(
+							'dosen'  => $this->dosen_model->get_all(),
+							'nama'		=> $session_data['username'],
+							'error'  => "Error occured"
+							);
+
+						$this->load->view('header',$content_data);
+						$this->load->view('sidebar_adm');
+						$this->load->view('content_dosen',$content_data);
+						$this->load->view('footer');}else{
+							redirect('login','refresh');
+						}
+					}
+
+				} 
+
+			}
+		}
+
+		/* End of file datadosen.php */
+/* Location: ./application/controllers/datadosen.php */

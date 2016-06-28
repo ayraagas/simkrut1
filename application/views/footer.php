@@ -15,12 +15,13 @@
 <script>
   $.widget.bridge('uibutton', $.ui.button);
 </script>
+<script src="assets/datatables/datatables.min.js"></script>
 <!-- Bootstrap 3.3.6 -->
 <script src="assets/bootstrap/js/bootstrap.min.js"></script>
 <!-- DataTables -->
-<!-- <script src="assets/plugins/datatables/jquery.dataTables.min.js"></script> -->
-<!-- <script src="assets/plugins/datatables/dataTables.bootstrap.min.js"></script> -->
-<script src="assets/datatables/datatables.min.js"></script>
+<script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="assets/plugins/datatables/dataTables.bootstrap.min.js"></script>
+
 <script>
   $(function () {
     $("#example1").DataTable();
