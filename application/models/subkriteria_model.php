@@ -7,6 +7,12 @@ class Subkriteria_model extends CI_Model {
 		
 		return $this->db->get_where("subkriteria", array('id_kriteria' => $id_kriteria))->result();
 	}
+
+	public function view_all(){
+		return $this->db->get('subkriteria')->result();
+	}
+
+
 	public function tambah($data_subkriteria){
 		$this->db->insert("subkriteria",$data_subkriteria);
 	}

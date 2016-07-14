@@ -64,7 +64,6 @@ class Datadosen extends CI_Controller {
 		}
 
 		public function importcsv() {
-	 // $data['dosen'] = $this->dosen_model->get_dosen();
 		$data['error'] = '';    //initialize image upload error array to empty
 
 		$config['upload_path'] = 'assets/uploads/';

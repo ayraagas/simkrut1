@@ -3,7 +3,7 @@
    <div class="col-xs-12">
     <div class="box">
       <div class="box-header">
-        <h3 class="box-title">Data Calon Asisten Praktikum <?php echo "$tahunajaran->tahun "; echo "$tahunajaran->semester"; ?></h3>
+        <h3 class="box-title">Data Alternatif Praktikum <?php echo "$tahunajaran->tahun "; echo "$tahunajaran->semester"; ?></h3>
       </div>
       <div class="box-body">
         <div class="table-responsive">
@@ -11,55 +11,44 @@
            <thead>
              <tr>
                <th>Nama Mahasiswa</th>
+               <th>Angkatan</th>
+               <th>Hasil</th>
+               <th>Status</th>
                <th>Aksi</th>
-               <?php foreach ($matakuliah as $mk) { ?>
-                 <th><?php echo $mk->nama; ?></th>
-                 <?php } ?>
+             </tr>
+           </thead>
+           <tbody>
+             <?php foreach ($alternatif as $alt): ?>
+               <tr>
+
+                 <td><?php echo $alt->nama; ?></td>
+                 <td><?php echo $alt->angkatan; ?></td>
+                 <td><?php echo $alt->hasil; ?></td>
+                 <?php if ($alt->status==0): ?>
+                   <td style="color: rgb(12, 85, 255);">Diterima</td>
+                 <?php else: ?>
+                   <td style="color: red;">Tidak Diterima</td>
+                 <?php endif ?>
+                 <td><a href="<?php echo 'dataasprak/terima'."?id={$alt->id_asisten}"; ?>" class="btn btn-info">Ubah Status</a> <!-- data-id buat hapus -->
+                 </td>
                </tr>
-             </thead>
-             <tbody>
-               <?php foreach ($dataNilai as $nama_mhs=> $asprak): ?>
-                 <tr>
+             <?php endforeach ?>
+           </div>
+         </tbody>
+         <tfoot>
+           <tr>
+            <th>Nama Mahasiswa</th>
+            <th>Angkatan</th>
+            <th>Hasil</th>
+            <th>Status</th>
+            <th>Aksi</th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
 
-                   <td><?php echo $nama_mhs; ?></td>
-                   <td>     <?php foreach ($dataId as $id): ?>
-                     <button class='btn btn-info' id="hapus" data-id='<?php echo $id; ?>' data-toggle='modal' data-target="#myModal">Hapus</button> <!-- data-id buat hapus -->
-                   <?php endforeach ?>
-                   </td>
-                   <?php foreach ($matakuliah as $mk): ?>
-                     <?php $nilai=$asprak[$mk->nama]; ?>
-                     <?php if ($nilai==5): ?>
-                      <td>A</td>
-                    <?php elseif ($nilai==4): ?>
-                     <td>A-</td>
-                   <?php elseif ($nilai==3): ?>
-                    <td>A/B</td>
-                  <?php elseif ($nilai==2): ?>
-                    <td>B+</td>
-                  <?php elseif ($nilai==1): ?>
-                    <td>B</td>
-                  <?php else: ?>
-                    <td></td>
-                  <?php endif ?>
-                <?php endforeach ?>
-              </tr>
-            <?php endforeach ?>
-          </div>
-        </tbody>
-        <tfoot>
-         <tr>
-           <th>Nama Mahasiswa</th>
-           <th>Aksi</th>
-           <?php foreach ($matakuliah as $mk) { ?>
-             <th><?php echo $mk->nama; ?></th>
-             <?php } ?>
-           </tr>
-         </tfoot>
-       </table>
-     </div>
-   </div>
-
-   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">

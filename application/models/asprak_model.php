@@ -13,12 +13,17 @@ class Asprak_model extends CI_Model {
 			'tipe' => $data_asprak['tipe']
 			));
 
-		$thn = $data_asprak['tahun_ajaran'];
-		$id_mhs = $data_asprak['user_id'];
-		$tipe = $data_asprak['tipe'];
+	// 	$thn = $data_asprak['tahun_ajaran'];
+	// 	$id_mhs = $data_asprak['user_id'];
+	// 	$tipe = $data_asprak['tipe'];
+	// $id_asisten = $this->db->query("SELECT id FROM asisten WHERE id_tahun_ajaran =  $thn AND id_mahasiswa = {$data_asprak['user_id']} AND tipe = '$tipe'")->row();
 
-// $id_asisten = $this->db->query("SELECT id FROM asisten WHERE id_tahun_ajaran =  $thn AND id_mahasiswa = {$data_asprak['user_id']} AND tipe = '$tipe'")->row();
 		$id_asisten = $this->db->insert_id();
+
+		$this->db->insert('alternatif',array(
+			'nama'=> $data_asprak['nama'],
+			'id_asisten'=>$id_asisten
+			));
 
 		foreach ($data_asprak['matakuliah'] as $mk_id => $nilai) {
 			$this->db->insert("data_asisten_praktikum", array(
@@ -27,6 +32,12 @@ class Asprak_model extends CI_Model {
 				'id_asisten'   => $id_asisten
 				));
 		}
+	}
+	
+	public function delete_asprak($id)
+	{
+		$this->db->where('id', $id);
+		$this->db->delete('asisten');
 	}
 
 	public function check_daftar($id_mahasiswa, $id_tahun_ajaran) {
@@ -52,24 +63,41 @@ class Asprak_model extends CI_Model {
 		return $data_asprak->result();
 	}
 
-	public function terima($data_asprak){
+	public function get_data_alternatif(){
+		$data_alternatif=$this->db->query("SELECT alt.nama, mhs.angkatan, alt.hasil,a.status, alt.id_asisten
+			FROM alternatif alt JOIN asisten a ON (alt.id_asisten=a.id) JOIN mahasiswa mhs ON (mhs.id=a.id_mahasiswa)
+			WHERE alt.id_asisten IN ( SELECT id FROM asisten WHERE id_tahun_ajaran = (SELECT id FROM tahun_ajaran WHERE status='1') AND tipe = 'Praktikum')");
+		return $data_alternatif->result();
+	}
 
-	$query = $this->db->get_where('asisten', array(//making selection
-		'id'	=> $data_asprak['id']
-		));
 
-	$this->db->update("asisten", array(
-		'status'	=> $data_asprak['status'],
-		), "id = '{$data_asprak['id']}'");
-}
+	public function get_data_nilai_sub_alternatif(){
+		$data_nilai_sub_alternatif=$this->db->query("SELECT alt.id 'id',alt.nama 'nama_alt',sub.nama 'nama_sub',nilaisub.nilai FROM alternatif alt CROSS JOIN subkriteria sub LEFT JOIN nilai_subkriteria nilaisub ON (sub.id=nilaisub.id_subkriteria) AND (alt.id=nilaisub.id_alternatif) WHERE alt.id_asisten IN ( SELECT id FROM asisten WHERE id_tahun_ajaran = (SELECT id FROM tahun_ajaran WHERE status='1') AND tipe = 'Praktikum')");
+		return $data_nilai_sub_alternatif->result();
+	}
 
-public function pengumuman(){
+	public function terima($id){
 
-	$query=$this->db->query("SELECT mahasiswa.nama, m.nama 'matakuliah',dsn.nama 'dosen',d.kelas,tahun_ajaran.semester,tahun_ajaran.tahun
-		FROM matakuliah m join data_asisten_praktikum d ON(m.id=d.id_matakuliah)
-		join dosen dsn ON (dsn.id=d.id_dosen)join asisten on (asisten.id=d.id_asisten) join tahun_ajaran on(tahun_ajaran.id=asisten.id_tahun_ajaran) join mahasiswa on(mahasiswa.id= asisten.id_mahasiswa) WHERE d.kelas NOT IN('') AND dsn.id NOT IN('0')");
-	return $query->result();
-}
+		$query= $this->db->query("SELECT status FROM asisten WHERE id=$id")->row()->status;
+
+		if ($query == '0') {
+			$this->db->update("asisten", array(
+				'status'	=> '1',
+				), "id = '{$id}'");
+		} else {
+			$this->db->update("asisten", array(
+				'status'	=> '0',
+				), "id = '{$id}'");
+		}
+	}
+
+	public function pengumuman(){
+
+		$query=$this->db->query("SELECT mahasiswa.nama, m.nama 'matakuliah',dsn.nama 'dosen',d.kelas,tahun_ajaran.semester,tahun_ajaran.tahun
+			FROM matakuliah m join data_asisten_praktikum d ON(m.id=d.id_matakuliah)
+			join dosen dsn ON (dsn.id=d.id_dosen)join asisten on (asisten.id=d.id_asisten) join tahun_ajaran on(tahun_ajaran.id=asisten.id_tahun_ajaran) join mahasiswa on(mahasiswa.id= asisten.id_mahasiswa) WHERE d.kelas NOT IN('') AND dsn.id NOT IN('0')");
+		return $query->result();
+	}
 
 }
 

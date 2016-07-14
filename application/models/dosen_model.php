@@ -21,15 +21,6 @@ class Dosen_model extends CI_Model {
 		
 	}
 
-	public function get_dosen() {     
-		$query = $this->db->get('dosen');
-		if ($query->num_rows() > 0) {
-			return $query->result_array();
-		} else {
-			return FALSE;
-		}
-	}
-
 	public function insert_csv($data) {
 		$this->db->insert('dosen', $data);
 	}

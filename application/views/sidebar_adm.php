@@ -2,7 +2,7 @@
         <ul class="sidebar-menu">
           <li class="header">MAIN NAVIGATION</li>
           <li class="treeview">
-            <a href="#">
+            <a>
               <i class="fa fa-edit"></i> <span>Data Mahasiswa</span>
               <i class="fa fa-angle-left pull-right"></i>
             </a>
@@ -10,15 +10,16 @@
               <li><a href="dataasprak"><i class="fa fa-circle-o"></i>Data Calon Asisten Praktikum
               <i class="fa fa-angle-left pull-right"></i></a>
               <ul class="treeview-menu">
-                    <li><a href="dataasprak/alternatif"><i class="fa fa-circle-o"></i> Data Alternatif</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
+                    <li><a href="dataasprak/pendaftar"><i class="fa fa-circle-o"></i> Data Pendaftar</a></li>
+                    <li><a href="dataasprak/alternatif"><i class="fa fa-circle-o"></i>Data Alternatif</a></li>
+                    <li><a href="dataasprak/nilaisubkriteria"><i class="fa fa-circle-o"></i>Data Nilai Subkriteria</a></li>
                   </ul>
               </li>
               <li><a href="dataasman"><i class="fa fa-circle-o"></i>Data Calon Asisten Mandiri</a></li>
             </ul>
           </li>
           <li class="treeview">
-            <a href="#">
+            <a>
               <i class="fa fa-exclamation-triangle"></i> <span>Aktivasi</span>
               <i class="fa fa-angle-left pull-right"></i>
             </a>
@@ -28,7 +29,7 @@
             </ul>
           </li>
              <li class="treeview">
-            <a href="#">
+            <a>
               <i class="fa fa-edit"></i> <span>Data Admin</span>
               <i class="fa fa-angle-left pull-right"></i>
             </a>
@@ -48,7 +49,7 @@
             </ul> -->
           </li>
            <li class="treeview">
-            <a href="#">
+            <a>
               <i class="fa fa-area-chart"></i> <span>Grafik</span>
               <i class="fa fa-angle-left pull-right"></i>
             </a>

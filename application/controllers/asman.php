@@ -28,14 +28,14 @@
  		if ($chk_thn == '0') {
  			$this->load->view('header',$content_data);
  			$this->load->view('sidebar_mhs');
- 			$this->load->view('content_asman_nonaktif');
+ 			$this->load->view('content_asman_mhs_nonaktif');
  			$this->load->view('footer');
  		} elseif($this->asman_model->check_daftar($session_data['id'], $this->tahunajaran_model->get_aktif()->id))
  		{
 
  			$this->load->view('header',$content_data);
  			$this->load->view('sidebar_mhs');
- 			$this->load->view('content_asman_done');
+ 			$this->load->view('content_asman_mhs_done');
  			$this->load->view('footer');
  		}else{
 

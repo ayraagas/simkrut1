@@ -28,14 +28,14 @@ class Asprak extends CI_Controller {
 		if ($chk_thn == '0') {
 			$this->load->view('header',$content_data);
 			$this->load->view('sidebar_mhs');
-			$this->load->view('content_asprak_nonaktif');
+			$this->load->view('content_asprak_mhs_nonaktif');
 			$this->load->view('footer');
 		} elseif($this->asprak_model->check_daftar($session_data['id'], $this->tahunajaran_model->get_aktif()->id))
 		{
 
 			$this->load->view('header',$content_data);
 			$this->load->view('sidebar_mhs');
-			$this->load->view('content_asprak_done');
+			$this->load->view('content_asprak_mhs_done');
 			$this->load->view('footer');
 		}else{
 
@@ -63,6 +63,7 @@ class Asprak extends CI_Controller {
 		$session_data = $this->session->userdata('logged_in_mhs');
 		$data_asprak = array(
 			'user_id'		=> $session_data['id'],
+			'nama'			=> $session_data['nama'],
 			'angkatan'		=> $post_data['angkatan'],
 			'tahun_ajaran'	=> $this->tahunajaran_model->get_aktif()->id,
 			'matakuliah'	=> array(),

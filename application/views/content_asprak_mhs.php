@@ -13,7 +13,7 @@
               <input type="text" class="form-control" name="angkatan" placeholder="Contoh : 2012">
               </div>
                  <div class="form-group">
-                   <label>Masukkan Nilai Matakuliah minimal 3 Matakuliah Teori dan 3 Matakuliah Praktikum</label>
+                   <label style="color: red;">*Masukkan Nilai Matakuliah minimal 3 Matakuliah Teori dan 3 Matakuliah Praktikum</label>
               <?php $nilai = array("A", "A-", "A/B", "B+", "B"); ?>
               <?php foreach ($matakuliah as $mk) { ?>
                 <?php if ($mk->jenis =="Praktikum") { ?>

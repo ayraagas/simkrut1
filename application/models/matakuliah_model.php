@@ -17,6 +17,10 @@ class Matakuliah_model extends CI_Model {
 		$this->db->where('id', $id);
 		$this->db->delete('matakuliah');
 	}
+
+	public function insert_csv($data) {
+		$this->db->insert('matakuliah', $data);
+	}
 }
 
 /* End of file matakuliah_model.php */
