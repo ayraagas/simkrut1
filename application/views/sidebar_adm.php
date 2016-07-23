@@ -13,6 +13,7 @@
                     <li><a href="dataasprak/pendaftar"><i class="fa fa-circle-o"></i> Data Pendaftar</a></li>
                     <li><a href="dataasprak/alternatif"><i class="fa fa-circle-o"></i>Data Alternatif</a></li>
                     <li><a href="dataasprak/nilaisubkriteria"><i class="fa fa-circle-o"></i>Data Nilai Subkriteria</a></li>
+                    <li><a href="dataasprak/nilaikriteria"><i class="fa fa-circle-o"></i>Data Nilai Kriteria</a></li>
                   </ul>
               </li>
               <li><a href="dataasman"><i class="fa fa-circle-o"></i>Data Calon Asisten Mandiri</a></li>

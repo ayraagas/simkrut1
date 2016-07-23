@@ -14,10 +14,12 @@ class Datasubkriteria extends CI_Controller {
 		if($this->session->userdata('logged_in')){
 			$session_data = $this->session->userdata('logged_in');
 			$id_kriteria=$this->input->get('id');
+			$nama_kriteria=$this->input->get('nama');
 			$content_data = array(
 				'nama'		=> $session_data['username'],
 				'subkriteria'  => $this->subkriteria_model->get_all($id_kriteria),
-				'id_kriteria' => $id_kriteria
+				'id_kriteria' => $id_kriteria,
+				'nama_kriteria'=> $nama_kriteria	
 				);
 
 			$this->load->view('header',$content_data);

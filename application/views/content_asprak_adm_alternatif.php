@@ -24,7 +24,7 @@
                  <td><?php echo $alt->nama; ?></td>
                  <td><?php echo $alt->angkatan; ?></td>
                  <td><?php echo $alt->hasil; ?></td>
-                 <?php if ($alt->status==0): ?>
+                 <?php if ($alt->status==1): ?>
                    <td style="color: rgb(12, 85, 255);">Diterima</td>
                  <?php else: ?>
                    <td style="color: red;">Tidak Diterima</td>

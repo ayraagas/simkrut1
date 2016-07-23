@@ -70,6 +70,10 @@ class Asprak_model extends CI_Model {
 		return $data_alternatif->result();
 	}
 
+	public function get_data_nilai_kri_alternatif(){
+		$data_nilai_sub_alternatif=$this->db->query("SELECT alt.id 'id',alt.nama 'nama_alt',kri.nama 'nama_kri',nilaikri.nilai FROM alternatif alt CROSS JOIN kriteria kri LEFT JOIN nilai_kriteria nilaikri ON (kri.id=nilaikri.id_kriteria) AND (alt.id=nilaikri.id_alternatif) WHERE alt.id_asisten IN ( SELECT id FROM asisten WHERE id_tahun_ajaran = (SELECT id FROM tahun_ajaran WHERE status='1') AND tipe = 'Praktikum')");
+		return $data_nilai_sub_alternatif->result();
+	}
 
 	public function get_data_nilai_sub_alternatif(){
 		$data_nilai_sub_alternatif=$this->db->query("SELECT alt.id 'id',alt.nama 'nama_alt',sub.nama 'nama_sub',nilaisub.nilai FROM alternatif alt CROSS JOIN subkriteria sub LEFT JOIN nilai_subkriteria nilaisub ON (sub.id=nilaisub.id_subkriteria) AND (alt.id=nilaisub.id_alternatif) WHERE alt.id_asisten IN ( SELECT id FROM asisten WHERE id_tahun_ajaran = (SELECT id FROM tahun_ajaran WHERE status='1') AND tipe = 'Praktikum')");
@@ -93,9 +97,7 @@ class Asprak_model extends CI_Model {
 
 	public function pengumuman(){
 
-		$query=$this->db->query("SELECT mahasiswa.nama, m.nama 'matakuliah',dsn.nama 'dosen',d.kelas,tahun_ajaran.semester,tahun_ajaran.tahun
-			FROM matakuliah m join data_asisten_praktikum d ON(m.id=d.id_matakuliah)
-			join dosen dsn ON (dsn.id=d.id_dosen)join asisten on (asisten.id=d.id_asisten) join tahun_ajaran on(tahun_ajaran.id=asisten.id_tahun_ajaran) join mahasiswa on(mahasiswa.id= asisten.id_mahasiswa) WHERE d.kelas NOT IN('') AND dsn.id NOT IN('0')");
+		$query=$this->db->query("SELECT mahasiswa.nama, tahun_ajaran.semester,tahun_ajaran.tahun FROM data_asisten_praktikum d join asisten on (asisten.id=d.id_asisten) join tahun_ajaran on(tahun_ajaran.id=asisten.id_tahun_ajaran) join mahasiswa on(mahasiswa.id= asisten.id_mahasiswa) WHERE asisten.status = '1'");
 		return $query->result();
 	}
 

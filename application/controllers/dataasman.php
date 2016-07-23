@@ -14,7 +14,9 @@ class Dataasman extends CI_Controller {
 
 	public function index()
 	{
-		if($this->session->userdata('logged_in')){$session_data = $this->session->userdata('logged_in');
+		if($this->session->userdata('logged_in')){
+
+		$session_data = $this->session->userdata('logged_in');
 
 		$chk_thn 	  =	 $this->asman_model->check_tahun();
 

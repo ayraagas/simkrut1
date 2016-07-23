@@ -3,7 +3,7 @@
     <div class="col-xs-12">
       <div class="box">
         <div class="box-header">
-          <h3 class="box-title">Data Sub Kriteria</h3>
+          <h3 class="box-title">Data Sub Kriteria <?php echo $nama_kriteria; ?></h3>
         </div>
         <div class="box-body">
           <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Tambah</button>

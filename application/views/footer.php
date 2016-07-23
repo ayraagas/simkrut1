@@ -23,6 +23,15 @@
 <script src="assets/plugins/datatables/dataTables.bootstrap.min.js"></script>
 
 <script>
+  $('#tabelmk').DataTable({
+    "paging": true,
+    "lengthChange": false,
+    "searching": true,
+    "ordering": true,
+    "info": true,
+    "autoWidth": true,
+    "responsive": true
+  });
   $(function () {
     $('#example2').DataTable({
       "paging": true,
@@ -34,48 +43,37 @@
       "responsive": true
     });
 
- $(function () {
-    $('#tabelmk').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": true,
-      "ordering": true,
-      "info": true,
-      "autoWidth": true,
-      "responsive": true
-    });    });
+    $(document).on( "click", '#terima',function(e) {
 
-$(document).on( "click", '#terima',function(e) {
-  
-        var id = $(this).data('id');
-       
-        $(".id_asisten").val(id);
+      var id = $(this).data('id');
+
+      $(".id_asisten").val(id);
 
     });
 
-$(document).on("click", "#ubahkriteria", function (e) {
-    var id= $(this).data('id');
-    var nama= $(this).data('nama');
-    var bobot= $(this).data('bobot');
-    var kategori= $(this).data('kategori');
-    $("#id").val(id);
-    $("#nama").val(nama);
-    $("#bobot").val(bobot);
-    $('#kategori').val(kategori);
-    $("#kategori").children("option").filter(":selected").text(kategori);
-});
+    $(document).on("click", "#ubahkriteria", function (e) {
+      var id= $(this).data('id');
+      var nama= $(this).data('nama');
+      var bobot= $(this).data('bobot');
+      var kategori= $(this).data('kategori');
+      $("#id").val(id);
+      $("#nama").val(nama);
+      $("#bobot").val(bobot);
+      $('#kategori').val(kategori);
+      $("#kategori").children("option").filter(":selected").text(kategori);
+    });
 
-$(document).on("click", "#ubahsubkriteria", function (e) {
-    var id= $(this).data('id');
-    var nama= $(this).data('nama');
-    var bobot= $(this).data('bobot');
-    var kategori= $(this).data('kategori');
-    $("#id").val(id);
-    $("#nama").val(nama);
-    $("#bobot").val(bobot);
-    $('#kategori').val(kategori);
-    $("#kategori").children("option").filter(":selected").text(kategori);
-});
+    $(document).on("click", "#ubahsubkriteria", function (e) {
+      var id= $(this).data('id');
+      var nama= $(this).data('nama');
+      var bobot= $(this).data('bobot');
+      var kategori= $(this).data('kategori');
+      $("#id").val(id);
+      $("#nama").val(nama);
+      $("#bobot").val(bobot);
+      $('#kategori').val(kategori);
+      $("#kategori").children("option").filter(":selected").text(kategori);
+    });
 
   });
 </script>

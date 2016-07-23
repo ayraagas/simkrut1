@@ -8,6 +8,7 @@ class Dataasprak extends CI_Controller {
 		parent::__construct();
 		$this->load->model('asprak_model');
 		$this->load->model('tahunajaran_model');
+		$this->load->model('kriteria_model');
 		$this->load->model('subkriteria_model');
 	//Do your magic here
 	}
@@ -117,6 +118,44 @@ class Dataasprak extends CI_Controller {
 			$this->load->view('header',$content_data);
 			$this->load->view('sidebar_adm');
 			$this->load->view('content_asprak_adm_nilai_sub',$content_data);
+			$this->load->view('footer');
+		}}else{
+			redirect('login','refresh');
+		}
+	}
+
+	public function nilaikriteria(){
+
+		if($this->session->userdata('logged_in')){$session_data = $this->session->userdata('logged_in');
+
+		$chk_thn 	  =	 $this->asprak_model->check_tahun();
+
+		$content_data = array(
+			'kriteria' => $this->kriteria_model->get_all(),
+			'nama'		=> $session_data['username'],
+			'tahunajaran' => $this->tahunajaran_model->get_aktif(),
+			'matakuliah' => $this->asprak_model->matakuliah()
+			);
+
+		$dataNilaiKri =[];
+		$dataIdAlt=[];
+		foreach ($this->asprak_model->get_data_nilai_kri_alternatif() as $subkri) {
+			$dataNilaiKri[$subkri->nama_alt][$subkri->nama_kri]=$subkri->nilai;
+			$dataIdAlt=[$subkri->id];
+		}
+		$content_data['dataNilaiKri'] = $dataNilaiKri;
+		$content_data['dataIdAlt'] = $dataIdAlt;
+
+		if ($chk_thn == '0') {
+			$this->load->view('header',$content_data);
+			$this->load->view('sidebar_adm');
+			$this->load->view('content_asprak_adm_nonaktif');
+			$this->load->view('footer');
+		}else{
+
+			$this->load->view('header',$content_data);
+			$this->load->view('sidebar_adm');
+			$this->load->view('content_asprak_adm_nilai_kri',$content_data);
 			$this->load->view('footer');
 		}}else{
 			redirect('login','refresh');
