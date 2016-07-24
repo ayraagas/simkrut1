@@ -6,6 +6,7 @@
 					<h3 class="box-title">Data Nilai Subkriteria Calon Asisten Praktikum <?php echo "$tahunajaran->tahun "; echo "$tahunajaran->semester"; ?></h3>
 				</div>
 				<div class="box-body">
+					<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Tambah</button>
 					<div class="table-responsive">
 						<table id="example2" class="table table-bordered table-hover">
 							<thead>
@@ -22,68 +23,61 @@
 										<tr>
 
 											<td><?php echo $nama_alt; ?></td>
-											<td><?php foreach ($dataIdAlt as $id): ?>
-												<a href="<?php echo 'dataasprak/ubah_nilai_alt'."?id={$id}"; ?>" class="btn btn-danger btn-info">Ubah</a> <!-- data-id buat ubah -->
+											<?php $id=$subalt['id']; ?>
+											<td>
+											<a href="<?php echo 'dataasprak/resetnilaisub'."?id={$id}"; ?>" class="btn btn-danger btn-delete">Reset</a>
+											</td>
+
+											<?php foreach ($subkriteria as $sk): ?>
+												<?php $nilai=$subalt['nilai'][$sk->nama]; ?>
+												<td><?php echo $nilai; ?></td>
 											<?php endforeach ?>
-										</td>
-										<?php foreach ($subkriteria as $sk): ?>
-											<?php $nilai=$subalt[$sk->nama]; ?>
-											<td><?php echo $nilai; ?></td>
-										<?php endforeach ?>
+										</tr>
+									<?php endforeach ?>
+								</div>
+							</tbody>
+							<tfoot>
+								<tr>
+									<th>Nama Mahasiswa</th>
+									<th>Aksi</th>
+									<?php foreach ($subkriteria as $sk) { ?>
+										<th><?php echo $sk->nama; ?></th>
+										<?php } ?>
 									</tr>
-								<?php endforeach ?>
-							</div>
-						</tbody>
-						<tfoot>
-							<tr>
-								<th>Nama Mahasiswa</th>
-								<th>Aksi</th>
-								<?php foreach ($subkriteria as $sk) { ?>
-									<th><?php echo $sk->nama; ?></th>
-									<?php } ?>
-								</tr>
-							</tfoot>
-						</table>
+								</tfoot>
+							</table>
+						</div>
 					</div>
-				</div>
 
-				<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-					<div class="modal-dialog" role="document">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-								<h4 class="modal-title">Tambah Dosen</h4>
-							</div>
-							<div class="modal-body">
-								<form class="form-horizontal" method="POST" action="<?php echo 'dataasman/terima' ?>">
-									<div class="box-body">
-										<div class="form-group">
-											<label class="col-sm control-label">Dosen</label>
-											<?php $id= $this->input->get('id');?>
-											<input type="hidden" class="id_asisten" name="id_asisten" value="<?php $id ?>">
-											<select name="dosen" class="form-control">
-												<?php foreach ($dosen as $dsn) {?>
-													<option value="<?php echo $dsn->id ?>"><?php echo "$dsn->nama"; ?></option>
-													<?php } ?>
+					<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+									<h4 class="modal-title">Tambah Nilai Subkriteria</h4>
+								</div>
+								<div class="modal-body">
+									<form class="form-horizontal" method="POST" action="<?php echo 'dataasprak/tambahnilaisub' ?>">
+										<div class="box-body">
+											<div class="form-group">
+												<label class="col-sm control-label">Nama Alternatif</label>
+												<select name="alternatif" class="form-control">
+													<?php foreach ($alternatif as $alt): ?>
+														<option value=<?php echo "$alt->id"; ?>><?php echo $alt->nama; ?></option>
+													<?php endforeach ?>
 												</select>
-												<label class="col-sm control-label">Kelas</label>
-												<select name="kelas" class="form-control">
-													<option value=""></option>
-													<option value="A">A</option>
-													<option value="B">B</option>
-													<option value="C">C</option>
-													<option value="D">D</option>
-													<option value="E">E</option>
-													<option value="F">F</option>
-												</select><br>
-												<button type="submit" class="btn btn-info">Tambah</button>
-											</form>
+												<?php foreach ($subkriteria as $sk) { ?>
+													<label class="col-sm control-label"><?php echo $sk->nama; ?></label>
+													<input class="form-control" type="number" min="0" name="subkriteria[<?php echo $sk->id; ?>]" required><br>
+													<?php } ?>
+													<button type="submit" class="btn btn-info">Tambah</button>
+												</form>
 
-										</div></div>
+											</div></div>
 
-									</div>
+										</div>
 
-								</section>
+									</section>
 
-								<!-- /.content -->
-							</div>
+									<!-- /.content -->
+								</div>

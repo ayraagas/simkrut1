@@ -64,7 +64,7 @@ class Asprak_model extends CI_Model {
 	}
 
 	public function get_data_alternatif(){
-		$data_alternatif=$this->db->query("SELECT alt.nama, mhs.angkatan, alt.hasil,a.status, alt.id_asisten
+		$data_alternatif=$this->db->query("SELECT alt.id 'id', alt.nama, mhs.angkatan, alt.hasil,a.status, alt.id_asisten
 			FROM alternatif alt JOIN asisten a ON (alt.id_asisten=a.id) JOIN mahasiswa mhs ON (mhs.id=a.id_mahasiswa)
 			WHERE alt.id_asisten IN ( SELECT id FROM asisten WHERE id_tahun_ajaran = (SELECT id FROM tahun_ajaran WHERE status='1') AND tipe = 'Praktikum')");
 		return $data_alternatif->result();
@@ -78,6 +78,29 @@ class Asprak_model extends CI_Model {
 	public function get_data_nilai_sub_alternatif(){
 		$data_nilai_sub_alternatif=$this->db->query("SELECT alt.id 'id',alt.nama 'nama_alt',sub.nama 'nama_sub',nilaisub.nilai FROM alternatif alt CROSS JOIN subkriteria sub LEFT JOIN nilai_subkriteria nilaisub ON (sub.id=nilaisub.id_subkriteria) AND (alt.id=nilaisub.id_alternatif) WHERE alt.id_asisten IN ( SELECT id FROM asisten WHERE id_tahun_ajaran = (SELECT id FROM tahun_ajaran WHERE status='1') AND tipe = 'Praktikum')");
 		return $data_nilai_sub_alternatif->result();
+	}
+
+	public function get_data_alternatif_null_nilai(){
+		$data_alternatif_null_nilai = $this->db->query("SELECT alt.id 'id', alt.nama, mhs.angkatan, alt.hasil,a.status, alt.id_asisten FROM alternatif alt JOIN asisten a ON (alt.id_asisten=a.id) JOIN mahasiswa mhs ON (mhs.id=a.id_mahasiswa) WHERE alt.id_asisten IN ( SELECT id FROM asisten WHERE id_tahun_ajaran = (SELECT id FROM tahun_ajaran WHERE status='1') AND tipe = 'Praktikum') AND alt.id NOT IN (SELECT id_alternatif FROM nilai_subkriteria)
+			");
+		return $data_alternatif_null_nilai->result();
+	}
+
+	public function tambahnilaisub($data_nilai_sub){
+		$id_alt= $data_nilai_sub['alternatif'];
+
+		foreach ($data_nilai_sub['subkriteria'] as $sk_id => $nilai) {
+			$this->db->insert("nilai_subkriteria", array(
+				'id_alternatif'		=> $id_alt,
+				'id_subkriteria'   => $sk_id,
+				'nilai'			=> $nilai
+				));
+		}
+	}
+
+	public function reset_nilai_sub($id){
+		$this->db->where('id_alternatif', $id);
+		$this->db->delete('nilai_subkriteria');
 	}
 
 	public function terima($id){

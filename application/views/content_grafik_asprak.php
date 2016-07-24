@@ -63,4 +63,8 @@
   </div>
   <!-- /.content-wrapper -->
 </div>
-
+<!-- jQuery 2.2.0 -->
+<script src="assets/plugins/jQuery/jQuery-2.2.0.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="assets/plugins/jQueryUI/jquery-ui.min.js"></script>
+<script src="assets/js/grafik.js"></script>

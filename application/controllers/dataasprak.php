@@ -96,17 +96,17 @@ class Dataasprak extends CI_Controller {
 			'subkriteria' => $this->subkriteria_model->view_all(),
 			'nama'		=> $session_data['username'],
 			'tahunajaran' => $this->tahunajaran_model->get_aktif(),
-			'matakuliah' => $this->asprak_model->matakuliah()
+			'matakuliah' => $this->asprak_model->matakuliah(),
+			'alternatif' => $this->asprak_model->get_data_alternatif_null_nilai()
 			);
 
 		$dataNilaiSub =[];
-		$dataIdAlt=[];
+
 		foreach ($this->asprak_model->get_data_nilai_sub_alternatif() as $subalt) {
-			$dataNilaiSub[$subalt->nama_alt][$subalt->nama_sub]=$subalt->nilai;
-			$dataIdAlt=[$subalt->id];
+			$dataNilaiSub[$subalt->nama_alt]['id']=$subalt->id;
+			$dataNilaiSub[$subalt->nama_alt]['nilai'][$subalt->nama_sub]=$subalt->nilai;
 		}
 		$content_data['dataNilaiSub'] = $dataNilaiSub;
-		$content_data['dataIdAlt'] = $dataIdAlt;
 
 		if ($chk_thn == '0') {
 			$this->load->view('header',$content_data);
@@ -123,6 +123,41 @@ class Dataasprak extends CI_Controller {
 			redirect('login','refresh');
 		}
 	}
+
+	public function tambahnilaisub(){
+
+		if ($post_data = $this->input->post()) {
+			$this->_tambahnilaisub_submit($post_data);
+			return;
+		}
+		redirect('dataasprak/nilaisubkriteria','refresh');
+	}
+
+	private function _tambahnilaisub_submit($post_data) {
+		$session_data = $this->session->userdata('logged_in');
+		$data_nilai_sub = array(
+			'alternatif'	=> $post_data['alternatif'],
+			'subkriteria'	=> array()
+			);
+		foreach ($post_data['subkriteria'] as $sk_id => $nilai) {
+			if (!empty($nilai)) {
+				$data_nilai_sub['subkriteria'][$sk_id] = $nilai;
+			}
+		}
+		$this->asprak_model->tambahnilaisub($data_nilai_sub);
+
+		redirect('dataasprak/tambahnilaisub','refresh');
+	}
+
+	public function resetnilaisub(){
+
+		$id= $this->input->get('id');
+		$this->asprak_model->reset_nilai_sub($id);
+
+		redirect('dataasprak/nilaisubkriteria','refresh');
+
+	}
+
 
 	public function nilaikriteria(){
 

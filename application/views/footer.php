@@ -112,7 +112,7 @@
 <script src="assets/sweetalert/dist/sweetalert.min.js"></script>
 
 <script src="assets/js/warn_delete.js"></script>
-<script src="assets/js/grafik.js"></script>
+<!-- <script src="assets/js/grafik.js"></script> -->
 
 </body>
 </html>
