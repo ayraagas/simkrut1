@@ -18,6 +18,11 @@ class Kriteria_model extends CI_Model {
 		$this->db->delete('kriteria', array('id' => $id)); 
 
 	}
+
+	public function kriteria_specific(){
+		$query= $this->db->query("SELECT id, nama FROM kriteria WHERE id NOT IN (SELECT id_kriteria FROM nilai_kriteria )");
+		return $query->result();
+	}
 }
 
 /* End of file kriteria_model.php */

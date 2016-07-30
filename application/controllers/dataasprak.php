@@ -166,10 +166,11 @@ class Dataasprak extends CI_Controller {
 		$chk_thn 	  =	 $this->asprak_model->check_tahun();
 
 		$content_data = array(
-			'kriteria' => $this->kriteria_model->get_all(),
+			'kriteria' => $this->kriteria_model->kriteria_specific(),
 			'nama'		=> $session_data['username'],
 			'tahunajaran' => $this->tahunajaran_model->get_aktif(),
-			'matakuliah' => $this->asprak_model->matakuliah()
+			'matakuliah' => $this->asprak_model->matakuliah(),
+			'alternatif' => $this->asprak_model->get_data_alternatif_null_nilai_kriteria()
 			);
 
 		$dataNilaiKri =[];

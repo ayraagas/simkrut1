@@ -86,6 +86,12 @@ class Asprak_model extends CI_Model {
 		return $data_alternatif_null_nilai->result();
 	}
 
+	public function get_data_alternatif_null_nilai_kriteria(){
+		$data_alternatif_null_nilai_kriteria = $this->db->query("SELECT alt.id 'id', alt.nama, mhs.angkatan, alt.hasil,a.status, alt.id_asisten FROM alternatif alt JOIN asisten a ON (alt.id_asisten=a.id) JOIN mahasiswa mhs ON (mhs.id=a.id_mahasiswa) WHERE alt.id_asisten IN ( SELECT id FROM asisten WHERE id_tahun_ajaran = (SELECT id FROM tahun_ajaran WHERE status='1') AND tipe = 'Praktikum') AND alt.id NOT IN (SELECT id_alternatif FROM nilai_kriteria WHERE id_kriteria NOT IN(SELECT id FROM kriteria))
+");
+		return $data_alternatif_null_nilai_kriteria->result();
+	}
+
 	public function tambahnilaisub($data_nilai_sub){
 		$id_alt= $data_nilai_sub['alternatif'];
 
@@ -96,8 +102,55 @@ class Asprak_model extends CI_Model {
 				'nilai'			=> $nilai
 				));
 		}
+		$this->perangkingan_saw();
+		
+
 	}
 
+	public function perangkingan_saw(){
+		//olah perangkingan
+		$query_jml_kriteria= array('jumlah'=>$this->db->query("SELECT COUNT(DISTINCT(id_kriteria)) as jumlah FROM subkriteria")->row()->jumlah);
+		extract($query_jml_kriteria);
+
+		$query_kriteria= $this->db->query("SELECT DISTINCT(id_kriteria) as kriteria FROM subkriteria")->result_array();
+		$idkriteria= array();
+		foreach ($query_kriteria as $row) {
+			if(!in_array($row['kriteria'],$idkriteria)){
+				$idkriteria[]=$row['kriteria'];
+			}
+		}
+
+		for ($i=0; $i < $jumlah; $i++) { 
+
+			$ranking= $this->db->query("SELECT b.id 'id_alternatif',d.id_kriteria 'id_kriteria',SUM( IF(c.kategori='benefit', a.nilai/c.normalization, c.normalization/a.nilai) * c.bobot ) 'nilai' FROM nilai_subkriteria a JOIN alternatif b ON(b.id=a.id_alternatif) JOIN( SELECT a.id_subkriteria, ROUND(IF(b.kategori='benefit',MAX(a.nilai),MIN(a.nilai)),1) AS normalization, b.kategori, b.bobot FROM nilai_subkriteria a JOIN subkriteria b ON(b.id=a.id_subkriteria) WHERE b.id_kriteria='$idkriteria[$i]' GROUP BY a.id_subkriteria ) c ON (c.id_subkriteria=a.id_subkriteria)JOIN subkriteria d ON(a.id_subkriteria=d.id) GROUP BY a.id_alternatif ORDER BY nilai DESC")->result_array();
+
+			foreach ($ranking as $ar) {
+				$data_ar= array(
+					'id_alternatif'=> $ar['id_alternatif'],
+					'id_kriteria' => $ar['id_kriteria'],
+					'nilai'=> $ar['nilai']
+					);
+
+ $query = $this->db->get_where('nilai_kriteria', array(//making selection
+        	'id_alternatif'	=> $data_ar['id_alternatif'],
+        	'id_kriteria'   => $data_ar['id_kriteria']
+        	));
+
+        $count = $query->num_rows();
+
+        if ($count == '0') {
+        	$this->db->insert('nilai_kriteria',$data_ar);
+        } else {
+
+        	$this->db->where('id_alternatif',"{$data_ar['id_alternatif']}");
+        	$this->db->where('id_kriteria',"{$data_ar['id_kriteria']}");
+        	 $this->db->update("nilai_kriteria",$data_ar);
+
+        }
+        
+			}
+	}
+}
 	public function reset_nilai_sub($id){
 		$this->db->where('id_alternatif', $id);
 		$this->db->delete('nilai_subkriteria');

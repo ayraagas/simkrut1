@@ -16,7 +16,7 @@
               <label>Masukkan Nilai Matakuliah</label>
               <?php $nilai = array("A", "A-", "A/B", "B+", "B"); ?>
               <?php foreach ($matakuliah as $mk) { ?>
-                <?php if ($mk->semester == $tahunajaran->semester || $mk->jenis =="Pilihan") { ?>
+                <?php if ($mk->semester == $tahunajaran->semester AND $mk->jenis <> 'Praktikum' AND $mk->jenis = 'Pilihan' ) { ?>
                 <div class="form-group">
                   <label><?php echo $mk->nama; ?></label>
                   <select class="form-control" name="matakuliah[<?php echo $mk->id; ?>]">
