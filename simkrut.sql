@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 30, 2016 at 02:11 PM
+-- Generation Time: Aug 04, 2016 at 05:08 PM
 -- Server version: 5.6.26
 -- PHP Version: 5.6.12
 
@@ -59,7 +59,8 @@ CREATE TABLE `alternatif` (
 INSERT INTO `alternatif` (`id`, `nama`, `hasil`, `id_asisten`) VALUES
 (1, 'Agas Arya Widodo', NULL, 14),
 (2, 'Anif Shofiana Durri', NULL, 15),
-(3, 'Bharamida Dwi Rizky', NULL, 16);
+(3, 'Bharamida Dwi Rizky', NULL, 16),
+(4, 'Agas Arya Widodo', NULL, 18);
 
 -- --------------------------------------------------------
 
@@ -85,7 +86,9 @@ INSERT INTO `asisten` (`id`, `id_tahun_ajaran`, `id_mahasiswa`, `tipe`, `status`
 (14, 1, 1, 'Praktikum', '1'),
 (15, 1, 3, 'Praktikum', '0'),
 (16, 1, 4, 'Praktikum', '0'),
-(17, 1, 4, 'Mandiri', '0');
+(17, 1, 4, 'Mandiri', '0'),
+(18, 2, 1, 'Praktikum', '1'),
+(19, 2, 1, 'Mandiri', '0');
 
 -- --------------------------------------------------------
 
@@ -115,7 +118,12 @@ INSERT INTO `data_asisten_mandiri` (`id`, `id_matakuliah`, `nilai`, `id_asisten`
 (11, 21, 'A-', 17, 0, NULL),
 (12, 22, 'A/B', 17, 0, NULL),
 (13, 23, 'A-', 17, 0, NULL),
-(14, 32, 'A-', 17, 0, NULL);
+(14, 32, 'A-', 17, 0, NULL),
+(15, 190, 'A/B', 19, 0, NULL),
+(16, 35, 'A/B', 19, 0, NULL),
+(17, 36, 'A/B', 19, 0, NULL),
+(18, 37, 'A-', 19, 0, NULL),
+(19, 38, 'A-', 19, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -156,7 +164,12 @@ INSERT INTO `data_asisten_praktikum` (`id`, `id_matakuliah`, `nilai`, `id_asiste
 (41, 165, 5, 16),
 (42, 168, 2, 16),
 (43, 185, 5, 16),
-(44, 188, 3, 16);
+(44, 188, 3, 16),
+(45, 183, 5, 18),
+(46, 184, 2, 18),
+(47, 186, 3, 18),
+(48, 187, 5, 18),
+(49, 189, 5, 18);
 
 -- --------------------------------------------------------
 
@@ -229,7 +242,7 @@ CREATE TABLE `mahasiswa` (
 --
 
 INSERT INTO `mahasiswa` (`id`, `nim`, `nama`, `password`, `angkatan`, `ipk`, `status`) VALUES
-(1, '12523017', 'Agas Arya Widodo', 'ea1d3fbbb2f58eb2f72a81eb85c7dcd1', '12312', 4, '1'),
+(1, '12523017', 'Agas Arya Widodo', 'ea1d3fbbb2f58eb2f72a81eb85c7dcd1', '2012', 3.8, '1'),
 (3, '12523020', 'Anif Shofiana Durri', 'ea1d3fbbb2f58eb2f72a81eb85c7dcd1', '2012', NULL, '1'),
 (4, '12523096', 'Bharamida Dwi Rizky', 'ea1d3fbbb2f58eb2f72a81eb85c7dcd1', '2012', 3.56, '1');
 
@@ -357,9 +370,13 @@ INSERT INTO `nilai_kriteria` (`id`, `id_alternatif`, `id_kriteria`, `nilai`) VAL
 (97, 1, 2, 1),
 (98, 2, 2, 0.7),
 (99, 3, 2, 0.6),
-(100, 1, 4, 23),
+(100, 1, 4, 28),
 (101, 3, 4, 13.8),
-(102, 2, 4, 11.600000000000001);
+(102, 2, 4, 11.600000000000001),
+(105, 1, 3, 100),
+(119, 4, 2, 0.8),
+(120, 4, 3, 432432432),
+(121, 4, 4, 18.4);
 
 -- --------------------------------------------------------
 
@@ -400,7 +417,15 @@ INSERT INTO `nilai_subkriteria` (`id`, `id_alternatif`, `id_subkriteria`, `nilai
 (658, 1, 12, 5, 0),
 (659, 1, 13, 5, 0),
 (660, 1, 14, 5, 0),
-(661, 1, 15, 5, 0);
+(661, 1, 15, 5, 0),
+(662, 1, 3, 5, 0),
+(670, 4, 3, 4, 0),
+(671, 4, 5, 4, 0),
+(672, 4, 11, 4, 0),
+(673, 4, 12, 4, 0),
+(674, 4, 13, 4, 0),
+(675, 4, 14, 4, 0),
+(676, 4, 15, 4, 0);
 
 -- --------------------------------------------------------
 
@@ -447,8 +472,8 @@ CREATE TABLE `tahun_ajaran` (
 --
 
 INSERT INTO `tahun_ajaran` (`id`, `tahun`, `semester`, `status`) VALUES
-(1, '2015/2016', 'Genap', '1'),
-(2, '2016/2017', 'Ganjil', '0'),
+(1, '2015/2016', 'Genap', '0'),
+(2, '2016/2017', 'Ganjil', '1'),
 (9, '2016/2017', 'Genap', '0'),
 (10, '2017/2018', 'Ganjil', '0'),
 (15, '2017/2018', 'Genap', '0');
@@ -565,22 +590,22 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `alternatif`
 --
 ALTER TABLE `alternatif`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `asisten`
 --
 ALTER TABLE `asisten`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT for table `data_asisten_mandiri`
 --
 ALTER TABLE `data_asisten_mandiri`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT for table `data_asisten_praktikum`
 --
 ALTER TABLE `data_asisten_praktikum`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 --
 -- AUTO_INCREMENT for table `dosen`
 --
@@ -605,12 +630,12 @@ ALTER TABLE `matakuliah`
 -- AUTO_INCREMENT for table `nilai_kriteria`
 --
 ALTER TABLE `nilai_kriteria`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=122;
 --
 -- AUTO_INCREMENT for table `nilai_subkriteria`
 --
 ALTER TABLE `nilai_subkriteria`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=662;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=677;
 --
 -- AUTO_INCREMENT for table `subkriteria`
 --

@@ -6,7 +6,6 @@
 					<h3 class="box-title">Data Nilai kriteria Calon Asisten Praktikum <?php echo "$tahunajaran->tahun "; echo "$tahunajaran->semester"; ?></h3>
 				</div>
 				<div class="box-body">
-				<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Tambah</button>
 					<div class="table-responsive">
 						<table id="example2" class="table table-bordered table-hover">
 							<thead>
@@ -19,16 +18,15 @@
 									</tr>
 								</thead>
 								<tbody>
-									<?php foreach ($dataNilaiKri as $nama_alt=> $subkri): ?>
+									<?php foreach ($dataNilaiKri as $nama_alt=> $kri): ?>
 										<tr>
 
 											<td><?php echo $nama_alt; ?></td>
-											<td><?php foreach ($dataIdAlt as $id): ?>
-												<a href="<?php echo 'dataasprak/ubah_nilai_alt'."?id={$id}"; ?>" class="btn btn-danger btn-info">Ubah</a> <!-- data-id buat ubah -->
-											<?php endforeach ?>
+											<td><?php $id=$kri['id']; ?>
+											 <a href="<?php echo 'dataasprak/ubahnilaikriteria'."?id={$id}"."&nama={$nama_alt}"; ?>" class="btn btn-warning">Ubah</a>
 										</td>
 										<?php foreach ($kriteria as $k): ?>
-											<?php $nilai=$subkri[$k->nama]; ?>
+											<?php $nilai=$kri['nilai'][$k->nama]; ?>
 											<td><?php echo $nilai; ?></td>
 										<?php endforeach ?>
 									</tr>
@@ -48,15 +46,15 @@
 					</div>
 				</div>
 
-				<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				<div class="modal fade" id="ubahNilaiKriAlt" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 						<div class="modal-dialog" role="document">
 							<div class="modal-content">
 								<div class="modal-header">
 									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-									<h4 class="modal-title">Tambah Nilai Kriteria</h4>
+									<h4 class="modal-title">Ubah Nilai Kriteria</h4>
 								</div>
 								<div class="modal-body">
-									<form class="form-horizontal" method="POST" action="<?php echo 'dataasprak/tambahnilaisub' ?>">
+									<form class="form-horizontal" method="POST" action="<?php echo 'dataasprak/tambahnilaikri' ?>">
 										<div class="box-body">
 											<div class="form-group">
 												<label class="col-sm control-label">Nama Alternatif</label>
@@ -65,11 +63,11 @@
 														<option value=<?php echo "$alt->id"; ?>><?php echo $alt->nama; ?></option>
 													<?php endforeach ?>
 												</select>
-												<?php foreach ($kriteria as $k) { ?>
-													<label class="col-sm control-label"><?php echo $k->nama; ?></label>
-													<input class="form-control" type="number" min="0" name="subkriteria[<?php echo $k->id; ?>]" required><br>
+												<?php foreach ($kriteria_specific as $ks) { ?>
+													<label class="col-sm control-label"><?php echo $ks->nama; ?></label>
+													<input class="form-control" type="number" min="0" name="kriteria[<?php echo $ks->id; ?>]" required><br>
 													<?php } ?>
-													<button type="submit" class="btn btn-info">Tambah</button>
+													<button type="submit" name="submit" class="btn btn-info">Tambah</button>
 												</form>
 
 											</div></div>

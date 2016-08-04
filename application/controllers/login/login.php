@@ -21,7 +21,7 @@ class Login extends CI_Controller {
 	{	
 
 		if($this->session->userdata('logged_in')){
-			redirect('home','refresh');
+			redirect('home_admin','refresh');
 		} else {
 			$this->load->helper(array('form'));
 			$this->load->view('loginAdmin');

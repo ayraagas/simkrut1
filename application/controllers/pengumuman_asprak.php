@@ -17,7 +17,7 @@ class Pengumuman_asprak extends CI_Controller {
 				'nama'		=> $session_data['nama'],
 				'pengumuman'=> $this->asprak_model->pengumuman()
 				);
-			$this->load->view('header',$content_data);
+			$this->load->view('header_mhs',$content_data);
 			$this->load->view('sidebar_mhs');
 			$this->load->view('content_pengumuman_asprak',$content_data);
 			$this->load->view('footer');}else{

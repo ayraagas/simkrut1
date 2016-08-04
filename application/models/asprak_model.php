@@ -71,7 +71,7 @@ class Asprak_model extends CI_Model {
 	}
 
 	public function get_data_nilai_kri_alternatif(){
-		$data_nilai_sub_alternatif=$this->db->query("SELECT alt.id 'id',alt.nama 'nama_alt',kri.nama 'nama_kri',nilaikri.nilai FROM alternatif alt CROSS JOIN kriteria kri LEFT JOIN nilai_kriteria nilaikri ON (kri.id=nilaikri.id_kriteria) AND (alt.id=nilaikri.id_alternatif) WHERE alt.id_asisten IN ( SELECT id FROM asisten WHERE id_tahun_ajaran = (SELECT id FROM tahun_ajaran WHERE status='1') AND tipe = 'Praktikum')");
+		$data_nilai_sub_alternatif=$this->db->query("SELECT alt.id 'id',alt.nama 'nama_alt',kri.id 'id_kri',kri.nama 'nama_kri',nilaikri.nilai FROM alternatif alt CROSS JOIN kriteria kri LEFT JOIN nilai_kriteria nilaikri ON (kri.id=nilaikri.id_kriteria) AND (alt.id=nilaikri.id_alternatif) WHERE alt.id_asisten IN ( SELECT id FROM asisten WHERE id_tahun_ajaran = (SELECT id FROM tahun_ajaran WHERE status='1') AND tipe = 'Praktikum')");
 		return $data_nilai_sub_alternatif->result();
 	}
 
@@ -171,9 +171,35 @@ class Asprak_model extends CI_Model {
 		}
 	}
 
+
+	public function tambahnilaikri($data_nilai_kri){
+
+		$id_alt= $data_nilai_kri['alternatif'];
+
+		$this->db->where('id_alternatif',$id_alt);
+		$this->db->delete('nilai_kriteria');
+
+		foreach ($data_nilai_kri['kriteria'] as $k_id => $nilai) {
+			$this->db->insert("nilai_kriteria", array(
+				'id_alternatif'		=> $id_alt,
+				'id_kriteria'   => $k_id,
+				'nilai'			=> $nilai
+				));
+		}
+
+	}
+
+	public function ubahnilaikriteria($id){
+
+			$query=$this->db->query("SELECT alt.id 'id',alt.nama 'nama_alt', kri.id 'id_kri',kri.nama 'nama_kri',nilaikri.nilai FROM alternatif alt CROSS JOIN kriteria kri LEFT JOIN nilai_kriteria nilaikri ON (kri.id=nilaikri.id_kriteria) AND (alt.id=nilaikri.id_alternatif) WHERE alt.id_asisten IN ( SELECT id FROM asisten WHERE id_tahun_ajaran = (SELECT id FROM tahun_ajaran WHERE status='1') AND tipe = 'Praktikum') AND alt.id='$id'");
+			return $query->result();
+	}
+
+
+
 	public function pengumuman(){
 
-		$query=$this->db->query("SELECT mahasiswa.nama, tahun_ajaran.semester,tahun_ajaran.tahun FROM data_asisten_praktikum d join asisten on (asisten.id=d.id_asisten) join tahun_ajaran on(tahun_ajaran.id=asisten.id_tahun_ajaran) join mahasiswa on(mahasiswa.id= asisten.id_mahasiswa) WHERE asisten.status = '1'");
+		$query=$this->db->query("SELECT mahasiswa.nama, ta.semester,ta.tahun FROM asisten a join tahun_ajaran ta on(ta.id=a.id_tahun_ajaran) join mahasiswa on(mahasiswa.id= a.id_mahasiswa) WHERE a.status = '1' AND tipe='Praktikum'");
 		return $query->result();
 	}
 

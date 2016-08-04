@@ -18,7 +18,7 @@ class Ubahpass extends CI_Controller {
 				'nama'		=> $session_data['nama']
 				);
 
-			$this->load->view('header',$content_data);
+			$this->load->view('header_mhs',$content_data);
 			$this->load->view('sidebar_mhs');
 			$this->load->view('content_ubahpass',$content_data);
 			$this->load->view('footer');}else{
@@ -36,7 +36,7 @@ class Ubahpass extends CI_Controller {
 			$content_data = array(
 				'nama'		=> $session_data['nama']
 				);
-			$this->load->view('header',$content_data);
+			$this->load->view('header_mhs',$content_data);
 			$this->load->view('sidebar_mhs');
 			$this->load->view('content_ubahpass',$content_data);
 			$this->load->view('footer');

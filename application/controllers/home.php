@@ -13,7 +13,7 @@ class Home extends CI_Controller {
    {
      $session_data = $this->session->userdata('logged_in_mhs');
      $data['nama'] = $session_data['nama'];
-     $this->load->view('header',$data);
+     $this->load->view('header_mhs',$data);
      $this->load->view('sidebar_mhs');
      $this->load->view('content_dash_mhs');
      $this->load->view('footer');

@@ -2,42 +2,29 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Login Admin</title>
+  <title>SIMkrut UII</title>
   <link rel="stylesheet" href="<?php echo base_url('assets/css/reset.css') ?>">
-
-  <link rel='stylesheet prefetch' href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900|RobotoDraft:400,100,300,500,700,900'>
   <link rel='stylesheet prefetch' href='<?php echo base_url('assets/css/font-awesome.min.css');  ?>'>
-  <link rel="stylesheet" href="<?php echo base_url('assets/css/style.css') ?>">
+  <link rel="stylesheet" href="<?php echo base_url('assets/css/styleloginadmin.css') ?>">
 </head>
 <body>
-  <div class="pen-title">
-    <h1>Login Admin</h1>
-  </div>
-   <?php echo validation_errors(); ?>
-   <?php echo form_open('login/verifylogin'); ?>
   <div class="container">
-    <div class="card"></div>
-    <div class="card">
-      <h1 class="title">Login</h1>
-      <form action="#" method="POST">
-        <div class="input-container">
-          <input type="text" id="Username" name="username" required="required"/>
-          <label for="Username">Username</label>
-          <div class="bar"></div>
-        </div>
-        <div class="input-container">
-          <input type="password" id="Password" name="password" required="required"/>
-          <label for="Password">Password</label>
-          <div class="bar"></div>
-        </div>
-        <div class="button-container">
-          <button type="submit" value="login"><span>Login</span></button>
-        </div>
-      </form>
+    <div class="info">
+      <h1>Admin ONLY !</h1><span>Made with <i class="fa fa-heart"></i> by Agas Arya Widodo</span>
     </div>
+  </div>
+  <div class="form">
+    <?php echo validation_errors(); ?>
+    <?php echo form_open('login/verifylogin'); ?>
+    <div class="thumbnail"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/169963/hat.svg"/></div>
+    <form class="login-form">
+      <input type="text" name="username" placeholder="username" required />
+      <input type="password" name="password" placeholder="password" required />
+      <button type="submit">login</button>
+    </form>
   </div>
   <script src='<?php echo base_url('assets/js/jquery.min.js') ?>'></script>
 
-  <script src="<?php echo base_url('assets/js/index.js') ?>"></script>
+  <script src="<?php echo base_url('assets/js/indexadmin.js') ?>"></script> 
 </body>
 </html>

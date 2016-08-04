@@ -15,7 +15,7 @@ class Dataasprak extends CI_Controller {
 
 	public function index()
 	{
-
+		redirect('dataasprak/pendaftar','refresh');
 	}
 
 	public function pendaftar(){
@@ -166,7 +166,8 @@ class Dataasprak extends CI_Controller {
 		$chk_thn 	  =	 $this->asprak_model->check_tahun();
 
 		$content_data = array(
-			'kriteria' => $this->kriteria_model->kriteria_specific(),
+			'kriteria_specific' => $this->kriteria_model->kriteria_specific(),
+			'kriteria' => $this->kriteria_model->get_all(),
 			'nama'		=> $session_data['username'],
 			'tahunajaran' => $this->tahunajaran_model->get_aktif(),
 			'matakuliah' => $this->asprak_model->matakuliah(),
@@ -174,13 +175,12 @@ class Dataasprak extends CI_Controller {
 			);
 
 		$dataNilaiKri =[];
-		$dataIdAlt=[];
-		foreach ($this->asprak_model->get_data_nilai_kri_alternatif() as $subkri) {
-			$dataNilaiKri[$subkri->nama_alt][$subkri->nama_kri]=$subkri->nilai;
-			$dataIdAlt=[$subkri->id];
+		foreach ($this->asprak_model->get_data_nilai_kri_alternatif() as $kri) {
+			$dataNilaiKri[$kri->nama_alt]['id']=$kri->id;
+			$dataNilaiKri[$kri->nama_alt]['nilai'][$kri->nama_kri]=$kri->nilai;
+			$dataNilaiKri[$kri->nama_alt]['id_kri']=$kri->id_kri;
 		}
 		$content_data['dataNilaiKri'] = $dataNilaiKri;
-		$content_data['dataIdAlt'] = $dataIdAlt;
 
 		if ($chk_thn == '0') {
 			$this->load->view('header',$content_data);
@@ -197,6 +197,95 @@ class Dataasprak extends CI_Controller {
 			redirect('login','refresh');
 		}
 	}
+
+	public function tambahnilaikri(){
+
+		if ($post_data = $this->input->post()) {
+			$this->_tambahnilaikri_submit($post_data);
+			return;
+		}
+		redirect('dataasprak/nilaikriteria','refresh');
+	}
+
+	private function _tambahnilaikri_submit($post_data) {
+		$session_data = $this->session->userdata('logged_in');
+		$data_nilai_kri = array(
+			'alternatif'	=> $post_data['alternatif'],
+			'kriteria'	=> array()
+			);
+		foreach ($post_data['kriteria'] as $k_id => $nilai) {
+			if (!empty($nilai)) {
+				$data_nilai_kri['kriteria'][$k_id] = $nilai;
+			}
+		}
+		$this->asprak_model->tambahnilaikri($data_nilai_kri);
+
+		redirect('dataasprak/tambahnilaikri','refresh');
+	}
+
+	public function ubahnilaikriteria(){
+		$id= $this->input->get('id');
+
+
+		if($this->session->userdata('logged_in')){$session_data = $this->session->userdata('logged_in');
+
+		$chk_thn 	  =	 $this->asprak_model->check_tahun();
+
+		$content_data = array(
+			'kriteria' => $this->kriteria_model->get_all(),
+			'nama'		=> $session_data['username'],
+			'tahunajaran' => $this->tahunajaran_model->get_aktif(),
+			'nama_alternatif' => $nama_alt= $this->input->get('nama'),
+			'id_alternatif' => $id= $this->input->get('id')
+			);
+
+		$dataNilaiKri =[];
+		foreach ($this->asprak_model->ubahnilaikriteria($id) as $kri) {
+			$dataNilaiKri[$kri->nama_kri]['nilai']=$kri->nilai;
+			$dataNilaiKri[$kri->nama_kri]['id_kri']=$kri->id_kri;
+		}
+		$content_data['dataNilaiKri'] = $dataNilaiKri;
+
+		if ($chk_thn == '0') {
+			$this->load->view('header',$content_data);
+			$this->load->view('sidebar_adm');
+			$this->load->view('content_asprak_adm_nonaktif');
+			$this->load->view('footer');
+		}else{
+
+			$this->load->view('header',$content_data);
+			$this->load->view('sidebar_adm');
+			$this->load->view('content_asprak_adm_nilai_kri_ubah',$content_data);
+			$this->load->view('footer');
+		}}else{
+			redirect('login','refresh');
+		}
+
+		if ($post_data = $this->input->post()) {
+			$this->_ubahnilaikri_submit($post_data);
+			return;
+		}
+	}
+
+	private function _ubahnilaikri_submit($post_data) {
+		$session_data = $this->session->userdata('logged_in');
+		$data_nilai_kri = array(
+			'alternatif'	=> $post_data['id_alt'],
+			'kriteria'	=> array()
+			);
+		foreach ($post_data['kriteria'] as $k_id => $nilai) {
+			if (!empty($nilai)) {
+				$data_nilai_kri['kriteria'][$k_id] = $nilai;
+			}
+		}
+		$this->asprak_model->tambahnilaikri($data_nilai_kri);
+
+		redirect('dataasprak/tambahnilaikri','refresh');
+	}
+
+
+
+
 
 	public function terima(){
 
