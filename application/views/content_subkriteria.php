@@ -106,7 +106,7 @@
               <label class="col-sm-2 control-label" >Bobot</label>
 
               <div class="col-sm-10">
-                <input type="number" min="0.1" max="0.5" step="0.1" class="form-control" name="bobot" id="bobot" value="<?php $bobot ?>">
+                <input type="number" min="0.05" max="0.5" step="0.05" class="form-control" name="bobot" id="bobot" value="<?php $bobot ?>">
               </div>
             </div>
             <div class="form-group">

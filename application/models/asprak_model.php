@@ -88,7 +88,7 @@ class Asprak_model extends CI_Model {
 
 	public function get_data_alternatif_null_nilai_kriteria(){
 		$data_alternatif_null_nilai_kriteria = $this->db->query("SELECT alt.id 'id', alt.nama, mhs.angkatan, alt.hasil,a.status, alt.id_asisten FROM alternatif alt JOIN asisten a ON (alt.id_asisten=a.id) JOIN mahasiswa mhs ON (mhs.id=a.id_mahasiswa) WHERE alt.id_asisten IN ( SELECT id FROM asisten WHERE id_tahun_ajaran = (SELECT id FROM tahun_ajaran WHERE status='1') AND tipe = 'Praktikum') AND alt.id NOT IN (SELECT id_alternatif FROM nilai_kriteria WHERE id_kriteria NOT IN(SELECT id FROM kriteria))
-");
+			");
 		return $data_alternatif_null_nilai_kriteria->result();
 	}
 
@@ -122,7 +122,7 @@ class Asprak_model extends CI_Model {
 
 		for ($i=0; $i < $jumlah; $i++) { 
 
-			$ranking= $this->db->query("SELECT b.id 'id_alternatif',d.id_kriteria 'id_kriteria',SUM( IF(c.kategori='benefit', a.nilai/c.normalization, c.normalization/a.nilai) * c.bobot ) 'nilai' FROM nilai_subkriteria a JOIN alternatif b ON(b.id=a.id_alternatif) JOIN( SELECT a.id_subkriteria, ROUND(IF(b.kategori='benefit',MAX(a.nilai),MIN(a.nilai)),1) AS normalization, b.kategori, b.bobot FROM nilai_subkriteria a JOIN subkriteria b ON(b.id=a.id_subkriteria) WHERE b.id_kriteria='$idkriteria[$i]' GROUP BY a.id_subkriteria ) c ON (c.id_subkriteria=a.id_subkriteria)JOIN subkriteria d ON(a.id_subkriteria=d.id) GROUP BY a.id_alternatif ORDER BY nilai DESC")->result_array();
+			$ranking= $this->db->query("SELECT a.id_alternatif 'id_alternatif',d.id_kriteria 'id_kriteria',SUM( IF(c.kategori='benefit', a.nilai/c.normalization, c.normalization/a.nilai) * c.bobot ) 'nilai' FROM nilai_subkriteria a JOIN alternatif b ON (b.id=a.id_alternatif IN((SELECT id from alternatif WHERE id_asisten IN(SELECT id from asisten WHERE id_tahun_ajaran = (SELECT id from tahun_ajaran WHERE status='1') AND tipe='Praktikum')))) JOIN ( SELECT a.id_subkriteria, ROUND(IF(b.kategori='benefit',MAX(a.nilai),MIN(a.nilai)),1) AS normalization, b.kategori, b.bobot FROM nilai_subkriteria a JOIN subkriteria b ON(b.id=a.id_subkriteria) WHERE b.id_kriteria='$idkriteria[$i]' AND a.id_alternatif IN ((SELECT id from alternatif WHERE id_asisten IN(SELECT id from asisten WHERE id_tahun_ajaran = (SELECT id from tahun_ajaran WHERE status='1') AND tipe='Praktikum'))) GROUP BY a.id_subkriteria ) c ON (c.id_subkriteria=a.id_subkriteria)JOIN subkriteria d ON(a.id_subkriteria=d.id) GROUP BY a.id_alternatif ORDER BY `id_alternatif` ASC")->result_array();
 
 			foreach ($ranking as $ar) {
 				$data_ar= array(
@@ -131,26 +131,26 @@ class Asprak_model extends CI_Model {
 					'nilai'=> $ar['nilai']
 					);
 
- $query = $this->db->get_where('nilai_kriteria', array(//making selection
-        	'id_alternatif'	=> $data_ar['id_alternatif'],
-        	'id_kriteria'   => $data_ar['id_kriteria']
-        	));
+			 $query = $this->db->get_where('nilai_kriteria', array(//making selection
+			 	'id_alternatif'	=> $data_ar['id_alternatif'],
+			 	'id_kriteria'   => $data_ar['id_kriteria']
+			 	));
 
-        $count = $query->num_rows();
+			 $count = $query->num_rows();
 
-        if ($count == '0') {
-        	$this->db->insert('nilai_kriteria',$data_ar);
-        } else {
+			 if ($count == '0') {
+			 	$this->db->insert('nilai_kriteria',$data_ar);
+			 } else {
 
-        	$this->db->where('id_alternatif',"{$data_ar['id_alternatif']}");
-        	$this->db->where('id_kriteria',"{$data_ar['id_kriteria']}");
-        	 $this->db->update("nilai_kriteria",$data_ar);
+			 	$this->db->where('id_alternatif',"{$data_ar['id_alternatif']}");
+			 	$this->db->where('id_kriteria',"{$data_ar['id_kriteria']}");
+			 	$this->db->update("nilai_kriteria",$data_ar);
 
-        }
-        
+			 }
+
 			}
+		}
 	}
-}
 	public function reset_nilai_sub($id){
 		$this->db->where('id_alternatif', $id);
 		$this->db->delete('nilai_subkriteria');
@@ -191,8 +191,8 @@ class Asprak_model extends CI_Model {
 
 	public function ubahnilaikriteria($id){
 
-			$query=$this->db->query("SELECT alt.id 'id',alt.nama 'nama_alt', kri.id 'id_kri',kri.nama 'nama_kri',nilaikri.nilai FROM alternatif alt CROSS JOIN kriteria kri LEFT JOIN nilai_kriteria nilaikri ON (kri.id=nilaikri.id_kriteria) AND (alt.id=nilaikri.id_alternatif) WHERE alt.id_asisten IN ( SELECT id FROM asisten WHERE id_tahun_ajaran = (SELECT id FROM tahun_ajaran WHERE status='1') AND tipe = 'Praktikum') AND alt.id='$id'");
-			return $query->result();
+		$query=$this->db->query("SELECT alt.id 'id',alt.nama 'nama_alt', kri.id 'id_kri',kri.nama 'nama_kri',nilaikri.nilai FROM alternatif alt CROSS JOIN kriteria kri LEFT JOIN nilai_kriteria nilaikri ON (kri.id=nilaikri.id_kriteria) AND (alt.id=nilaikri.id_alternatif) WHERE alt.id_asisten IN ( SELECT id FROM asisten WHERE id_tahun_ajaran = (SELECT id FROM tahun_ajaran WHERE status='1') AND tipe = 'Praktikum') AND alt.id='$id'");
+		return $query->result();
 	}
 
 

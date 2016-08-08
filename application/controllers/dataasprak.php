@@ -114,11 +114,12 @@ class Dataasprak extends CI_Controller {
 			$this->load->view('content_asprak_adm_nonaktif');
 			$this->load->view('footer');
 		}else{
-
+			$this->asprak_model->perangkingan_saw();
 			$this->load->view('header',$content_data);
 			$this->load->view('sidebar_adm');
 			$this->load->view('content_asprak_adm_nilai_sub',$content_data);
 			$this->load->view('footer');
+
 		}}else{
 			redirect('login','refresh');
 		}
@@ -188,7 +189,6 @@ class Dataasprak extends CI_Controller {
 			$this->load->view('content_asprak_adm_nonaktif');
 			$this->load->view('footer');
 		}else{
-
 			$this->load->view('header',$content_data);
 			$this->load->view('sidebar_adm');
 			$this->load->view('content_asprak_adm_nilai_kri',$content_data);
@@ -282,10 +282,6 @@ class Dataasprak extends CI_Controller {
 
 		redirect('dataasprak/tambahnilaikri','refresh');
 	}
-
-
-
-
 
 	public function terima(){
 
