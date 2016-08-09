@@ -108,7 +108,7 @@ class Asprak_model extends CI_Model {
 	}
 
 	public function perangkingan_saw(){
-		//olah perangkingan
+		
 		$query_jml_kriteria= array('jumlah'=>$this->db->query("SELECT COUNT(DISTINCT(id_kriteria)) as jumlah FROM subkriteria")->row()->jumlah);
 		extract($query_jml_kriteria);
 
@@ -131,22 +131,22 @@ class Asprak_model extends CI_Model {
 					'nilai'=> $ar['nilai']
 					);
 
-			 $query = $this->db->get_where('nilai_kriteria', array(//making selection
-			 	'id_alternatif'	=> $data_ar['id_alternatif'],
-			 	'id_kriteria'   => $data_ar['id_kriteria']
-			 	));
+				$query = $this->db->get_where('nilai_kriteria', array(
+					'id_alternatif'	=> $data_ar['id_alternatif'],
+					'id_kriteria'   => $data_ar['id_kriteria']
+					));
 
-			 $count = $query->num_rows();
+				$count = $query->num_rows();
 
-			 if ($count == '0') {
-			 	$this->db->insert('nilai_kriteria',$data_ar);
-			 } else {
+				if ($count == '0') {
+					$this->db->insert('nilai_kriteria',$data_ar);
+				} else {
 
-			 	$this->db->where('id_alternatif',"{$data_ar['id_alternatif']}");
-			 	$this->db->where('id_kriteria',"{$data_ar['id_kriteria']}");
-			 	$this->db->update("nilai_kriteria",$data_ar);
+					$this->db->where('id_alternatif',"{$data_ar['id_alternatif']}");
+					$this->db->where('id_kriteria',"{$data_ar['id_kriteria']}");
+					$this->db->update("nilai_kriteria",$data_ar);
 
-			 }
+				}
 
 			}
 		}
@@ -186,8 +186,109 @@ class Asprak_model extends CI_Model {
 				'nilai'			=> $nilai
 				));
 		}
+		$this->perangkingan_topsis();
 
 	}
+
+	public function perangkingan_topsis(){
+
+		$query_topsis = $this->db->query("SELECT a.id 'id_alternatif', a.nama 'nama_alternatif', k.nama 'nama_kriteria', n.nilai 'nilai', k.bobot 'bobot', k.kategori 'kategori' FROM nilai_kriteria n JOIN alternatif a ON (a.id=n.id_alternatif) AND n.id_alternatif IN(SELECT id from alternatif WHERE id_asisten IN(SELECT id from asisten WHERE id_tahun_ajaran = (SELECT id from tahun_ajaran WHERE status='1') AND tipe='Praktikum')) JOIN kriteria k ON(k.id=n.id_kriteria)
+			")->result_array();
+
+
+		$data=array();
+		$kriterias=array();
+		$id_alternatifs=array();
+		$bobot=array();
+		$atribut=array();
+		$nilai_kuadrat=array();
+
+		foreach ($query_topsis as $qt) {
+			if(!isset($data[$qt['nama_alternatif']])){
+				$data[$qt['nama_alternatif']]=array();
+			}
+			if(!isset($data[$qt['nama_alternatif']][$qt['nama_kriteria']])){
+				$data[$qt['nama_alternatif']][$qt['nama_kriteria']]=array();
+			}
+			if(!isset($nilai_kuadrat[$qt['nama_kriteria']])){
+				$nilai_kuadrat[$qt['nama_kriteria']]=0;
+			}
+			$bobot[$qt['nama_kriteria']]=$qt['bobot'];
+			$atribut[$qt['nama_kriteria']]=$qt['kategori'];
+			$data[$qt['nama_alternatif']][$qt['nama_kriteria']]=$qt['nilai'];
+			$nilai_kuadrat[$qt['nama_kriteria']]+=pow($qt['nilai'],2);
+			$kriterias[]=$qt['nama_kriteria'];
+			$id_alternatifs[]=$qt['id_alternatif'];
+		}
+		$kriteria=array_unique($kriterias);
+
+		$id_alternatif=$this->db->query("SELECT id from alternatif WHERE id_asisten IN(SELECT id from asisten WHERE id_tahun_ajaran = (SELECT id from tahun_ajaran WHERE status='1'))
+			")->result_array();
+		$id_alternatif=array_unique($id_alternatifs);
+		$id_alternatif = array_values($id_alternatif);
+
+		$jml_kriteria=count($kriteria);
+
+		$i=0;
+		$y=array();
+		foreach($data as $nama=>$krit){
+			++$i;
+			foreach($kriteria as $k){  
+				$y[$k][$i-1]=round(($krit[$k]/sqrt($nilai_kuadrat[$k])),4)*$bobot[$k];       
+			}
+
+		}
+
+		$yplus=array();
+		foreach($kriteria as $k){
+			$yplus[$k]=($atribut[$k]=='benefit'?max($y[$k]):min($y[$k]));
+		}
+
+		$ymin=array();
+		foreach($kriteria as $k){
+			$ymin[$k]=$atribut[$k]=='cost'?max($y[$k]):min($y[$k]);
+
+		}
+
+		$i=0;
+		$dplus=array();
+		foreach($data as $nama=>$krit){
+			++$i;
+			foreach($kriteria as $k){  
+				if(!isset($dplus[$i-1])) $dplus[$i-1]=0;
+				$dplus[$i-1]+=pow($yplus[$k]-$y[$k][$i-1],2);
+
+			}
+			
+		}
+
+		$i=0;
+		$dmin=array();
+		foreach($data as $nama=>$krit){
+			++$i;
+			foreach($kriteria as $k){  
+				if(!isset($dmin[$i-1]))$dmin[$i-1]=0;
+				$dmin[$i-1]+=pow($ymin[$k]-$y[$k][$i-1],2);
+			}
+
+		}
+
+		$i=0;
+		$V=array();
+		foreach($kriteria as $k){ 
+			++$i;
+			$V[$i-1]=$dmin[$i-1]/($dmin[$i-1]+$dplus[$i-1]);
+
+			$object=array(
+				'hasil' => $V[$i-1]
+				);
+
+			$this->db->where('id',$id_alternatif[$i-1]);
+			$this->db->update("alternatif",$object);
+		}
+
+	}
+
 
 	public function ubahnilaikriteria($id){
 

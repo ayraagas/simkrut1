@@ -43,7 +43,7 @@
       </h1>
       <form action="<?php echo base_url('registerUser/register/do_register') ?>" method="POST" id="form-register">
         <div class="input-container">
-          <input type="text" id="Nim" name="nim" required="required"/>
+          <input type="number" id="Nim" name="nim" required="required"/>
           <label for="Nim">NIM</label>
           <div class="bar"></div>
         </div>

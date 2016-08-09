@@ -16,7 +16,7 @@
   <div class="form">
     <?php echo validation_errors(); ?>
     <?php echo form_open('login/verifylogin'); ?>
-    <div class="thumbnail"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/169963/hat.svg"/></div>
+    <div class="thumbnail"><img src="<?php echo base_url('assets/pictures/hat.svg') ?>"/></div>
     <form class="login-form">
       <input type="text" name="username" placeholder="username" required />
       <input type="password" name="password" placeholder="password" required />
