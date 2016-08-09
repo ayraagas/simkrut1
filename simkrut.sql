@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 08, 2016 at 12:10 PM
+-- Generation Time: Aug 09, 2016 at 12:52 PM
 -- Server version: 5.6.26
 -- PHP Version: 5.6.12
 
@@ -57,9 +57,9 @@ CREATE TABLE `alternatif` (
 --
 
 INSERT INTO `alternatif` (`id`, `nama`, `hasil`, `id_asisten`) VALUES
-(1, 'Agas Arya Widodo', NULL, 14),
-(2, 'Anif Shofiana Durri', NULL, 15),
-(3, 'Bharamida Dwi Rizky', NULL, 16),
+(1, 'Agas Arya Widodo', 0.32071188555146, 14),
+(2, 'Anif Shofiana Durri', 0.70804894226698, 15),
+(3, 'Bharamida Dwi Rizky', 0.67928811444854, 16),
 (4, 'Agas Arya Widodo', NULL, 18),
 (5, 'Bharamida Dwi Rizky', NULL, 20);
 
@@ -375,16 +375,21 @@ CREATE TABLE `nilai_kriteria` (
 --
 
 INSERT INTO `nilai_kriteria` (`id`, `id_alternatif`, `id_kriteria`, `nilai`) VALUES
-(128, 2, 2, 0.8),
-(129, 3, 2, 0.6),
-(131, 2, 4, 0.7925000086426736),
-(132, 3, 4, 0.6600000090897084),
-(134, 1, 2, 1),
-(135, 1, 4, 0.9400000087916851),
-(140, 4, 2, 0.6),
-(141, 5, 2, 0.8),
-(142, 4, 4, 0.6600000090897084),
-(143, 5, 4, 0.7925000086426736);
+(186, 4, 2, 1),
+(187, 4, 3, 2),
+(188, 4, 4, 0.970000009983778),
+(210, 5, 2, 0.8),
+(211, 5, 3, 5),
+(212, 5, 4, 0.8300000101327897),
+(321, 3, 2, 0.6),
+(322, 3, 3, 5),
+(323, 3, 4, 0.6600000090897084),
+(483, 2, 2, 0.8),
+(484, 2, 3, 4),
+(485, 2, 4, 0.7925000086426736),
+(489, 1, 2, 1),
+(490, 1, 3, 2),
+(491, 1, 4, 0.9400000087916851);
 
 -- --------------------------------------------------------
 
@@ -425,20 +430,20 @@ INSERT INTO `nilai_subkriteria` (`id`, `id_alternatif`, `id_subkriteria`, `nilai
 (856, 3, 13, 3),
 (857, 3, 14, 3),
 (858, 3, 15, 3),
-(859, 4, 3, 3),
-(860, 4, 5, 3),
-(861, 4, 11, 3),
-(862, 4, 12, 3),
-(863, 4, 13, 3),
-(864, 4, 14, 3),
-(865, 4, 15, 3),
 (866, 5, 3, 4),
 (867, 5, 5, 4),
 (868, 5, 11, 4),
 (869, 5, 12, 4),
 (870, 5, 13, 4),
 (871, 5, 14, 4),
-(872, 5, 15, 4);
+(872, 5, 15, 4),
+(873, 4, 3, 5),
+(874, 4, 5, 5),
+(875, 4, 11, 5),
+(876, 4, 12, 5),
+(877, 4, 13, 5),
+(878, 4, 14, 5),
+(879, 4, 15, 5);
 
 -- --------------------------------------------------------
 
@@ -485,8 +490,8 @@ CREATE TABLE `tahun_ajaran` (
 --
 
 INSERT INTO `tahun_ajaran` (`id`, `tahun`, `semester`, `status`) VALUES
-(1, '2015/2016', 'Genap', '0'),
-(2, '2016/2017', 'Ganjil', '1'),
+(1, '2015/2016', 'Genap', '1'),
+(2, '2016/2017', 'Ganjil', '0'),
 (9, '2016/2017', 'Genap', '0'),
 (10, '2017/2018', 'Ganjil', '0'),
 (15, '2017/2018', 'Genap', '0');
@@ -643,12 +648,12 @@ ALTER TABLE `matakuliah`
 -- AUTO_INCREMENT for table `nilai_kriteria`
 --
 ALTER TABLE `nilai_kriteria`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=144;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=492;
 --
 -- AUTO_INCREMENT for table `nilai_subkriteria`
 --
 ALTER TABLE `nilai_subkriteria`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=873;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=880;
 --
 -- AUTO_INCREMENT for table `subkriteria`
 --
