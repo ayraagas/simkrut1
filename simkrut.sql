@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 09, 2016 at 12:52 PM
+-- Generation Time: Aug 10, 2016 at 04:02 PM
 -- Server version: 5.6.26
 -- PHP Version: 5.6.12
 
@@ -57,9 +57,9 @@ CREATE TABLE `alternatif` (
 --
 
 INSERT INTO `alternatif` (`id`, `nama`, `hasil`, `id_asisten`) VALUES
-(1, 'Agas Arya Widodo', 0.32071188555146, 14),
-(2, 'Anif Shofiana Durri', 0.70804894226698, 15),
-(3, 'Bharamida Dwi Rizky', 0.67928811444854, 16),
+(1, 'Agas Arya Widodo', 0.26618426577097, 14),
+(2, 'Anif Shofiana Durri', 0.50682606016658, 15),
+(3, 'Bharamida Dwi Rizky', 0.73381573422903, 16),
 (4, 'Agas Arya Widodo', NULL, 18),
 (5, 'Bharamida Dwi Rizky', NULL, 20);
 
@@ -227,7 +227,8 @@ CREATE TABLE `kriteria` (
 INSERT INTO `kriteria` (`id`, `nama`, `bobot`, `kategori`) VALUES
 (2, 'Nilai', 0.5, 'benefit'),
 (3, 'Tes Praktek', 0.5, 'benefit'),
-(4, 'Wawancara', 0.3, 'benefit');
+(4, 'Wawancara', 0.5, 'benefit'),
+(5, 'Microteaching', 0.5, 'benefit');
 
 -- --------------------------------------------------------
 
@@ -381,15 +382,18 @@ INSERT INTO `nilai_kriteria` (`id`, `id_alternatif`, `id_kriteria`, `nilai`) VAL
 (210, 5, 2, 0.8),
 (211, 5, 3, 5),
 (212, 5, 4, 0.8300000101327897),
-(321, 3, 2, 0.6),
-(322, 3, 3, 5),
-(323, 3, 4, 0.6600000090897084),
-(483, 2, 2, 0.8),
-(484, 2, 3, 4),
-(485, 2, 4, 0.7925000086426736),
-(489, 1, 2, 1),
-(490, 1, 3, 2),
-(491, 1, 4, 0.9400000087916851);
+(618, 2, 2, 0.8),
+(619, 2, 3, 90),
+(620, 2, 4, 0.7925000086426736),
+(621, 2, 5, 0.8000000178813934),
+(622, 3, 2, 1),
+(623, 3, 3, 75),
+(624, 3, 4, 0.9400000087916851),
+(625, 3, 5, 1.0000000223517418),
+(638, 1, 2, 0.6),
+(639, 1, 3, 100),
+(640, 1, 4, 0.6600000090897084),
+(641, 1, 5, 0.600000013411045);
 
 -- --------------------------------------------------------
 
@@ -409,27 +413,6 @@ CREATE TABLE `nilai_subkriteria` (
 --
 
 INSERT INTO `nilai_subkriteria` (`id`, `id_alternatif`, `id_subkriteria`, `nilai`) VALUES
-(817, 2, 3, 4),
-(818, 2, 5, 4),
-(819, 2, 11, 4),
-(820, 2, 12, 4),
-(821, 2, 13, 4),
-(822, 2, 14, 4),
-(823, 2, 15, 4),
-(845, 1, 3, 5),
-(846, 1, 5, 5),
-(847, 1, 11, 5),
-(848, 1, 12, 5),
-(849, 1, 13, 5),
-(850, 1, 14, 5),
-(851, 1, 15, 5),
-(852, 3, 3, 3),
-(853, 3, 5, 3),
-(854, 3, 11, 3),
-(855, 3, 12, 3),
-(856, 3, 13, 3),
-(857, 3, 14, 3),
-(858, 3, 15, 3),
 (866, 5, 3, 4),
 (867, 5, 5, 4),
 (868, 5, 11, 4),
@@ -443,7 +426,40 @@ INSERT INTO `nilai_subkriteria` (`id`, `id_alternatif`, `id_subkriteria`, `nilai
 (876, 4, 12, 5),
 (877, 4, 13, 5),
 (878, 4, 14, 5),
-(879, 4, 15, 5);
+(879, 4, 15, 5),
+(880, 1, 3, 3),
+(881, 1, 5, 3),
+(882, 1, 11, 3),
+(883, 1, 12, 3),
+(884, 1, 13, 3),
+(885, 1, 14, 3),
+(886, 1, 15, 3),
+(887, 1, 16, 3),
+(888, 1, 17, 3),
+(889, 1, 18, 3),
+(890, 1, 19, 3),
+(913, 3, 3, 5),
+(914, 3, 5, 5),
+(915, 3, 11, 5),
+(916, 3, 12, 5),
+(917, 3, 13, 5),
+(918, 3, 14, 5),
+(919, 3, 15, 5),
+(920, 3, 16, 5),
+(921, 3, 17, 5),
+(922, 3, 18, 5),
+(923, 3, 19, 5),
+(924, 2, 3, 4),
+(925, 2, 5, 4),
+(926, 2, 11, 4),
+(927, 2, 12, 4),
+(928, 2, 13, 4),
+(929, 2, 14, 4),
+(930, 2, 15, 4),
+(931, 2, 16, 4),
+(932, 2, 17, 4),
+(933, 2, 18, 4),
+(934, 2, 19, 4);
 
 -- --------------------------------------------------------
 
@@ -470,7 +486,11 @@ INSERT INTO `subkriteria` (`id`, `nama`, `bobot`, `kategori`, `id_kriteria`) VAL
 (12, 'Nilai Praktikum', 0.5, 'benefit', 2),
 (13, 'Sikap', 0.1, 'benefit', 4),
 (14, 'Motivasi', 0.05, 'benefit', 4),
-(15, 'Komunikasi', 0.15, 'cost', 4);
+(15, 'Komunikasi', 0.15, 'cost', 4),
+(16, 'Kemampuan Kelas', 0.1, 'benefit', 5),
+(17, 'Penguasaan Materi', 0.4, 'benefit', 5),
+(18, 'Kemampuan Presentasi', 0.3, 'benefit', 5),
+(19, 'Penguasaan Kelas', 0.2, 'benefit', 5);
 
 -- --------------------------------------------------------
 
@@ -633,7 +653,7 @@ ALTER TABLE `dosen`
 -- AUTO_INCREMENT for table `kriteria`
 --
 ALTER TABLE `kriteria`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `mahasiswa`
 --
@@ -648,17 +668,17 @@ ALTER TABLE `matakuliah`
 -- AUTO_INCREMENT for table `nilai_kriteria`
 --
 ALTER TABLE `nilai_kriteria`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=492;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=642;
 --
 -- AUTO_INCREMENT for table `nilai_subkriteria`
 --
 ALTER TABLE `nilai_subkriteria`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=880;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=935;
 --
 -- AUTO_INCREMENT for table `subkriteria`
 --
 ALTER TABLE `subkriteria`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT for table `tahun_ajaran`
 --

@@ -221,14 +221,13 @@ class Asprak_model extends CI_Model {
 			$id_alternatifs[]=$qt['id_alternatif'];
 		}
 		$kriteria=array_unique($kriterias);
-
+		// var_dump($kriteria);exit;
 		$id_alternatif=$this->db->query("SELECT id from alternatif WHERE id_asisten IN(SELECT id from asisten WHERE id_tahun_ajaran = (SELECT id from tahun_ajaran WHERE status='1'))
 			")->result_array();
 		$id_alternatif=array_unique($id_alternatifs);
 		$id_alternatif = array_values($id_alternatif);
 
 		$jml_kriteria=count($kriteria);
-
 		$i=0;
 		$y=array();
 		foreach($data as $nama=>$krit){
@@ -275,18 +274,31 @@ class Asprak_model extends CI_Model {
 
 		$i=0;
 		$V=array();
-		foreach($kriteria as $k){ 
+		foreach($data as $nama=>$krit){
 			++$i;
-			$V[$i-1]=$dmin[$i-1]/($dmin[$i-1]+$dplus[$i-1]);
+			foreach($kriteria as $k){  
+				$V[$i-1]=round(sqrt($dmin[$i-1]),6)/(round(sqrt($dmin[$i-1]),6)+round(sqrt($dplus[$i-1]),6));
 
-			$object=array(
-				'hasil' => $V[$i-1]
-				);
+				$object=array(
+					'hasil' => $V[$i-1]
+					);
+				$this->db->where('id',$id_alternatif[$i-1]);
+				$this->db->update("alternatif",$object);
+			}
 
-			$this->db->where('id',$id_alternatif[$i-1]);
-			$this->db->update("alternatif",$object);
 		}
 
+
+		// foreach($kriteria as $k){ 
+		// 	++$i;
+		// 	$V[$i-1]=$dmin[$i-1]/($dmin[$i-1]+$dplus[$i-1]);
+
+		// 	$object=array(
+		// 		'hasil' => $V[$i-1]
+		// 		);
+		// 	$this->db->where('id',$id_alternatif[$i-1]);
+		// 	$this->db->update("alternatif",$object);
+		// }
 	}
 
 
