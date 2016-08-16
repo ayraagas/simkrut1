@@ -287,18 +287,6 @@ class Asprak_model extends CI_Model {
 			}
 
 		}
-
-
-		// foreach($kriteria as $k){ 
-		// 	++$i;
-		// 	$V[$i-1]=$dmin[$i-1]/($dmin[$i-1]+$dplus[$i-1]);
-
-		// 	$object=array(
-		// 		'hasil' => $V[$i-1]
-		// 		);
-		// 	$this->db->where('id',$id_alternatif[$i-1]);
-		// 	$this->db->update("alternatif",$object);
-		// }
 	}
 
 
