@@ -6,7 +6,7 @@
           <h3 class="box-title">Data Sub Kriteria <?php echo $nama_kriteria; ?></h3>
         </div>
         <div class="box-body">
-          <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Tambah</button>
+          <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Tambah</button><br><br>
           <table id="example2" class="table table-bordered table-hover">
             <thead>
               <tr>
@@ -25,7 +25,7 @@
                 <td><?php echo $skr->kategori; ?></td>
                 <td>
                  <button type="button" class="btn btn-warning fa fa-pencil-square-o" id="ubahsubkriteria" data-toggle="modal" data-target="#ubahSub" data-id='<?php echo $skr->id; ?>' data-nama='<?php echo $skr->nama; ?>' data-bobot='<?php echo $skr->bobot; ?>' data-kategori='<?php echo $skr->kategori; ?>' "> Ubah</button>
-                 <a href="<?php echo 'datasubkriteria/delete'."?id={$skr->id}"; ?>" class="btn btn-danger btn-delete fa fa-minus-circle"> Delete</a></td>
+                 <a href="<?php echo 'datasubkriteria/delete'."?id={$skr->id}"; ?>" class="btn btn-danger btn-delete fa fa-minus-circle"> Hapus</a></td>
                </tr>
              </form>
              <?php } ?>

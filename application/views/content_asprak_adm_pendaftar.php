@@ -23,7 +23,7 @@
 
                    <td><?php echo $nama_mhs; ?></td>
                    <td>     <?php foreach ($dataId as $id): ?>
-                     <a href="<?php echo 'dataasprak/delete'."?id={$id}"; ?>" class="btn btn-danger btn-delete">Delete</a> <!-- data-id buat hapus -->
+                     <a href="<?php echo 'dataasprak/delete'."?id={$id}"; ?>" class="btn btn-danger btn-delete">Hapus</a> <!-- data-id buat hapus -->
                    <?php endforeach ?>
                    </td>
                    <?php foreach ($matakuliah as $mk): ?>

@@ -3,7 +3,7 @@
     <div class="col-xs-12">
       <div class="box">
         <div class="box-header">
-          <h3 class="box-title">Pengumuman Asisten Mandiri</h3>
+          <h3 class="box-title">Pengumuman Asisten Praktikum</h3>
         </div>
         <div class="box-body">
           <table id="example2" class="table table-bordered table-hover">

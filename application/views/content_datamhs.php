@@ -35,8 +35,8 @@
                     <button type="submit" class="btn btn-info" name="action" value="change">Change</button>
                     <button type="submit" class="btn btn-danger btn-delete" name="action" value="delete">Delete</button>
                     -->
-                    <a href="<?php echo 'datamhs/change'."?id={$mhs->id}&status={$mhs->status}"; ?>" class="btn btn-info">Change</a>
-                    <a href="<?php echo 'datamhs/delete'."?id={$mhs->id}"; ?>" class="btn btn-danger btn-delete">Delete</a>
+                    <a href="<?php echo 'datamhs/change'."?id={$mhs->id}&status={$mhs->status}"; ?>" class="btn btn-info">Ubah Status</a>
+                    <a href="<?php echo 'datamhs/delete'."?id={$mhs->id}"; ?>" class="btn btn-danger btn-delete">Hapus</a>
                    </td>
                  <!-- </form> -->
                 </tr>

@@ -6,7 +6,7 @@
 					<h3 class="box-title">Data Nilai Subkriteria Calon Asisten Praktikum <?php echo "$tahunajaran->tahun "; echo "$tahunajaran->semester"; ?></h3>
 				</div>
 				<div class="box-body">
-					<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Tambah</button>
+					<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Tambah</button><br><br>
 					<div class="table-responsive">
 						<table id="example2" class="table table-bordered table-hover">
 							<thead>

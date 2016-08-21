@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 16, 2016 at 07:34 AM
+-- Generation Time: Aug 21, 2016 at 12:19 PM
 -- Server version: 5.6.26
 -- PHP Version: 5.6.12
 
@@ -119,7 +119,7 @@ CREATE TABLE `data_asisten_mandiri` (
 --
 
 INSERT INTO `data_asisten_mandiri` (`id`, `id_matakuliah`, `nilai`, `id_asisten`, `id_dosen`, `kelas`) VALUES
-(6, 18, 'A-', 6, 8, 'C'),
+(6, 18, 'A-', 6, 0, ''),
 (7, 124, 'A/B', 6, 1, 'A'),
 (8, 18, 'A', 17, 7, 'D'),
 (9, 182, 'A-', 17, 10, 'E'),
@@ -281,8 +281,7 @@ CREATE TABLE `mahasiswa` (
 INSERT INTO `mahasiswa` (`id`, `nim`, `nama`, `password`, `angkatan`, `ipk`, `status`) VALUES
 (1, '12523017', 'Agas Arya Widodo', 'ea1d3fbbb2f58eb2f72a81eb85c7dcd1', '2012', 3.8, '1'),
 (3, '12523020', 'Anif Shofiana Durri', 'ea1d3fbbb2f58eb2f72a81eb85c7dcd1', '2012', NULL, '1'),
-(4, '12523096', 'Bharamida Dwi Rizky', 'ea1d3fbbb2f58eb2f72a81eb85c7dcd1', '121321', 3.56, '1'),
-(5, '13523155', 'Coba', 'c4ca4238a0b923820dcc509a6f75849b', '', NULL, '1'),
+(4, '12523096', 'Bharamida Dwi Rizky', 'ea1d3fbbb2f58eb2f72a81eb85c7dcd1', '2012', 3.56, '1'),
 (6, '12523018', 'Hafidh Muafa', '827ccb0eea8a706c4c34a16891f84e7b', '2012', 3.89, '1');
 
 -- --------------------------------------------------------

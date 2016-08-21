@@ -13,7 +13,7 @@
  					<span class="input-group-addon"><i class="fa fa-key"></i></span>
  					<input type="password" class="form-control" placeholder="Password Baru" name="passwordbaru" required>
  				</div><br>
- 				<label>*Jika Berhasil muncul alert success*</label>
+ 				<label>*Jika berhasil muncul alert success</label>
 
  			</div>
  		</div>

@@ -7,7 +7,7 @@
         </div>
         <div class="box-body">
           <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Tambah</button>
-          <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addViaCSV">Tambah via CSV</button>
+          <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addViaCSV">Tambah via CSV</button><br><br>
           <?php if (isset($error)): ?>
             <div class="alert alert-error"><?php echo $error; ?></div>
           <?php endif; ?>
