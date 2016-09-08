@@ -296,6 +296,13 @@ class Asprak_model extends CI_Model {
 		return $query->result();
 	}
 
+public function get_graph_data() {
+		$sql = "SELECT alt.nama, mhs.angkatan, alt.hasil
+			FROM alternatif alt JOIN asisten a ON (alt.id_asisten=a.id) JOIN mahasiswa mhs ON (mhs.id=a.id_mahasiswa)
+			WHERE alt.id_asisten IN ( SELECT id FROM asisten WHERE id_tahun_ajaran = (SELECT id FROM tahun_ajaran WHERE status='1') AND tipe = 'Praktikum') order by hasil desc";
+		$query = $this->db->query($sql, FALSE);
+		return $query->result();
+	}
 
 
 	public function pengumuman(){

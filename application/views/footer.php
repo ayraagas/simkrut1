@@ -8,7 +8,7 @@
 <!-- ./wrapper -->
 
 <!-- jQuery 2.2.0 -->
-<script src="assets/plugins/jQuery/jQuery-2.2.0.min.js"></script>
+<script src="assets/plugins/jQuery/jquery-3.1.0.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="assets/plugins/jQueryUI/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -107,12 +107,12 @@
 <!-- AdminLTE for demo purposes -->
 <script src="assets/dist/js/demo.js"></script>
 <!-- ChartJS 1.0.1 -->
-<script src="assets/plugins/chartjs/Chart.min.js"></script>
+<script src="assets/plugins/chartjs/ChartNew.js"></script>
+<!-- script tambahan -->
 <script src="assets/dist/addinput.js" type="text/javascript" charset="utf-8" async defer></script>
 <script src="assets/sweetalert/dist/sweetalert.min.js"></script>
 
 <script src="assets/js/warn_delete.js"></script>
-<!-- <script src="assets/js/grafik.js"></script> -->
 
 </body>
 </html>

@@ -44,6 +44,7 @@ class Ubahpass extends CI_Controller {
 			
 		}
 
+
 		private function _change_submit($post_data){
 
 			$passwordlama = $post_data['passwordlama'];
@@ -55,11 +56,11 @@ class Ubahpass extends CI_Controller {
 					redirect('ubahpass/change','refresh');
 				}
 			}else{
-				redirect('ubahpass','refresh');
-			}
-
+		redirect('ubahpass','refresh');
 		}
-	}
 
-	/* End of file ubahpass.php */
+	}
+}
+
+/* End of file ubahpass.php */
 /* Location: ./application/controllers/ubahpass.php */

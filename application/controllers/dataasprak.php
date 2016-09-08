@@ -283,6 +283,24 @@ class Dataasprak extends CI_Controller {
 		redirect('dataasprak/tambahnilaikri','refresh');
 	}
 
+	public function grafikrangking(){
+		if($this->session->userdata('logged_in')){$session_data = $this->session->userdata('logged_in');
+
+		$content_data = array(
+			'nama'		=> $session_data['username']
+			);
+
+		$this->load->view('header',$content_data);
+		$this->load->view('sidebar_adm');
+		$this->load->view('content_grafik_calon_asprak',$content_data);
+		$this->load->view('footer');}else{
+			redirect('login','refresh');
+		}
+
+
+	} 
+
+
 	public function terima(){
 
 		$id= $this->input->get('id');

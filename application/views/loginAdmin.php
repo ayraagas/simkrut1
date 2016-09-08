@@ -10,7 +10,7 @@
 <body>
   <div class="container">
     <div class="info">
-      <h1>Admin ONLY !</h1><span>Made with <i class="fa fa-heart"></i> by Agas Arya Widodo</span>
+      <h1>Admin ONLY !</h1><span>Made by Agas Arya Widodo</span>
     </div>
   </div>
   <div class="form">
