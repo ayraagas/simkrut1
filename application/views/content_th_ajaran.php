@@ -36,8 +36,8 @@
     </tbody>
     <tfoot>
       <tr>
-        <th>Nim</th>
-        <th>Nama</th>
+        <th>Tahun</th>
+        <th>Semester</th>
         <th>Status</th>
         <th>Aksi</th>
       </tr>

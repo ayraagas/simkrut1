@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 21, 2016 at 12:19 PM
+-- Generation Time: Sep 09, 2016 at 09:26 AM
 -- Server version: 5.6.26
 -- PHP Version: 5.6.12
 
@@ -57,12 +57,11 @@ CREATE TABLE `alternatif` (
 --
 
 INSERT INTO `alternatif` (`id`, `nama`, `hasil`, `id_asisten`) VALUES
-(1, 'Agas Arya Widodo', 0.29063937080068, 14),
-(2, 'Anif Shofiana Durri', 0.5105481674178, 15),
-(3, 'Bharamida Dwi Rizky', 0.70936062919932, 16),
+(1, 'Agas Arya Widodo', 0.69876314407848, 14),
+(2, 'Novia Vazela', 0.70633372536646, 15),
+(3, 'Bharamida Dwi Rizky', 0.078764133119069, 16),
 (4, 'Agas Arya Widodo', 0.28814802098458, 18),
 (5, 'Bharamida Dwi Rizky', 0.17002720401022, 20),
-(6, 'Hafidh Muafa', 0.71185197901542, 21),
 (7, 'Agas Arya Widodo', 0.68802510366627, 23),
 (8, 'Bharamida Dwi Rizky', 0.31197489633373, 24);
 
@@ -87,15 +86,13 @@ CREATE TABLE `asisten` (
 INSERT INTO `asisten` (`id`, `id_tahun_ajaran`, `id_mahasiswa`, `tipe`, `status`) VALUES
 (2, 9, 1, 'Mandiri', NULL),
 (6, 1, 1, 'Mandiri', NULL),
-(14, 1, 1, 'Praktikum', '0'),
+(14, 1, 1, 'Praktikum', '1'),
 (15, 1, 3, 'Praktikum', '1'),
-(16, 1, 4, 'Praktikum', '1'),
+(16, 1, 4, 'Praktikum', '0'),
 (17, 1, 4, 'Mandiri', '0'),
 (18, 2, 1, 'Praktikum', '0'),
 (19, 2, 1, 'Mandiri', '0'),
 (20, 2, 4, 'Praktikum', '0'),
-(21, 2, 6, 'Praktikum', '0'),
-(22, 2, 6, 'Mandiri', '0'),
 (23, 9, 1, 'Praktikum', '0'),
 (24, 9, 4, 'Praktikum', '0');
 
@@ -119,12 +116,9 @@ CREATE TABLE `data_asisten_mandiri` (
 --
 
 INSERT INTO `data_asisten_mandiri` (`id`, `id_matakuliah`, `nilai`, `id_asisten`, `id_dosen`, `kelas`) VALUES
-(6, 18, 'A-', 6, 0, ''),
 (7, 124, 'A/B', 6, 1, 'A'),
-(8, 18, 'A', 17, 7, 'D'),
 (9, 182, 'A-', 17, 10, 'E'),
 (10, 20, 'A/B', 17, 9, 'D'),
-(11, 21, 'A-', 17, 0, NULL),
 (12, 22, 'A/B', 17, 0, NULL),
 (13, 23, 'A-', 17, 0, NULL),
 (14, 32, 'A-', 17, 0, NULL),
@@ -132,10 +126,7 @@ INSERT INTO `data_asisten_mandiri` (`id`, `id_matakuliah`, `nilai`, `id_asisten`
 (16, 35, 'A/B', 19, 0, NULL),
 (17, 36, 'A/B', 19, 0, NULL),
 (18, 37, 'A-', 19, 0, NULL),
-(19, 38, 'A-', 19, 0, NULL),
-(20, 190, 'B+', 22, 7, 'C'),
-(21, 35, 'A/B', 22, 0, NULL),
-(22, 37, 'B+', 22, 0, NULL);
+(19, 38, 'A-', 19, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -188,11 +179,6 @@ INSERT INTO `data_asisten_praktikum` (`id`, `id_matakuliah`, `nilai`, `id_asiste
 (53, 187, 4, 20),
 (54, 189, 3, 20),
 (55, 163, 2, 20),
-(56, 183, 3, 21),
-(57, 184, 2, 21),
-(58, 187, 3, 21),
-(59, 189, 5, 21),
-(60, 163, 3, 21),
 (61, 183, 4, 23),
 (62, 184, 4, 23),
 (63, 186, 3, 23),
@@ -232,7 +218,6 @@ INSERT INTO `dosen` (`id`, `nama`) VALUES
 (8, 'Ahmad Fathan Hidayatullah'),
 (9, 'Aridanyati Arifin'),
 (10, 'Rahadian Kurniawan'),
-(11, 'Taufiq Hidayat'),
 (12, 'Syarif Hidayat');
 
 -- --------------------------------------------------------
@@ -279,10 +264,9 @@ CREATE TABLE `mahasiswa` (
 --
 
 INSERT INTO `mahasiswa` (`id`, `nim`, `nama`, `password`, `angkatan`, `ipk`, `status`) VALUES
-(1, '12523017', 'Agas Arya Widodo', 'ea1d3fbbb2f58eb2f72a81eb85c7dcd1', '2012', 3.8, '1'),
-(3, '12523020', 'Anif Shofiana Durri', 'ea1d3fbbb2f58eb2f72a81eb85c7dcd1', '2012', NULL, '1'),
-(4, '12523096', 'Bharamida Dwi Rizky', 'ea1d3fbbb2f58eb2f72a81eb85c7dcd1', '2012', 3.56, '1'),
-(6, '12523018', 'Hafidh Muafa', '827ccb0eea8a706c4c34a16891f84e7b', '2012', 3.89, '1');
+(1, '12523017', 'Agas Arya Widodo', 'ea1d3fbbb2f58eb2f72a81eb85c7dcd1', '2012', 3.69, '1'),
+(3, '12523156', 'Novia Vazela', 'ea1d3fbbb2f58eb2f72a81eb85c7dcd1', '2012', NULL, '1'),
+(4, '12523096', 'Bharamida Dwi Rizky', 'ea1d3fbbb2f58eb2f72a81eb85c7dcd1', '2012', 3.56, '1');
 
 -- --------------------------------------------------------
 
@@ -302,7 +286,6 @@ CREATE TABLE `matakuliah` (
 --
 
 INSERT INTO `matakuliah` (`id`, `nama`, `semester`, `jenis`) VALUES
-(18, 'Algoritma dan Pemrograman 2', 'Genap', 'Wajib'),
 (20, 'Data Mining', 'Genap', 'Wajib'),
 (21, 'Etika Profesi', 'Genap', 'Wajib'),
 (22, 'Manajemen Teknologi Informasi', 'Genap', 'Wajib'),
@@ -385,7 +368,8 @@ INSERT INTO `matakuliah` (`id`, `nama`, `semester`, `jenis`) VALUES
 (187, 'Pemrograman Berorientasi Obyek(P)', 'Ganjil', 'Praktikum'),
 (188, 'Struktur Data(P)', 'Genap', 'Praktikum'),
 (189, 'Pemrograman Web(P)', 'Genap', 'Praktikum'),
-(190, 'Algoritma dan Pemrograman 1', 'Ganjil', 'Wajib');
+(190, 'Algoritma dan Pemrograman 1', 'Ganjil', 'Wajib'),
+(191, 'Algoritma dan Pemrograman 2', 'Genap', 'Wajib');
 
 -- --------------------------------------------------------
 
@@ -411,24 +395,16 @@ INSERT INTO `nilai_kriteria` (`id`, `id_alternatif`, `id_kriteria`, `nilai`) VAL
 (210, 5, 2, 0.8),
 (211, 5, 3, 5),
 (212, 5, 4, 0.7925000086426736),
-(618, 2, 2, 0.8),
+(618, 2, 2, 0.375),
 (619, 2, 3, 90),
-(620, 2, 4, 0.7925000086426736),
-(621, 2, 5, 0.8000000178813934),
-(622, 3, 2, 1),
+(620, 2, 4, 0.9525000095367432),
+(621, 2, 5, 1.0000000223517418),
+(622, 3, 2, 0.375),
 (623, 3, 3, 75),
-(624, 3, 4, 0.9400000087916851),
-(625, 3, 5, 1.0000000223517418),
-(646, 1, 2, 0.6),
-(647, 1, 3, 100),
-(648, 1, 4, 0.6600000090897084),
-(649, 1, 5, 0.600000013411045),
+(624, 3, 4, 0.9125000089406967),
+(625, 3, 5, 0.8500000201165676),
 (653, 4, 5, 1.0000000223517418),
 (654, 5, 5, 0.8000000178813934),
-(655, 6, 2, 0.6),
-(656, 6, 3, 100),
-(657, 6, 4, 0.6600000090897084),
-(658, 6, 5, 0.600000013411045),
 (662, 7, 2, 0.9166666666666667),
 (663, 7, 3, 5),
 (664, 7, 4, 0.9500000104308128),
@@ -436,7 +412,11 @@ INSERT INTO `nilai_kriteria` (`id`, `id_alternatif`, `id_kriteria`, `nilai`) VAL
 (681, 8, 2, 1),
 (682, 8, 3, 4),
 (683, 8, 4, 0.9750000101824602),
-(684, 8, 5, 1.0000000223517418);
+(684, 8, 5, 1.0000000223517418),
+(685, 1, 2, 0.5),
+(686, 1, 3, 90),
+(687, 1, 4, 0.8800000093877316),
+(688, 1, 5, 0.9000000208616257);
 
 -- --------------------------------------------------------
 
@@ -456,53 +436,8 @@ CREATE TABLE `nilai_subkriteria` (
 --
 
 INSERT INTO `nilai_subkriteria` (`id`, `id_alternatif`, `id_subkriteria`, `nilai`) VALUES
-(880, 1, 3, 3),
-(881, 1, 5, 3),
-(882, 1, 11, 3),
-(883, 1, 12, 3),
-(884, 1, 13, 3),
-(885, 1, 14, 3),
-(886, 1, 15, 3),
-(887, 1, 16, 3),
-(888, 1, 17, 3),
-(889, 1, 18, 3),
-(890, 1, 19, 3),
-(913, 3, 3, 5),
-(914, 3, 5, 5),
-(915, 3, 11, 5),
-(916, 3, 12, 5),
-(917, 3, 13, 5),
-(918, 3, 14, 5),
-(919, 3, 15, 5),
-(920, 3, 16, 5),
-(921, 3, 17, 5),
-(922, 3, 18, 5),
-(923, 3, 19, 5),
-(924, 2, 3, 4),
-(925, 2, 5, 4),
-(926, 2, 11, 4),
-(927, 2, 12, 4),
-(928, 2, 13, 4),
-(929, 2, 14, 4),
-(930, 2, 15, 4),
-(931, 2, 16, 4),
-(932, 2, 17, 4),
-(933, 2, 18, 4),
-(934, 2, 19, 4),
-(935, 6, 3, 3),
-(936, 6, 5, 3),
-(937, 6, 11, 3),
-(938, 6, 12, 3),
-(939, 6, 13, 3),
-(940, 6, 14, 3),
-(941, 6, 15, 3),
-(942, 6, 16, 3),
-(943, 6, 17, 3),
-(944, 6, 18, 3),
-(945, 6, 19, 3),
 (946, 4, 3, 5),
 (947, 4, 5, 5),
-(948, 4, 11, 5),
 (949, 4, 12, 5),
 (950, 4, 13, 5),
 (951, 4, 14, 5),
@@ -513,7 +448,6 @@ INSERT INTO `nilai_subkriteria` (`id`, `id_alternatif`, `id_subkriteria`, `nilai
 (956, 4, 19, 5),
 (957, 5, 3, 4),
 (958, 5, 5, 4),
-(959, 5, 11, 4),
 (960, 5, 12, 4),
 (961, 5, 13, 4),
 (962, 5, 14, 4),
@@ -524,7 +458,6 @@ INSERT INTO `nilai_subkriteria` (`id`, `id_alternatif`, `id_subkriteria`, `nilai
 (967, 5, 19, 4),
 (968, 7, 3, 5),
 (969, 7, 5, 5),
-(970, 7, 11, 5),
 (971, 7, 12, 5),
 (972, 7, 13, 5),
 (973, 7, 14, 5),
@@ -535,7 +468,6 @@ INSERT INTO `nilai_subkriteria` (`id`, `id_alternatif`, `id_subkriteria`, `nilai
 (978, 7, 19, 5),
 (990, 8, 3, 6),
 (991, 8, 5, 5),
-(992, 8, 11, 6),
 (993, 8, 12, 5),
 (994, 8, 13, 6),
 (995, 8, 14, 5),
@@ -543,7 +475,37 @@ INSERT INTO `nilai_subkriteria` (`id`, `id_alternatif`, `id_subkriteria`, `nilai
 (997, 8, 16, 5),
 (998, 8, 17, 6),
 (999, 8, 18, 5),
-(1000, 8, 19, 5);
+(1000, 8, 19, 5),
+(1001, 1, 3, 2),
+(1002, 1, 5, 4),
+(1004, 1, 12, 4),
+(1005, 1, 13, 4),
+(1006, 1, 14, 3),
+(1007, 1, 15, 3),
+(1008, 1, 16, 2),
+(1009, 1, 17, 4),
+(1010, 1, 18, 3),
+(1011, 1, 19, 3),
+(1012, 2, 3, 4),
+(1013, 2, 5, 4),
+(1015, 2, 12, 3),
+(1016, 2, 13, 4),
+(1017, 2, 14, 4),
+(1018, 2, 15, 4),
+(1019, 2, 16, 4),
+(1020, 2, 17, 4),
+(1021, 2, 18, 3),
+(1022, 2, 19, 4),
+(1023, 3, 3, 3),
+(1024, 3, 5, 4),
+(1026, 3, 12, 3),
+(1027, 3, 13, 4),
+(1028, 3, 14, 5),
+(1029, 3, 15, 4),
+(1030, 3, 16, 4),
+(1031, 3, 17, 3),
+(1032, 3, 18, 3),
+(1033, 3, 19, 3);
 
 -- --------------------------------------------------------
 
@@ -566,7 +528,6 @@ CREATE TABLE `subkriteria` (
 INSERT INTO `subkriteria` (`id`, `nama`, `bobot`, `kategori`, `id_kriteria`) VALUES
 (3, 'Kerjasama', 0.2, 'benefit', 4),
 (5, 'Komitmen', 0.5, 'benefit', 4),
-(11, 'Nilai Teori', 0.5, 'benefit', 2),
 (12, 'Nilai Praktikum', 0.5, 'benefit', 2),
 (13, 'Sikap', 0.1, 'benefit', 4),
 (14, 'Motivasi', 0.05, 'benefit', 4),
@@ -574,7 +535,8 @@ INSERT INTO `subkriteria` (`id`, `nama`, `bobot`, `kategori`, `id_kriteria`) VAL
 (16, 'Kemampuan Kelas', 0.1, 'benefit', 5),
 (17, 'Penguasaan Materi', 0.4, 'benefit', 5),
 (18, 'Kemampuan Presentasi', 0.3, 'benefit', 5),
-(19, 'Penguasaan Kelas', 0.2, 'benefit', 5);
+(19, 'Penguasaan Kelas', 0.2, 'benefit', 5),
+(20, 'Nilai Teori', 0.5, 'benefit', 2);
 
 -- --------------------------------------------------------
 
@@ -597,8 +559,7 @@ INSERT INTO `tahun_ajaran` (`id`, `tahun`, `semester`, `status`) VALUES
 (1, '2015/2016', 'Genap', '1'),
 (2, '2016/2017', 'Ganjil', '0'),
 (9, '2016/2017', 'Genap', '0'),
-(10, '2017/2018', 'Ganjil', '0'),
-(15, '2017/2018', 'Genap', '0');
+(10, '2017/2018', 'Ganjil', '0');
 
 --
 -- Indexes for dumped tables
@@ -712,22 +673,22 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `alternatif`
 --
 ALTER TABLE `alternatif`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `asisten`
 --
 ALTER TABLE `asisten`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 --
 -- AUTO_INCREMENT for table `data_asisten_mandiri`
 --
 ALTER TABLE `data_asisten_mandiri`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 --
 -- AUTO_INCREMENT for table `data_asisten_praktikum`
 --
 ALTER TABLE `data_asisten_praktikum`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 --
 -- AUTO_INCREMENT for table `dosen`
 --
@@ -747,22 +708,22 @@ ALTER TABLE `mahasiswa`
 -- AUTO_INCREMENT for table `matakuliah`
 --
 ALTER TABLE `matakuliah`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=191;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=192;
 --
 -- AUTO_INCREMENT for table `nilai_kriteria`
 --
 ALTER TABLE `nilai_kriteria`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=685;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=689;
 --
 -- AUTO_INCREMENT for table `nilai_subkriteria`
 --
 ALTER TABLE `nilai_subkriteria`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1001;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1034;
 --
 -- AUTO_INCREMENT for table `subkriteria`
 --
 ALTER TABLE `subkriteria`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT for table `tahun_ajaran`
 --
@@ -782,30 +743,30 @@ ALTER TABLE `alternatif`
 -- Constraints for table `asisten`
 --
 ALTER TABLE `asisten`
-  ADD CONSTRAINT `asisten_ibfk_1` FOREIGN KEY (`id_tahun_ajaran`) REFERENCES `tahun_ajaran` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `asisten_ibfk_1` FOREIGN KEY (`id_tahun_ajaran`) REFERENCES `tahun_ajaran` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `asisten_ibfk_2` FOREIGN KEY (`id_mahasiswa`) REFERENCES `mahasiswa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `data_asisten_mandiri`
 --
 ALTER TABLE `data_asisten_mandiri`
-  ADD CONSTRAINT `data_asisten_mandiri_ibfk_1` FOREIGN KEY (`id_matakuliah`) REFERENCES `matakuliah` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `data_asisten_mandiri_ibfk_1` FOREIGN KEY (`id_matakuliah`) REFERENCES `matakuliah` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `data_asisten_mandiri_ibfk_2` FOREIGN KEY (`id_asisten`) REFERENCES `asisten` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `data_asisten_mandiri_ibfk_3` FOREIGN KEY (`id_dosen`) REFERENCES `dosen` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `data_asisten_mandiri_ibfk_3` FOREIGN KEY (`id_dosen`) REFERENCES `dosen` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `data_asisten_praktikum`
 --
 ALTER TABLE `data_asisten_praktikum`
-  ADD CONSTRAINT `data_asisten_praktikum_ibfk_2` FOREIGN KEY (`id_matakuliah`) REFERENCES `matakuliah` (`id`),
+  ADD CONSTRAINT `data_asisten_praktikum_ibfk_2` FOREIGN KEY (`id_matakuliah`) REFERENCES `matakuliah` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `data_asisten_praktikum_ibfk_3` FOREIGN KEY (`id_asisten`) REFERENCES `asisten` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `nilai_kriteria`
 --
 ALTER TABLE `nilai_kriteria`
-  ADD CONSTRAINT `nilai_kriteria_ibfk_1` FOREIGN KEY (`id_alternatif`) REFERENCES `alternatif` (`id`),
-  ADD CONSTRAINT `nilai_kriteria_ibfk_2` FOREIGN KEY (`id_kriteria`) REFERENCES `kriteria` (`id`);
+  ADD CONSTRAINT `nilai_kriteria_ibfk_1` FOREIGN KEY (`id_alternatif`) REFERENCES `alternatif` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `nilai_kriteria_ibfk_2` FOREIGN KEY (`id_kriteria`) REFERENCES `kriteria` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `nilai_subkriteria`

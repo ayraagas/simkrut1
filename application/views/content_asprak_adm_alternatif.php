@@ -3,7 +3,7 @@
    <div class="col-xs-12">
     <div class="box">
       <div class="box-header">
-        <h3 class="box-title">Data Alternatif Praktikum <?php echo "$tahunajaran->tahun "; echo "$tahunajaran->semester"; ?></h3>
+        <h3 class="box-title">Data Hasil Rekomendasi Calon Asisten Praktikum <?php echo "$tahunajaran->tahun "; echo "$tahunajaran->semester"; ?></h3>
       </div>
       <div class="box-body">
         <div class="table-responsive">
