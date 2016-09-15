@@ -111,7 +111,7 @@
             <label class="col-sm-2 control-label" >Upload File : </label>
 
             <div class="col-sm-10">
-              <input type="file" size="50" class="form-control" name="userfile">
+              <input type="file" class="form-control" name="userfile">
             </div>
           </div>
         </div>

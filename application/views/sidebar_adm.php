@@ -17,7 +17,13 @@
           <li><a href="dataasprak/alternatif"><i class="fa fa-circle-o"></i>Data Hasil Rekomendasi</a></li>
         </ul>
       </li>
-      <li><a href="dataasman"><i class="fa fa-circle-o"></i>Data Calon Asisten Mandiri</a></li>
+
+      <li><a href="dataasman"><i class="fa fa-circle-o"></i>Data Calon Asisten Mandiri
+       <i class="fa fa-angle-left pull-right"></i></a>
+           <ul class="treeview-menu">
+          <li><a href="dataasman/pendaftar"><i class="fa fa-circle-o"></i>Data Pendaftar</a></li>
+          <li><a href="dataasman/simpanExcel"><i class="fa fa-circle-o"></i>Ekspor Data Asisten Mandiri</a></li>
+        </ul></li>
     </ul>
   </li>
   <li class="treeview">

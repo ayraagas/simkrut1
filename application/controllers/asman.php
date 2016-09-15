@@ -68,12 +68,17 @@
  			'matakuliah'	=> array(),
  			'tipe'			=> $post_data['tipe']
  			);
+
+        $this->asman_model->ubahIpk($data_asman);
  		foreach ($post_data['matakuliah'] as $mk_id => $nilai) {
  			if (!empty($nilai)) {
  				$data_asman['matakuliah'][$mk_id] = $nilai;
  			}
  		}
- 		$this->asman_model->daftar($data_asman);
+ 		if (!empty($data_asman['matakuliah'])) {
+ 			$this->asman_model->daftar($data_asman);
+ 			}
+ 		
 
  		redirect('asman/daftar','refresh');
  	}

@@ -22,7 +22,7 @@
       <h1 class="title">Login</h1>
       <form action="<?php echo base_url('login/verifyloginuser')  ?>" method="POST">
         <div class="input-container">
-          <input type="text" id="Nim" name="nim" required="required"/>
+          <input type="number" id="Nim" name="nim" required="required"/>
           <label for="NIM">NIM</label>
           <div class="bar"></div>
         </div>
@@ -50,6 +50,11 @@
         <div class="input-container">
           <input type="text" id="Namalengkap" name="namalengkap" required="required"/>
           <label for="Namalengkap">Nama Lengkap</label>
+          <div class="bar"></div>
+        </div>
+        <div class="input-container">
+          <input type="number" id="notelp" name="no_telp" required="required"/>
+          <label for="No Telp">No Telp</label>
           <div class="bar"></div>
         </div>
         <div class="input-container">

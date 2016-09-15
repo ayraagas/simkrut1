@@ -31,6 +31,12 @@ class Asman_model extends CI_Model {
 		}
 	}
 
+	public function ubahIpk($data_asman){
+			$this->db->update("mahasiswa", array(
+			'ipk'	=> $data_asman['ipk']
+			), "id = '{$data_asman['user_id']}'");
+	}
+
 	public function check_daftar($id_mahasiswa, $id_tahun_ajaran) {
 		$this->db->where("id_mahasiswa", $id_mahasiswa);
 		$this->db->where("id_tahun_ajaran", $id_tahun_ajaran);
@@ -45,6 +51,12 @@ class Asman_model extends CI_Model {
 
 	public function get_data_asman(){
 		$data_asman= $this->db->query("SELECT d.id 'id',mk.nama 'matakuliah', mhs.nama 'namamahasiswa', d.nilai 'nilai', mhs.ipk 'ipk', dsn.nama 'namadosen', d.kelas 'kelas' FROM matakuliah mk JOIN data_asisten_mandiri d on (mk.id=d.id_matakuliah) JOIN asisten a on (d.id_asisten=a.id) JOIN mahasiswa mhs on (mhs.id=a.id_mahasiswa) join tahun_ajaran t ON (a.id_tahun_ajaran=t.id) left join dosen dsn on (dsn.id=d.id_dosen) WHERE t.status='1' ORDER BY matakuliah, ipk desc");
+		return $data_asman->result();
+	}
+
+	public function get_data_asman_1(){
+		$data_asman= $this->db->query("SELECT mk.nama 'nama', mhs.nim 'nim', mhs.nama 'nama_mhs', mhs.no_telp 'no_telp', dam.nilai 'nilai' FROM mahasiswa mhs JOIN asisten a ON (mhs.id=a.id_mahasiswa) JOIN data_asisten_mandiri dam ON (dam.id_asisten=a.id) JOIN matakuliah mk ON (mk.id=dam.id_matakuliah) JOIN tahun_ajaran ta ON (ta.id=a.id_tahun_ajaran) WHERE ta.status='1' ORDER BY nama, mhs.nama
+");
 		return $data_asman->result();
 	}
 

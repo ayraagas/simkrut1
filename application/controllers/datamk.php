@@ -67,7 +67,7 @@ class Datamk extends CI_Controller {
 		$data['error'] = '';    //initialize image upload error array to empty
 
 		$config['upload_path'] = 'assets/uploads/';
-		$config['allowed_types'] = 'csv';
+		$config['allowed_types'] = '*';
 		$config['max_size'] = '1000';
 
 		$this->load->library('upload', $config);
