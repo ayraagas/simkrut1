@@ -27,7 +27,7 @@
               <?php else: ?>
               <td><?php echo 'Aktif'; ?></td>
             <?php endif; ?><td>
-            <a href="<?php echo 'tahunajaran/change'."?id={$thn->id}&status={$thn->status}"; ?>" class="btn btn-info">Change</a>
+            <a href="<?php echo 'tahunajaran/change'."?id={$thn->id}&status={$thn->status}"; ?>" class="btn btn-info">Ubah Status</a>
             <a href="<?php echo 'tahunajaran/delete'."?id={$thn->id}"; ?>" class="btn btn-danger btn-delete">Delete</a>
           </td>
         </tr>
@@ -59,12 +59,12 @@
             <label class="col-sm-2 control-label" >Tahun</label>
 
             <div class="col-sm-10">
-              <input type="text" class="form-control" name="tahun" placeholder="Tahun ex: 2016/2017">
+              <input type="text" class="form-control" name="tahun" placeholder="Tahun ex: 2016/2017" required>
             </div>
           </div><div class="form-group">
           <label class="col-sm-2 control-label">Semester</label>
           <div class="col-sm-10">
-           <select name="semester" class="form-control">
+           <select name="semester" class="form-control" required>
             <option  value="Ganjil">Ganjil</option>
             <option  value="Genap">Genap</option>
           </select>

@@ -6,7 +6,7 @@
       <h3 class="box-title">Data Calon Asisten Mandiri <?php echo "$tahunajaran->tahun "; echo "$tahunajaran->semester"; ?></h3>
     </div>
     <div class="box-body">
-    <button type="button" class="btn btn-success"><a href="dataasman/simpanExcel_submit" style="text-decoration: none;color: white;">Export CSV</a></button><br> <br>
+    <button type="button" class="btn btn-success"><a href="dataasman/simpanExcel_submit" style="text-decoration: none;color: white;">Ekspor CSV</a></button><br> <br>
       <table id="example2" class="table table-bordered table-hover">
         <thead>
           <tr>

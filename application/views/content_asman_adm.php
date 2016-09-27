@@ -50,7 +50,7 @@
       </table>
     </div>
 
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal fade" id="myModal" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -64,12 +64,12 @@
                 <label class="col-sm control-label">Dosen</label>
                 <?php $id= $this->input->get('id');?>
                 <input type="hidden" class="id_asisten" name="id_asisten" value="<?php $id ?>">
-                <select name="dosen" class="form-control">
+                <select name="dosen" class="form-control select2" style="width: 100%;">
                   <?php foreach ($dosen as $dsn) {?>
                    <option value="<?php echo $dsn->id ?>"><?php echo "$dsn->nama"; ?></option>
                    <?php } ?>
                  </select>
-                 <label class="col-sm control-label">Kelas</label>
+    <label class="col-sm control-label">Kelas</label>
                  <select name="kelas" class="form-control">
                   <option value=""></option>
                   <option value="A">A</option>

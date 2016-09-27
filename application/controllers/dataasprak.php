@@ -163,7 +163,6 @@ class Dataasprak extends CI_Controller {
 	public function nilaikriteria(){
 
 		if($this->session->userdata('logged_in')){$session_data = $this->session->userdata('logged_in');
-
 		$chk_thn 	  =	 $this->asprak_model->check_tahun();
 
 		$content_data = array(
@@ -189,6 +188,7 @@ class Dataasprak extends CI_Controller {
 			$this->load->view('content_asprak_adm_nonaktif');
 			$this->load->view('footer');
 		}else{
+			$this->asprak_model->perangkingan_saw();
 			$this->load->view('header',$content_data);
 			$this->load->view('sidebar_adm');
 			$this->load->view('content_asprak_adm_nilai_kri',$content_data);
@@ -285,10 +285,11 @@ class Dataasprak extends CI_Controller {
 
 	public function grafikrangking(){
 		if($this->session->userdata('logged_in')){$session_data = $this->session->userdata('logged_in');
-
+		$this->asprak_model->perangkingan_topsis();
 		$content_data = array(
 			'nama'		=> $session_data['username']
 			);
+		
 
 		$this->load->view('header',$content_data);
 		$this->load->view('sidebar_adm');

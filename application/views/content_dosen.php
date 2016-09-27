@@ -82,7 +82,7 @@
               <label class="col-sm-2 control-label" >Upload File : </label>
 
               <div class="col-sm-10">
-                <input type="file" class="form-control" name="userfile">
+                <input type="file" class="form-control" name="userfile" required>
               </div>
             </div>
           </div>

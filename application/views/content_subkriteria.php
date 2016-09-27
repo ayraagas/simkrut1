@@ -55,6 +55,7 @@
             <div class="form-group">
               <label class="col-sm-2 control-label" >Nama</label>
                 <input type="hidden" name="id_kriteria" value="<?php echo $id_kriteria; ?>">
+                 <input type="hidden" name="nama_kriteria" value="<?php echo $nama_kriteria; ?>">
               <div class="col-sm-10">
                 <input type="text" class="form-control" name="nama">
               </div>
@@ -99,6 +100,8 @@
               <label class="col-sm-2 control-label" >Nama</label>
               <div class="col-sm-10">
               <input type="hidden" name="id" id="id" value="<?php $id ?>">
+                <input type="hidden" name="id_kriteria" value="<?php echo $id_kriteria; ?>">
+                 <input type="hidden" name="nama_kriteria" value="<?php echo $nama_kriteria; ?>">
                 <input type="text" class="form-control" name="nama" id="nama" value="<?php $nama ?>">
               </div>
             </div>

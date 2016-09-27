@@ -14,7 +14,7 @@
           <?php if ($this->session->flashdata('success') == TRUE): ?>
             <div class="alert alert-success"><?php echo $this->session->flashdata('success'); ?></div>
           <?php endif; ?>
-          <table id="tabelmk" class="table table-bordered table-hover">
+          <table id="example2" class="table table-bordered table-hover">
             <thead>
               <tr>
                 <th>Nama</th>
@@ -42,7 +42,7 @@
               <th>Nama</th>
               <th>Semester</th>
               <th>Jenis</th>
-              <!--   <th>Aksi</th> -->
+                <th>Aksi</th>
             </tr>
           </tfoot>
         </table>
@@ -62,13 +62,13 @@
                   <label class="col-sm-2 control-label" >Nama</label>
 
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" name="nama" placeholder="Matakuliah">
+                    <input type="text" class="form-control" name="nama" placeholder="Matakuliah" required>
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-2 control-label">Semester</label>
                   <div class="col-sm-10">
-                   <select name="semester" class="form-control">
+                   <select name="semester" class="form-control" required>
                     <option></option>
                     <option  value="Ganjil">Ganjil</option>
                     <option  value="Genap">Genap</option>
@@ -78,7 +78,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label">Jenis</label>
                 <div class="col-sm-10">
-                 <select name="jenis" class="form-control">
+                 <select name="jenis" class="form-control" required>
                   <option></option>
                   <option  value="Wajib">Wajib</option>
                   <option  value="Pilihan">Pilihan</option>
@@ -111,7 +111,7 @@
             <label class="col-sm-2 control-label" >Upload File : </label>
 
             <div class="col-sm-10">
-              <input type="file" class="form-control" name="userfile">
+              <input type="file" class="form-control" name="userfile" required>
             </div>
           </div>
         </div>

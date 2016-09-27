@@ -12,7 +12,6 @@ class Asprak_model extends CI_Model {
 			'id_mahasiswa' =>$data_asprak['user_id'],
 			'tipe' => $data_asprak['tipe']
 			));
-
 	// 	$thn = $data_asprak['tahun_ajaran'];
 	// 	$id_mhs = $data_asprak['user_id'];
 	// 	$tipe = $data_asprak['tipe'];
@@ -32,6 +31,11 @@ class Asprak_model extends CI_Model {
 				'id_asisten'   => $id_asisten
 				));
 		}
+	}
+		public function ubah_angkatan($data_asprak){
+			$this->db->update("mahasiswa", array(
+			'angkatan'	=> $data_asprak['angkatan']
+			), "id = '{$data_asprak['user_id']}'");
 	}
 	
 	public function delete_asprak($id)
@@ -87,7 +91,7 @@ class Asprak_model extends CI_Model {
 	}
 
 	public function get_data_alternatif_null_nilai_kriteria(){
-		$data_alternatif_null_nilai_kriteria = $this->db->query("SELECT alt.id 'id', alt.nama, mhs.angkatan, alt.hasil,a.status, alt.id_asisten FROM alternatif alt JOIN asisten a ON (alt.id_asisten=a.id) JOIN mahasiswa mhs ON (mhs.id=a.id_mahasiswa) WHERE alt.id_asisten IN ( SELECT id FROM asisten WHERE id_tahun_ajaran = (SELECT id FROM tahun_ajaran WHERE status='1') AND tipe = 'Praktikum') AND alt.id NOT IN (SELECT id_alternatif FROM nilai_kriteria WHERE id_kriteria NOT IN(SELECT id FROM kriteria))
+		$data_alternatif_null_nilai_kriteria = $this->db->query("SELECT alt.id 'id', alt.nama, mhs.angkatan, alt.hasil,a.status, alt.id_asisten FROM alternatif alt JOIN asisten a ON (alt.id_asisten=a.id) JOIN mahasiswa mhs ON (mhs.id=a.id_mahasiswa) WHERE alt.id_asisten IN ( SELECT id FROM asisten WHERE id_tahun_ajaran = (SELECT id FROM tahun_ajaran WHERE status='1') AND tipe = 'Praktikum') AND alt.id NOT IN (SELECT id_alternatif FROM nilai_kriteria WHERE id_kriteria NOT IN(SELECT id FROM kriteria)) ORDER BY nama
 			");
 		return $data_alternatif_null_nilai_kriteria->result();
 	}
@@ -102,7 +106,6 @@ class Asprak_model extends CI_Model {
 				'nilai'			=> $nilai
 				));
 		}
-		$this->perangkingan_saw();
 		
 
 	}
@@ -186,8 +189,6 @@ class Asprak_model extends CI_Model {
 				'nilai'			=> $nilai
 				));
 		}
-		$this->perangkingan_topsis();
-
 	}
 
 	public function perangkingan_topsis(){

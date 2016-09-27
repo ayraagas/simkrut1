@@ -22,16 +22,7 @@
 <script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="assets/plugins/datatables/dataTables.bootstrap.min.js"></script>
 
-<script>
-  $('#tabelmk').DataTable({
-    "paging": true,
-    "lengthChange": true,
-    "searching": true,
-    "ordering": true,
-    "info": true,
-    "autoWidth": true,
-    "responsive": true
-  });
+<script type="text/javascript">
   $(function () {
     $('#example2').DataTable({
       "paging": true,
@@ -75,7 +66,11 @@
       $("#kategori").children("option").filter(":selected").text(kategori);
     });
 
+   $(function () {
+    //Initialize Select2 Elements
+    $(".select2").select2(); });
   });
+
 </script>
 <!-- SlimScroll -->
 <script src="assets/plugins/slimScroll/jquery.slimscroll.min.js"></script>
@@ -84,6 +79,8 @@
 <script src="assets/plugins/morris/morris.min.js"></script>
 <!-- Sparkline -->
 <script src="assets/plugins/sparkline/jquery.sparkline.min.js"></script>
+<!-- Select2 -->
+<script src="plugins/select2/js/select2.full.min.js"></script>
 <!-- jvectormap -->
 <script src="assets/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
 <script src="assets/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>

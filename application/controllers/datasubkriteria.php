@@ -51,7 +51,9 @@ class Datasubkriteria extends CI_Controller {
 			'id_kriteria' => $post_data['id_kriteria']
 			);
 		$this->subkriteria_model->tambah($data_subkriteria);
-		redirect('datakriteria','refresh');
+		$redirect_id= $post_data['id_kriteria'];
+		$redirect_nama= $post_data['nama_kriteria'];
+		redirect("datasubkriteria?id=$redirect_id&nama=$redirect_nama",'refresh');
 	}
 
 	public function ubah(){
@@ -71,12 +73,15 @@ class Datasubkriteria extends CI_Controller {
 			'kategori'	=> $post_data['kategori']
 			);
 		$this->subkriteria_model->ubah($id,$data_subkriteria);
-		redirect('datakriteria','refresh');
+		$redirect_id= $post_data['id_kriteria'];
+		$redirect_nama= $post_data['nama_kriteria'];
+		redirect("datasubkriteria?id=$redirect_id&nama=$redirect_nama",'refresh');
 	}
 
 	public function delete(){
 		$id= $this->input->get('id');
 		$this->subkriteria_model->delete($id);
+		
 		redirect('datakriteria','refresh');
 	}
 

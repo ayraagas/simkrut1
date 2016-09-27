@@ -69,12 +69,18 @@ class Asprak extends CI_Controller {
 			'matakuliah'	=> array(),
 			'tipe'			=> $post_data['tipe']
 			);
+
+		$this->asprak_model->ubah_angkatan($data_asprak);
 		foreach ($post_data['matakuliah'] as $mk_id => $nilai) {
 			if (!empty($nilai)) {
 				$data_asprak['matakuliah'][$mk_id] = $nilai;
 			}
 		}
-		$this->asprak_model->daftar($data_asprak);
+
+		if (!empty($data_asprak['matakuliah'])) {
+ 			$this->asprak_model->daftar($data_asprak);
+ 			}
+	
 
 		redirect('asprak/daftar','refresh');
 	}

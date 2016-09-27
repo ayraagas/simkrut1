@@ -8,8 +8,8 @@
     var target = btn.prop("href");
 
     sweetAlert({
-      title: "Are you sure?",
-      text: "Apakah anda yakin ingin menghapus?",
+      title: "DATA AKAN DIHAPUS!",
+      text: "Apakah Anda yakin untuk menghapus?",
       type: "warning",
       showCancelButton: true,
       confirmButtonColor: "#DD6B55",

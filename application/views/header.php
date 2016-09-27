@@ -33,7 +33,8 @@
   <link rel="stylesheet" href="assets/plugins/daterangepicker/daterangepicker-bs3.css">
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
-
+ <!-- Select2 -->
+  <link rel="stylesheet" href="plugins/select2/css/select2.min.css">
   <!-- grafik css -->
   <link rel="stylesheet" href="assets/css/grafik.css">
   <!-- sweetalert -->

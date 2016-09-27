@@ -10,7 +10,7 @@
               <div class="box-body">
               <div class="form-group">
               <label for="angkatan">Angkatan</label>
-              <input type="text" class="form-control" name="angkatan" placeholder="Contoh : 2012">
+              <input type="number" min="1900" step="1" class="form-control" name="angkatan" placeholder="Contoh : 2012" required>
               </div>
                  <div class="form-group">
                    <label style="color: red;">*Masukkan Nilai Matakuliah minimal 3 Matakuliah Teori dan 3 Matakuliah Praktikum</label>
