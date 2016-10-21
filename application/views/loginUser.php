@@ -27,7 +27,7 @@
           <div class="bar"></div>
         </div>
         <div class="input-container">
-          <input type="password" id="Password" name="password" required="required"/>
+          <input type="password" id="Password" name="password" minlength="6" required="required"/>
           <label for="Password">Password</label>
           <div class="bar"></div>
         </div>
@@ -53,17 +53,17 @@
           <div class="bar"></div>
         </div>
         <div class="input-container">
-          <input type="number" id="notelp" name="no_telp" required="required"/>
+          <input type="number" id="notelp" name="no_telp" minlength="10" required="required"/>
           <label for="No Telp">No Telp</label>
           <div class="bar"></div>
         </div>
         <div class="input-container">
-          <input type="password" id="password" name="password" required="required"/>
+          <input type="password" id="password" name="password" minlength="6" required="required"/>
           <label for="Password">Password</label>
           <div class="bar"></div>
         </div>
         <div class="input-container">
-          <input type="password" id="repeat-password" name="repeat_password" required="required"/>
+          <input type="password" id="repeat-password" name="repeat_password"  minlength="6" required="required"/>
           <label for="Repeat Password">Repeat Password</label>
           <div class="bar"></div>
         </div>
@@ -77,7 +77,6 @@
   <script src='<?php echo base_url('assets/js/jquery.min.js') ?>'></script>
   <script src='<?php echo base_url('assets/bootstrap/js/bootstrap.min.js') ?>'></script>
   <script src='<?php echo base_url('assets/jquery-validation/dist/jquery.validate.min.js') ?>'></script>
-  <script src='<?php echo base_url('assets/jquery-validation/dist/localization/messages_id.min.js') ?>'></script>
 
   <script src="<?php echo base_url('assets/js/index.js') ?>"></script>
 </body>

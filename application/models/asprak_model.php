@@ -243,12 +243,14 @@ class Asprak_model extends CI_Model {
 		foreach($kriteria as $k){
 			$yplus[$k]=($atribut[$k]=='benefit'?max($y[$k]):min($y[$k]));
 		}
+		// var_dump($yplus);exit;
 
 		$ymin=array();
 		foreach($kriteria as $k){
 			$ymin[$k]=$atribut[$k]=='cost'?max($y[$k]):min($y[$k]);
 
 		}
+		// var_dump($ymin);exit;
 
 		$i=0;
 		$dplus=array();

@@ -26,6 +26,11 @@
     <i class="fa fa-key"></i> <span>Ubah Password</span>
     </a>
   </li>
+   <li class="treeview">
+    <a href="ubahnohp">
+    <i class="fa fa-phone"></i> <span>Ubah No. Handphone</span>
+    </a>
+  </li>
 </ul>
 </section>
 <!-- /.sidebar -->

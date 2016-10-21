@@ -63,6 +63,29 @@ class Datadosen extends CI_Controller {
 			}
 		}
 
+		public function delete_all()
+		{
+			$this->dosen_model->delete_dosen_all();
+
+			if ($this->db->_error_number() == 1451 AND $this->session->userdata('logged_in'))
+			{
+				$session_data = $this->session->userdata('logged_in');
+
+				$content_data = array(
+					'dosen'  => $this->dosen_model->get_all(),
+					'nama'		=> $session_data['username']
+					);
+
+				$this->load->view('header',$content_data);
+				$this->load->view('sweetalert/alertdelete');
+				$this->load->view('sidebar_adm');
+				$this->load->view('content_dosen',$content_data);
+				$this->load->view('footer');
+			}else{
+				redirect('datadosen','refresh');
+			}
+		}
+
 		public function importcsv() {
 			$data['error'] = '';    //initialize image upload error array to empty
 

@@ -17,7 +17,7 @@ header("Expires: 0");
               <td><?php echo $asman->nama; ?></td>
               <td><?php echo $asman->nim; ?></td>
               <td><?php echo $asman->nama_mhs; ?></td>
-              <td><?php echo $asman->no_telp; ?></td>
+              <td>'<?php echo $asman->no_telp; ?>'</td>
               <td><?php echo $asman->nilai; ?></td>
             </tr>
             <?php } ?>

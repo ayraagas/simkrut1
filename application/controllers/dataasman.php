@@ -46,6 +46,13 @@ class Dataasman extends CI_Controller {
 			}
 		}
 
+		public function importcsv(){
+
+				$this->asman_model->importExcel();
+				redirect('dataasman/pendaftar','refresh');
+
+		}
+
 		public function simpanExcel(){
 			if($this->session->userdata('logged_in')){
 

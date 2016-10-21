@@ -7,11 +7,11 @@
  			<form action="ubahpass/change" method="POST" accept-charset="utf-8">
  				<div class="input-group">
  					<span class="input-group-addon"><i class="fa fa-key"></i></span>
- 					<input type="password" class="form-control" placeholder="Password Lama" name="passwordlama" required>
+ 					<input type="password" class="form-control" placeholder="Password Lama" name="passwordlama" minlength="6" required>
  				</div><br>
  					<div class="input-group">
  					<span class="input-group-addon"><i class="fa fa-key"></i></span>
- 					<input type="password" class="form-control" placeholder="Password Baru" name="passwordbaru" required>
+ 					<input type="password" class="form-control" placeholder="Password Baru" name="passwordbaru" minlength="6" required>
  				</div><br>
  				<label>*Jika berhasil muncul alert success</label>
 

@@ -18,6 +18,11 @@ class Matakuliah_model extends CI_Model {
 		$this->db->delete('matakuliah');
 	}
 
+	public function delete_mk_all()
+	{
+		$this->db->empty_table('matakuliah');
+	}
+
 	public function insert_csv($data) {
 		$this->db->insert('matakuliah', $data);
 	}

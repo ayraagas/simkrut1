@@ -62,6 +62,28 @@ class Datamk extends CI_Controller {
 		}
 	}
 
+	public function delete_all()
+	{
+		$this->matakuliah_model->delete_mk_all();
+		if ($this->db->_error_number() == 1451 AND $this->session->userdata('logged_in'))
+		{
+
+			$session_data = $this->session->userdata('logged_in');
+			$data['nama'] = $session_data['username'];
+
+			$content_data = array(
+				'matakuliah'  => $this->matakuliah_model->get_all()
+				);
+			$this->load->view('header',$data);
+			$this->load->view('sweetalert/alertdelete');
+			$this->load->view('sidebar_adm');
+			$this->load->view('content_mk', $content_data);
+			$this->load->view('footer');
+		} else{
+			redirect('datamk','refresh');
+		}
+	}
+
 
 	public function importcsv() {
 		$data['error'] = '';    //initialize image upload error array to empty

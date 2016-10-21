@@ -6,6 +6,7 @@
       <h3 class="box-title">Data Calon Asisten Mandiri <?php echo "$tahunajaran->tahun "; echo "$tahunajaran->semester"; ?></h3>
     </div>
     <div class="box-body">
+     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addViaCSV">Tambah via CSV</button><br><br>
       <table id="example2" class="table table-bordered table-hover">
         <thead>
           <tr>
@@ -86,7 +87,37 @@
 
           </div>
 
+
+
         </section>
+  <div class="modal fade" id="addViaCSV" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Upload CSV Data Mahasiswa Asisten Mandiri</h4>
+        </div>
+        <div class="modal-body">
+         <form class="form-horizontal" method="POST" action="<?php echo 'dataasman/importcsv' ?>" enctype="multipart/form-data">
+          <div class="box-body">
+            <div class="form-group">
+              <label class="col-sm-2 control-label" >Upload File : </label>
+
+              <div class="col-sm-10">
+                <input type="file" class="form-control" name="userfile" required>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit" name="submit" class="btn btn-primary" value="UPLOAD">Submit</button>
+        </div>
+      </form>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 
         <!-- /.content -->
       </div>

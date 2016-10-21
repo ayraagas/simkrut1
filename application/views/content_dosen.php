@@ -7,13 +7,14 @@
         </div>
         <div class="box-body">
           <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Tambah</button>
-          <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addViaCSV">Tambah via CSV</button><br><br>
+          <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addViaCSV">Tambah via CSV</button>
           <?php if (isset($error)): ?>
             <div class="alert alert-error"><?php echo $error; ?></div>
           <?php endif; ?>
           <?php if ($this->session->flashdata('success') == TRUE): ?>
             <div class="alert alert-success"><?php echo $this->session->flashdata('success'); ?></div>
           <?php endif; ?>
+          <a href="datadosen/delete_all" class="btn btn-danger btn-delete">HAPUS SEMUA!</a><br><br>
           <table id="example2" class="table table-bordered table-hover">
             <thead>
               <tr>

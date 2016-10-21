@@ -20,6 +20,11 @@ class Dosen_model extends CI_Model {
 		$this->db->delete('dosen');
 		
 	}
+	
+	public function delete_dosen_all() {
+		$this->db->empty_table('dosen');
+	}
+
 
 	public function insert_csv($data) {
 		$this->db->insert('dosen', $data);

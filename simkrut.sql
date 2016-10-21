@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 15, 2016 at 05:47 AM
+-- Generation Time: Oct 21, 2016 at 09:05 PM
 -- Server version: 5.6.26
 -- PHP Version: 5.6.12
 
@@ -37,7 +37,9 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`id`, `username`, `password`) VALUES
-(1, 'admin', '21232f297a57a5a743894a0e4a801fc3');
+(1, 'admin', '21232f297a57a5a743894a0e4a801fc3'),
+(2, 'admin1', 'e00cf25ad42683b3df678c61f42c6bda'),
+(3, 'admin2', 'c84258e9c39059a89ab77d846ddab909');
 
 -- --------------------------------------------------------
 
@@ -51,6 +53,17 @@ CREATE TABLE `alternatif` (
   `hasil` double DEFAULT NULL,
   `id_asisten` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `alternatif`
+--
+
+INSERT INTO `alternatif` (`id`, `nama`, `hasil`, `id_asisten`) VALUES
+(1, 'Agas Arya Widodo', 0.69876314407848, 71),
+(2, 'Bharamida Dwi Rizky', 0.70633372536646, 72),
+(3, 'Novia Vazela', 0.078764133119069, 73),
+(5, 'Agas Arya Widodo', 0.57422194648717, 75),
+(6, 'Randy Varianda', 0.42577805351283, 77);
 
 -- --------------------------------------------------------
 
@@ -71,8 +84,15 @@ CREATE TABLE `asisten` (
 --
 
 INSERT INTO `asisten` (`id`, `id_tahun_ajaran`, `id_mahasiswa`, `tipe`, `status`) VALUES
-(28, 2, 5, 'Mandiri', '0'),
-(69, 2, 1, 'Mandiri', '0');
+(70, 2, 1, 'Mandiri', '0'),
+(71, 2, 1, 'Praktikum', '1'),
+(72, 2, 4, 'Praktikum', '1'),
+(73, 2, 3, 'Praktikum', '0'),
+(75, 10, 1, 'Praktikum', '0'),
+(76, 10, 1, 'Mandiri', '0'),
+(77, 10, 13, 'Praktikum', '0'),
+(78, 10, 13, 'Mandiri', '0'),
+(80, 10, 14, 'Mandiri', '0');
 
 -- --------------------------------------------------------
 
@@ -94,10 +114,24 @@ CREATE TABLE `data_asisten_mandiri` (
 --
 
 INSERT INTO `data_asisten_mandiri` (`id`, `id_matakuliah`, `nilai`, `id_asisten`, `id_dosen`, `kelas`) VALUES
-(25, 1, 'A', 28, 90, 'C'),
-(26, 2, 'A/B', 28, 0, NULL),
-(27, 3, 'A', 28, 89, 'C'),
-(28, 1, 'A', 69, 88, 'D');
+(29, 1, 'A', 70, 89, 'A'),
+(30, 2, 'A-', 70, 89, 'B'),
+(31, 3, 'A/B', 70, 58, 'C'),
+(32, 4, 'A', 70, 89, 'B'),
+(33, 5, 'A-', 70, 89, 'B'),
+(34, 1, 'A', 76, 85, 'A'),
+(35, 2, 'A-', 76, 0, NULL),
+(36, 3, 'B+', 76, 0, NULL),
+(37, 4, 'A-', 76, 0, NULL),
+(38, 5, 'A-', 76, 0, NULL),
+(39, 1, 'A', 78, 0, NULL),
+(40, 2, 'A/B', 78, 0, NULL),
+(41, 3, 'A', 78, 0, NULL),
+(42, 4, 'A-', 78, 86, 'E'),
+(43, 5, 'A-', 78, 0, NULL),
+(44, 1, 'A', 80, 0, NULL),
+(45, 2, 'A-', 80, 86, 'C'),
+(46, 3, 'A/B', 80, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -111,6 +145,26 @@ CREATE TABLE `data_asisten_praktikum` (
   `nilai` int(10) NOT NULL,
   `id_asisten` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `data_asisten_praktikum`
+--
+
+INSERT INTO `data_asisten_praktikum` (`id`, `id_matakuliah`, `nilai`, `id_asisten`) VALUES
+(1, 45, 5, 71),
+(3, 45, 4, 72),
+(5, 45, 5, 73),
+(9, 48, 5, 75),
+(10, 49, 2, 75),
+(11, 55, 3, 75),
+(12, 53, 4, 75),
+(13, 59, 4, 75),
+(14, 47, 3, 75),
+(15, 48, 3, 77),
+(16, 49, 4, 77),
+(17, 55, 5, 77),
+(18, 53, 4, 77),
+(19, 59, 5, 77);
 
 -- --------------------------------------------------------
 
@@ -165,9 +219,9 @@ INSERT INTO `dosen` (`id`, `nama`) VALUES
 (85, 'Andhika Giri Persada ,S.Kom., M.Eng.'),
 (86, 'Andhik Budi Cahyono ,S.T., M.T.'),
 (87, 'Almed Hamzah ,S.T., M.Eng.'),
-(88, 'Ahmad Luthfi ,S.Kom., M.Kom.'),
 (89, 'Ahmad Fathan Hidayatullah ,S.T., M.Cs.'),
-(90, 'Affan Mahtarami ,S.Kom., M.T.');
+(90, 'Affan Mahtarami ,S.Kom., M.T.'),
+(91, 'Ahmad Luthfi ,S.Kom., M.Kom.');
 
 -- --------------------------------------------------------
 
@@ -214,10 +268,11 @@ CREATE TABLE `mahasiswa` (
 --
 
 INSERT INTO `mahasiswa` (`id`, `nim`, `nama`, `password`, `angkatan`, `ipk`, `no_telp`, `status`) VALUES
-(1, '12523017', 'Agas Arya Widodo', 'ea1d3fbbb2f58eb2f72a81eb85c7dcd1', '2012', 4, '', '1'),
-(3, '12523156', 'Novia Vazela', 'ea1d3fbbb2f58eb2f72a81eb85c7dcd1', '2012', NULL, '', '1'),
-(4, '12523096', 'Bharamida Dwi Rizky', 'ea1d3fbbb2f58eb2f72a81eb85c7dcd1', '2012', 3.56, '', '1'),
-(5, '1', 'a', 'c4ca4238a0b923820dcc509a6f75849b', '', 3.65, '11', '1');
+(1, '12523017', 'Agas Arya Widodo', 'ea1d3fbbb2f58eb2f72a81eb85c7dcd1', '2012', 3.89, '085728175464', '1'),
+(3, '12523156', 'Novia Vazela', 'ea1d3fbbb2f58eb2f72a81eb85c7dcd1', '2012', NULL, '081234567890', '1'),
+(4, '12523096', 'Bharamida Dwi Rizky', 'ea1d3fbbb2f58eb2f72a81eb85c7dcd1', '2012', 3.56, '085678901234', '1'),
+(13, '12523025', 'Randy Varianda', 'ea1d3fbbb2f58eb2f72a81eb85c7dcd1', '2012', 3.89, '089778447336', '1'),
+(14, '12523042', 'Alif', 'e10adc3949ba59abbe56e057f20f883e', '2012', 3.89, '087788655666', '1');
 
 -- --------------------------------------------------------
 
@@ -275,7 +330,21 @@ INSERT INTO `matakuliah` (`id`, `nama`, `semester`, `jenis`) VALUES
 (36, 'Sistem Pakar', 'Ganjil', 'Pilihan'),
 (37, 'Teknik Pengolahan Citra', 'Ganjil', 'Pilihan'),
 (38, 'Teknologi XML', 'Ganjil', 'Pilihan'),
-(39, 'Teori Bahasa dan Otomata', 'Ganjil', 'Wajib');
+(39, 'Teori Bahasa dan Otomata', 'Ganjil', 'Wajib'),
+(45, 'Pr. Basisdata', 'Genap', 'Praktikum'),
+(47, 'Pr. Algoritma & Pemrograman 1', 'Ganjil', 'Praktikum'),
+(48, 'Algoritma dan Pemrograman (P)', 'Ganjil', 'Praktikum'),
+(49, 'Basisdata (P)', 'Genap', 'Praktikum'),
+(51, 'Sistem Operasi (P)', 'Genap', 'Praktikum'),
+(52, 'Pr. Sistem Operasi', 'Genap', 'Praktikum'),
+(53, 'Pemrograman Berorientasi Objek (P)', 'Ganjil', 'Praktikum'),
+(54, 'Pr. Pemrograman Berorientasi Objek', 'Ganjil', 'Praktikum'),
+(55, 'Jaringan Komputer (P)', 'Ganjil', 'Praktikum'),
+(56, 'Pr. Jaringan Komputer', 'Ganjil', 'Praktikum'),
+(57, 'Struktur Data (P)', 'Genap', 'Praktikum'),
+(58, 'Pr. Struktur Data', 'Genap', 'Praktikum'),
+(59, 'Pemrograman Web (P)', 'Genap', 'Praktikum'),
+(60, 'Pr. Pemrograman Web', 'Genap', 'Praktikum');
 
 -- --------------------------------------------------------
 
@@ -290,6 +359,32 @@ CREATE TABLE `nilai_kriteria` (
   `nilai` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `nilai_kriteria`
+--
+
+INSERT INTO `nilai_kriteria` (`id`, `id_alternatif`, `id_kriteria`, `nilai`) VALUES
+(26, 2, 2, 0.875),
+(27, 2, 3, 90),
+(28, 2, 4, 0.9525000095367432),
+(29, 2, 5, 1.0000000223517418),
+(30, 3, 2, 0.75),
+(31, 3, 3, 75),
+(32, 3, 4, 0.9125000089406967),
+(33, 3, 5, 0.8500000201165676),
+(55, 6, 2, 0.9),
+(56, 6, 3, 100),
+(57, 6, 4, 0.8900000110268593),
+(58, 6, 5, 0.7600000143051148),
+(79, 5, 2, 1),
+(80, 5, 3, 80),
+(81, 5, 4, 1.000000011175871),
+(82, 5, 5, 1.0000000223517418),
+(83, 1, 2, 1),
+(84, 1, 3, 90),
+(85, 1, 4, 0.8800000093877316),
+(86, 1, 5, 0.9000000208616257);
+
 -- --------------------------------------------------------
 
 --
@@ -302,6 +397,67 @@ CREATE TABLE `nilai_subkriteria` (
   `id_subkriteria` int(10) NOT NULL,
   `nilai` double NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `nilai_subkriteria`
+--
+
+INSERT INTO `nilai_subkriteria` (`id`, `id_alternatif`, `id_subkriteria`, `nilai`) VALUES
+(89, 1, 3, 2),
+(90, 1, 5, 4),
+(91, 1, 12, 4),
+(92, 1, 13, 4),
+(93, 1, 14, 3),
+(94, 1, 15, 3),
+(95, 1, 16, 2),
+(96, 1, 17, 4),
+(97, 1, 18, 3),
+(98, 1, 19, 3),
+(99, 1, 20, 4),
+(100, 2, 3, 4),
+(101, 2, 5, 4),
+(102, 2, 12, 3),
+(103, 2, 13, 4),
+(104, 2, 14, 4),
+(105, 2, 15, 4),
+(106, 2, 16, 4),
+(107, 2, 17, 4),
+(108, 2, 18, 3),
+(109, 2, 19, 4),
+(110, 2, 20, 4),
+(111, 3, 3, 3),
+(112, 3, 5, 4),
+(113, 3, 12, 3),
+(114, 3, 13, 4),
+(115, 3, 14, 5),
+(116, 3, 15, 4),
+(117, 3, 16, 4),
+(118, 3, 17, 3),
+(119, 3, 18, 3),
+(120, 3, 19, 3),
+(121, 3, 20, 3),
+(144, 6, 3, 5),
+(145, 6, 5, 4),
+(146, 6, 12, 4),
+(147, 6, 13, 5),
+(148, 6, 14, 4),
+(149, 6, 15, 5),
+(150, 6, 16, 4),
+(151, 6, 17, 5),
+(152, 6, 18, 2),
+(153, 6, 19, 4),
+(154, 6, 20, 5),
+(155, 5, 3, 5),
+(156, 5, 5, 5),
+(157, 5, 12, 5),
+(158, 5, 13, 5),
+(159, 5, 14, 5),
+(160, 5, 15, 5),
+(161, 5, 16, 5),
+(162, 5, 17, 5),
+(163, 5, 18, 5),
+(164, 5, 19, 5),
+(165, 5, 20, 5);
 
 -- --------------------------------------------------------
 
@@ -464,32 +620,32 @@ ALTER TABLE `tahun_ajaran`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `alternatif`
 --
 ALTER TABLE `alternatif`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `asisten`
 --
 ALTER TABLE `asisten`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
 --
 -- AUTO_INCREMENT for table `data_asisten_mandiri`
 --
 ALTER TABLE `data_asisten_mandiri`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 --
 -- AUTO_INCREMENT for table `data_asisten_praktikum`
 --
 ALTER TABLE `data_asisten_praktikum`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT for table `dosen`
 --
 ALTER TABLE `dosen`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
 --
 -- AUTO_INCREMENT for table `kriteria`
 --
@@ -499,22 +655,22 @@ ALTER TABLE `kriteria`
 -- AUTO_INCREMENT for table `mahasiswa`
 --
 ALTER TABLE `mahasiswa`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `matakuliah`
 --
 ALTER TABLE `matakuliah`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 --
 -- AUTO_INCREMENT for table `nilai_kriteria`
 --
 ALTER TABLE `nilai_kriteria`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
 --
 -- AUTO_INCREMENT for table `nilai_subkriteria`
 --
 ALTER TABLE `nilai_subkriteria`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=166;
 --
 -- AUTO_INCREMENT for table `subkriteria`
 --
