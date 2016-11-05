@@ -34,6 +34,10 @@
       "responsive": true
     });
 
+    $(document).ready(function() {
+    $('table.display').DataTable();
+} );
+
     $(document).on( "click", '#terima',function(e) {
 
       var id = $(this).data('id');

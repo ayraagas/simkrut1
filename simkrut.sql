@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 21, 2016 at 09:05 PM
+-- Generation Time: Nov 05, 2016 at 04:33 PM
 -- Server version: 5.6.26
 -- PHP Version: 5.6.12
 
@@ -59,11 +59,13 @@ CREATE TABLE `alternatif` (
 --
 
 INSERT INTO `alternatif` (`id`, `nama`, `hasil`, `id_asisten`) VALUES
-(1, 'Agas Arya Widodo', 0.69876314407848, 71),
-(2, 'Bharamida Dwi Rizky', 0.70633372536646, 72),
-(3, 'Novia Vazela', 0.078764133119069, 73),
+(1, 'Agas Arya Widodo', 0.39189945751848, 71),
+(2, 'Bharamida Dwi Rizky', 1, 72),
+(3, 'Novia Vazela', 0.31418322232354, 73),
 (5, 'Agas Arya Widodo', 0.57422194648717, 75),
-(6, 'Randy Varianda', 0.42577805351283, 77);
+(6, 'Randy Varianda', 0.42577805351283, 77),
+(7, 'Agas Arya Widodo', 0, 81),
+(18, 'Randy Varianda', 1, 92);
 
 -- --------------------------------------------------------
 
@@ -92,7 +94,9 @@ INSERT INTO `asisten` (`id`, `id_tahun_ajaran`, `id_mahasiswa`, `tipe`, `status`
 (76, 10, 1, 'Mandiri', '0'),
 (77, 10, 13, 'Praktikum', '0'),
 (78, 10, 13, 'Mandiri', '0'),
-(80, 10, 14, 'Mandiri', '0');
+(80, 10, 14, 'Mandiri', '0'),
+(81, 1, 1, 'Praktikum', '0'),
+(92, 1, 13, 'Praktikum', '0');
 
 -- --------------------------------------------------------
 
@@ -164,7 +168,23 @@ INSERT INTO `data_asisten_praktikum` (`id`, `id_matakuliah`, `nilai`, `id_asiste
 (16, 49, 4, 77),
 (17, 55, 5, 77),
 (18, 53, 4, 77),
-(19, 59, 5, 77);
+(19, 59, 5, 77),
+(20, 48, 5, 81),
+(21, 49, 4, 81),
+(22, 55, 3, 81),
+(23, 53, 1, 81),
+(24, 47, 4, 81),
+(25, 45, 3, 81),
+(26, 56, 2, 81),
+(97, 48, 5, 92),
+(98, 49, 5, 92),
+(99, 55, 3, 92),
+(100, 53, 1, 92),
+(101, 47, 5, 92),
+(102, 45, 2, 92),
+(103, 56, 3, 92),
+(104, 54, 3, 92),
+(105, 60, 3, 92);
 
 -- --------------------------------------------------------
 
@@ -268,10 +288,10 @@ CREATE TABLE `mahasiswa` (
 --
 
 INSERT INTO `mahasiswa` (`id`, `nim`, `nama`, `password`, `angkatan`, `ipk`, `no_telp`, `status`) VALUES
-(1, '12523017', 'Agas Arya Widodo', 'ea1d3fbbb2f58eb2f72a81eb85c7dcd1', '2012', 3.89, '085728175464', '1'),
+(1, '12523017', 'Agas Arya Widodo', 'ea1d3fbbb2f58eb2f72a81eb85c7dcd1', '2013', 3.89, '085728175464', '1'),
 (3, '12523156', 'Novia Vazela', 'ea1d3fbbb2f58eb2f72a81eb85c7dcd1', '2012', NULL, '081234567890', '1'),
 (4, '12523096', 'Bharamida Dwi Rizky', 'ea1d3fbbb2f58eb2f72a81eb85c7dcd1', '2012', 3.56, '085678901234', '1'),
-(13, '12523025', 'Randy Varianda', 'ea1d3fbbb2f58eb2f72a81eb85c7dcd1', '2012', 3.89, '089778447336', '1'),
+(13, '12523025', 'Randy Varianda', 'ea1d3fbbb2f58eb2f72a81eb85c7dcd1', '434234', 3.89, '089778447336', '1'),
 (14, '12523042', 'Alif', 'e10adc3949ba59abbe56e057f20f883e', '2012', 3.89, '087788655666', '1');
 
 -- --------------------------------------------------------
@@ -364,11 +384,11 @@ CREATE TABLE `nilai_kriteria` (
 --
 
 INSERT INTO `nilai_kriteria` (`id`, `id_alternatif`, `id_kriteria`, `nilai`) VALUES
-(26, 2, 2, 0.875),
+(26, 2, 2, 1),
 (27, 2, 3, 90),
 (28, 2, 4, 0.9525000095367432),
 (29, 2, 5, 1.0000000223517418),
-(30, 3, 2, 0.75),
+(30, 3, 2, 0.875),
 (31, 3, 3, 75),
 (32, 3, 4, 0.9125000089406967),
 (33, 3, 5, 0.8500000201165676),
@@ -380,10 +400,92 @@ INSERT INTO `nilai_kriteria` (`id`, `id_alternatif`, `id_kriteria`, `nilai`) VAL
 (80, 5, 3, 80),
 (81, 5, 4, 1.000000011175871),
 (82, 5, 5, 1.0000000223517418),
-(83, 1, 2, 1),
+(83, 1, 2, 0.875),
 (84, 1, 3, 90),
-(85, 1, 4, 0.8800000093877316),
-(86, 1, 5, 0.9000000208616257);
+(85, 1, 4, 0.7800000097602606),
+(86, 1, 5, 0.8250000197440386),
+(87, 7, 2, 0.9330357142857143),
+(92, 18, 2, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `nilai_penguji_kriteria`
+--
+
+CREATE TABLE `nilai_penguji_kriteria` (
+  `id` int(11) NOT NULL,
+  `id_penguji` int(11) NOT NULL,
+  `id_alternatif` int(11) NOT NULL,
+  `id_kriteria` int(11) NOT NULL,
+  `nilai` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `nilai_penguji_kriteria`
+--
+
+INSERT INTO `nilai_penguji_kriteria` (`id`, `id_penguji`, `id_alternatif`, `id_kriteria`, `nilai`) VALUES
+(5, 5, 7, 3, 100),
+(8, 3, 7, 3, 99),
+(9, 3, 18, 3, 88),
+(10, 5, 18, 3, 60);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `nilai_penguji_subkriteria`
+--
+
+CREATE TABLE `nilai_penguji_subkriteria` (
+  `id` int(11) NOT NULL,
+  `id_penguji` int(11) NOT NULL,
+  `id_alternatif` int(11) NOT NULL,
+  `id_subkriteria` int(11) NOT NULL,
+  `nilai` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `nilai_penguji_subkriteria`
+--
+
+INSERT INTO `nilai_penguji_subkriteria` (`id`, `id_penguji`, `id_alternatif`, `id_subkriteria`, `nilai`) VALUES
+(206, 5, 7, 16, 3),
+(207, 5, 7, 17, 2),
+(208, 5, 7, 18, 3),
+(209, 5, 7, 19, 2),
+(210, 5, 7, 3, 3),
+(211, 5, 7, 5, 2),
+(212, 5, 7, 13, 3),
+(213, 5, 7, 14, 2),
+(214, 5, 7, 15, 3),
+(233, 3, 7, 3, 3),
+(234, 3, 7, 5, 4),
+(235, 3, 7, 13, 3),
+(236, 3, 7, 14, 4),
+(237, 3, 7, 15, 3),
+(238, 3, 7, 16, 4),
+(239, 3, 7, 17, 3),
+(240, 3, 7, 18, 4),
+(241, 3, 7, 19, 3),
+(242, 3, 18, 3, 2),
+(243, 3, 18, 5, 3),
+(244, 3, 18, 13, 2),
+(245, 3, 18, 14, 3),
+(246, 3, 18, 15, 5),
+(247, 3, 18, 16, 4),
+(248, 3, 18, 17, 4),
+(249, 3, 18, 18, 3),
+(250, 3, 18, 19, 4),
+(251, 5, 18, 16, 3),
+(252, 5, 18, 17, 2),
+(253, 5, 18, 18, 2),
+(254, 5, 18, 19, 3),
+(255, 5, 18, 3, 3),
+(256, 5, 18, 5, 3),
+(257, 5, 18, 13, 2),
+(258, 5, 18, 14, 3),
+(259, 5, 18, 15, 1);
 
 -- --------------------------------------------------------
 
@@ -403,17 +505,6 @@ CREATE TABLE `nilai_subkriteria` (
 --
 
 INSERT INTO `nilai_subkriteria` (`id`, `id_alternatif`, `id_subkriteria`, `nilai`) VALUES
-(89, 1, 3, 2),
-(90, 1, 5, 4),
-(91, 1, 12, 4),
-(92, 1, 13, 4),
-(93, 1, 14, 3),
-(94, 1, 15, 3),
-(95, 1, 16, 2),
-(96, 1, 17, 4),
-(97, 1, 18, 3),
-(98, 1, 19, 3),
-(99, 1, 20, 4),
 (100, 2, 3, 4),
 (101, 2, 5, 4),
 (102, 2, 12, 3),
@@ -457,7 +548,66 @@ INSERT INTO `nilai_subkriteria` (`id`, `id_alternatif`, `id_subkriteria`, `nilai
 (162, 5, 17, 5),
 (163, 5, 18, 5),
 (164, 5, 19, 5),
-(165, 5, 20, 5);
+(165, 5, 20, 5),
+(177, 1, 3, 3),
+(178, 1, 5, 3),
+(179, 1, 12, 3),
+(180, 1, 13, 3),
+(181, 1, 14, 3),
+(182, 1, 15, 3),
+(183, 1, 16, 3),
+(184, 1, 17, 3),
+(185, 1, 18, 3),
+(186, 1, 19, 3),
+(187, 1, 20, 3),
+(193, 7, 20, 3.25),
+(195, 7, 12, 3),
+(199, 18, 12, 3.2),
+(200, 18, 20, 3.5);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `penguji`
+--
+
+CREATE TABLE `penguji` (
+  `id` int(11) NOT NULL,
+  `nama` varchar(255) NOT NULL,
+  `password` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `penguji`
+--
+
+INSERT INTO `penguji` (`id`, `nama`, `password`) VALUES
+(3, 'A', '81dc9bdb52d04dc20036dbd8313ed055'),
+(5, 'B', '81dc9bdb52d04dc20036dbd8313ed055');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `penguji_kriteria`
+--
+
+CREATE TABLE `penguji_kriteria` (
+  `id` int(11) NOT NULL,
+  `id_penguji` int(11) NOT NULL,
+  `id_kriteria` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `penguji_kriteria`
+--
+
+INSERT INTO `penguji_kriteria` (`id`, `id_penguji`, `id_kriteria`) VALUES
+(2, 5, 5),
+(3, 3, 4),
+(4, 5, 4),
+(7, 3, 5),
+(8, 3, 3),
+(9, 5, 3);
 
 -- --------------------------------------------------------
 
@@ -508,8 +658,8 @@ CREATE TABLE `tahun_ajaran` (
 --
 
 INSERT INTO `tahun_ajaran` (`id`, `tahun`, `semester`, `status`) VALUES
-(1, '2015/2016', 'Genap', '0'),
-(2, '2016/2017', 'Ganjil', '1'),
+(1, '2015/2016', 'Genap', '1'),
+(2, '2016/2017', 'Ganjil', '0'),
 (9, '2016/2017', 'Genap', '0'),
 (10, '2017/2018', 'Ganjil', '0');
 
@@ -592,12 +742,44 @@ ALTER TABLE `nilai_kriteria`
   ADD KEY `id_kriteria` (`id_kriteria`);
 
 --
+-- Indexes for table `nilai_penguji_kriteria`
+--
+ALTER TABLE `nilai_penguji_kriteria`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_penguji` (`id_penguji`),
+  ADD KEY `id_alternatif` (`id_alternatif`),
+  ADD KEY `id_kriteria` (`id_kriteria`);
+
+--
+-- Indexes for table `nilai_penguji_subkriteria`
+--
+ALTER TABLE `nilai_penguji_subkriteria`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_penguji` (`id_penguji`),
+  ADD KEY `id_alternatif` (`id_alternatif`),
+  ADD KEY `id_subkriteria` (`id_subkriteria`);
+
+--
 -- Indexes for table `nilai_subkriteria`
 --
 ALTER TABLE `nilai_subkriteria`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_subkriteria` (`id_subkriteria`),
   ADD KEY `id_alternatif` (`id_alternatif`);
+
+--
+-- Indexes for table `penguji`
+--
+ALTER TABLE `penguji`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `penguji_kriteria`
+--
+ALTER TABLE `penguji_kriteria`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_penguji` (`id_penguji`),
+  ADD KEY `id_kriteria` (`id_kriteria`);
 
 --
 -- Indexes for table `subkriteria`
@@ -625,12 +807,12 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `alternatif`
 --
 ALTER TABLE `alternatif`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT for table `asisten`
 --
 ALTER TABLE `asisten`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
 --
 -- AUTO_INCREMENT for table `data_asisten_mandiri`
 --
@@ -640,7 +822,7 @@ ALTER TABLE `data_asisten_mandiri`
 -- AUTO_INCREMENT for table `data_asisten_praktikum`
 --
 ALTER TABLE `data_asisten_praktikum`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
 --
 -- AUTO_INCREMENT for table `dosen`
 --
@@ -665,12 +847,32 @@ ALTER TABLE `matakuliah`
 -- AUTO_INCREMENT for table `nilai_kriteria`
 --
 ALTER TABLE `nilai_kriteria`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
+--
+-- AUTO_INCREMENT for table `nilai_penguji_kriteria`
+--
+ALTER TABLE `nilai_penguji_kriteria`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+--
+-- AUTO_INCREMENT for table `nilai_penguji_subkriteria`
+--
+ALTER TABLE `nilai_penguji_subkriteria`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=260;
 --
 -- AUTO_INCREMENT for table `nilai_subkriteria`
 --
 ALTER TABLE `nilai_subkriteria`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=166;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=201;
+--
+-- AUTO_INCREMENT for table `penguji`
+--
+ALTER TABLE `penguji`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT for table `penguji_kriteria`
+--
+ALTER TABLE `penguji_kriteria`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `subkriteria`
 --
@@ -721,11 +923,34 @@ ALTER TABLE `nilai_kriteria`
   ADD CONSTRAINT `nilai_kriteria_ibfk_2` FOREIGN KEY (`id_kriteria`) REFERENCES `kriteria` (`id`) ON DELETE CASCADE;
 
 --
+-- Constraints for table `nilai_penguji_kriteria`
+--
+ALTER TABLE `nilai_penguji_kriteria`
+  ADD CONSTRAINT `nilai_penguji_kriteria_ibfk_1` FOREIGN KEY (`id_penguji`) REFERENCES `penguji` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `nilai_penguji_kriteria_ibfk_2` FOREIGN KEY (`id_alternatif`) REFERENCES `alternatif` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `nilai_penguji_kriteria_ibfk_3` FOREIGN KEY (`id_kriteria`) REFERENCES `kriteria` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `nilai_penguji_subkriteria`
+--
+ALTER TABLE `nilai_penguji_subkriteria`
+  ADD CONSTRAINT `nilai_penguji_subkriteria_ibfk_1` FOREIGN KEY (`id_penguji`) REFERENCES `penguji` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `nilai_penguji_subkriteria_ibfk_2` FOREIGN KEY (`id_alternatif`) REFERENCES `alternatif` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `nilai_penguji_subkriteria_ibfk_3` FOREIGN KEY (`id_subkriteria`) REFERENCES `subkriteria` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `nilai_subkriteria`
 --
 ALTER TABLE `nilai_subkriteria`
   ADD CONSTRAINT `nilai_subkriteria_ibfk_1` FOREIGN KEY (`id_alternatif`) REFERENCES `alternatif` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `nilai_subkriteria_ibfk_2` FOREIGN KEY (`id_subkriteria`) REFERENCES `subkriteria` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `penguji_kriteria`
+--
+ALTER TABLE `penguji_kriteria`
+  ADD CONSTRAINT `penguji_kriteria_ibfk_1` FOREIGN KEY (`id_penguji`) REFERENCES `penguji` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `penguji_kriteria_ibfk_2` FOREIGN KEY (`id_kriteria`) REFERENCES `kriteria` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `subkriteria`

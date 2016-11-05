@@ -31,9 +31,11 @@ class Asprak_model extends CI_Model {
 				'id_asisten'   => $id_asisten
 				));
 		}
+
+		$this->konversi_nilai();
 	}
-		public function ubah_angkatan($data_asprak){
-			$this->db->update("mahasiswa", array(
+	public function ubah_angkatan($data_asprak){
+		$this->db->update("mahasiswa", array(
 			'angkatan'	=> $data_asprak['angkatan']
 			), "id = '{$data_asprak['user_id']}'");
 	}
@@ -96,223 +98,296 @@ class Asprak_model extends CI_Model {
 		return $data_alternatif_null_nilai_kriteria->result();
 	}
 
-	public function tambahnilaisub($data_nilai_sub){
-		$id_alt= $data_nilai_sub['alternatif'];
+	public function konversi_nilai(){
+		$konversi_nilai_praktikum = $this->db->query("SELECT al.id 'id_alternatif', mhs.nama 'nama_mhs', SUM(dap.nilai) 'sum_nilai', COUNT(dap.nilai) 'count_nilai', (SUM(dap.nilai)/COUNT(dap.nilai)) as 'rata2' FROM mahasiswa mhs JOIN matakuliah mk JOIN asisten a ON (mhs.id=a.id_mahasiswa) JOIN data_asisten_praktikum dap ON (dap.id_asisten=a.id) AND (mk.id=dap.id_matakuliah) JOIN tahun_ajaran t ON (a.id_tahun_ajaran=t.id) JOIN alternatif al ON(al.id_asisten=a.id) WHERE mk.jenis='Praktikum' AND a.tipe = 'Praktikum' AND t.status = '1' AND mk.nama LIKE 'Pr.%' GROUP BY nama_mhs")->result();
 
-		foreach ($data_nilai_sub['subkriteria'] as $sk_id => $nilai) {
-			$this->db->insert("nilai_subkriteria", array(
-				'id_alternatif'		=> $id_alt,
-				'id_subkriteria'   => $sk_id,
-				'nilai'			=> $nilai
-				));
-		}
-		
-
-	}
-
-	public function perangkingan_saw(){
-		
-		$query_jml_kriteria= array('jumlah'=>$this->db->query("SELECT COUNT(DISTINCT(id_kriteria)) as jumlah FROM subkriteria")->row()->jumlah);
-		extract($query_jml_kriteria);
-
-		$query_kriteria= $this->db->query("SELECT DISTINCT(id_kriteria) as kriteria FROM subkriteria")->result_array();
-		$idkriteria= array();
-		foreach ($query_kriteria as $row) {
-			if(!in_array($row['kriteria'],$idkriteria)){
-				$idkriteria[]=$row['kriteria'];
-			}
-		}
-
-		for ($i=0; $i < $jumlah; $i++) { 
-
-			$ranking= $this->db->query("SELECT a.id_alternatif 'id_alternatif',d.id_kriteria 'id_kriteria',SUM( IF(c.kategori='benefit', a.nilai/c.normalization, c.normalization/a.nilai) * c.bobot ) 'nilai' FROM nilai_subkriteria a JOIN alternatif b ON (b.id=a.id_alternatif IN((SELECT id from alternatif WHERE id_asisten IN(SELECT id from asisten WHERE id_tahun_ajaran = (SELECT id from tahun_ajaran WHERE status='1') AND tipe='Praktikum')))) JOIN ( SELECT a.id_subkriteria, ROUND(IF(b.kategori='benefit',MAX(a.nilai),MIN(a.nilai)),1) AS normalization, b.kategori, b.bobot FROM nilai_subkriteria a JOIN subkriteria b ON(b.id=a.id_subkriteria) WHERE b.id_kriteria='$idkriteria[$i]' AND a.id_alternatif IN ((SELECT id from alternatif WHERE id_asisten IN(SELECT id from asisten WHERE id_tahun_ajaran = (SELECT id from tahun_ajaran WHERE status='1') AND tipe='Praktikum'))) GROUP BY a.id_subkriteria ) c ON (c.id_subkriteria=a.id_subkriteria)JOIN subkriteria d ON(a.id_subkriteria=d.id) GROUP BY a.id_alternatif ORDER BY `id_alternatif` ASC")->result_array();
-
-			foreach ($ranking as $ar) {
-				$data_ar= array(
-					'id_alternatif'=> $ar['id_alternatif'],
-					'id_kriteria' => $ar['id_kriteria'],
-					'nilai'=> $ar['nilai']
-					);
-
-				$query = $this->db->get_where('nilai_kriteria', array(
-					'id_alternatif'	=> $data_ar['id_alternatif'],
-					'id_kriteria'   => $data_ar['id_kriteria']
-					));
-
-				$count = $query->num_rows();
-
-				if ($count == '0') {
-					$this->db->insert('nilai_kriteria',$data_ar);
-				} else {
-
-					$this->db->where('id_alternatif',"{$data_ar['id_alternatif']}");
-					$this->db->where('id_kriteria',"{$data_ar['id_kriteria']}");
-					$this->db->update("nilai_kriteria",$data_ar);
-
-				}
-
-			}
-		}
-	}
-	public function reset_nilai_sub($id){
-		$this->db->where('id_alternatif', $id);
-		$this->db->delete('nilai_subkriteria');
-	}
-
-	public function terima($id){
-
-		$query= $this->db->query("SELECT status FROM asisten WHERE id=$id")->row()->status;
-
-		if ($query == '0') {
-			$this->db->update("asisten", array(
-				'status'	=> '1',
-				), "id = '{$id}'");
-		} else {
-			$this->db->update("asisten", array(
-				'status'	=> '0',
-				), "id = '{$id}'");
-		}
-	}
+		$id_subkriteria_praktikum = array('id_sub_prak'=>$this->db->query("SELECT id,nama FROM subkriteria WHERE nama LIKE 'Nilai P%'")->row()->id);
+		extract($id_subkriteria_praktikum);
 
 
-	public function tambahnilaikri($data_nilai_kri){
+		$jumlah_asisten_prak_praktikum = array('jumlah_asisten'=> $this->db->query("SELECT COUNT(DISTINCT(dap.id_asisten)) 'jumlah_asisten' FROM data_asisten_praktikum dap JOIN matakuliah mk ON (mk.id=dap.id_matakuliah) JOIN asisten a ON (a.id=dap.id_asisten) JOIN tahun_ajaran ta ON (ta.id=a.id_tahun_ajaran) WHERE ta.status='1' AND mk.nama LIKE 'Pr.%'")->row()->jumlah_asisten);
 
-		$id_alt= $data_nilai_kri['alternatif'];
+		extract($jumlah_asisten_prak_praktikum);
 
-		$this->db->where('id_alternatif',$id_alt);
-		$this->db->delete('nilai_kriteria');
+		foreach ($konversi_nilai_praktikum as $knp) {
 
-		foreach ($data_nilai_kri['kriteria'] as $k_id => $nilai) {
-			$this->db->insert("nilai_kriteria", array(
-				'id_alternatif'		=> $id_alt,
-				'id_kriteria'   => $k_id,
-				'nilai'			=> $nilai
-				));
-		}
-	}
+		  $query = $this->db->get_where('nilai_subkriteria', array(//making selection
+		  	'id_alternatif' => $knp->id_alternatif,
+		  	'id_subkriteria'   => $id_sub_prak
+		  	));
 
-	public function perangkingan_topsis(){
+        $count = $query->num_rows(); //counting result from query
 
-		$query_topsis = $this->db->query("SELECT a.id 'id_alternatif', a.nama 'nama_alternatif', k.nama 'nama_kriteria', n.nilai 'nilai', k.bobot 'bobot', k.kategori 'kategori' FROM nilai_kriteria n JOIN alternatif a ON (a.id=n.id_alternatif) AND n.id_alternatif IN(SELECT id from alternatif WHERE id_asisten IN(SELECT id from asisten WHERE id_tahun_ajaran = (SELECT id from tahun_ajaran WHERE status='1') AND tipe='Praktikum')) JOIN kriteria k ON(k.id=n.id_kriteria)
-			")->result_array();
+        if ($count === 0) {
+
+        	$this->db->insert("nilai_subkriteria", array(
+        		'id_alternatif'		=> $knp->id_alternatif,
+        		'id_subkriteria'   => $id_sub_prak,
+        		'nilai'			=> $knp->rata2
+        		));
+        }else{
+
+        	$this->db->set('nilai', '$knp->rata2', FALSE);
+        	$this->db->where('id_alternatif', '$knp->id_alternatif');
+        	$this->db->where('id_subkriteria', '$id_sub_prak');
+        	$this->db->update('nilai_subkriteria');
+
+        }
+
+    }
 
 
-		$data=array();
-		$kriterias=array();
-		$id_alternatifs=array();
-		$bobot=array();
-		$atribut=array();
-		$nilai_kuadrat=array();
+    $konversi_nilai_teori = $this->db->query("SELECT al.id 'id_alternatif', mhs.nama 'nama_mhs', SUM(dap.nilai) 'sum_nilai', COUNT(dap.nilai) 'count_nilai', (SUM(dap.nilai)/COUNT(dap.nilai)) as 'rata2' FROM mahasiswa mhs JOIN matakuliah mk JOIN asisten a ON (mhs.id=a.id_mahasiswa) JOIN data_asisten_praktikum dap ON (dap.id_asisten=a.id) AND (mk.id=dap.id_matakuliah) JOIN tahun_ajaran t ON (a.id_tahun_ajaran=t.id) JOIN alternatif al ON(al.id_asisten=a.id) WHERE mk.jenis='Praktikum' AND a.tipe = 'Praktikum' AND t.status = '1' AND mk.nama LIKE '%(P)' GROUP BY nama_mhs")->result();
 
-		foreach ($query_topsis as $qt) {
-			if(!isset($data[$qt['nama_alternatif']])){
-				$data[$qt['nama_alternatif']]=array();
-			}
-			if(!isset($data[$qt['nama_alternatif']][$qt['nama_kriteria']])){
-				$data[$qt['nama_alternatif']][$qt['nama_kriteria']]=array();
-			}
-			if(!isset($nilai_kuadrat[$qt['nama_kriteria']])){
-				$nilai_kuadrat[$qt['nama_kriteria']]=0;
-			}
-			$bobot[$qt['nama_kriteria']]=$qt['bobot'];
-			$atribut[$qt['nama_kriteria']]=$qt['kategori'];
-			$data[$qt['nama_alternatif']][$qt['nama_kriteria']]=$qt['nilai'];
-			$nilai_kuadrat[$qt['nama_kriteria']]+=pow($qt['nilai'],2);
-			$kriterias[]=$qt['nama_kriteria'];
-			$id_alternatifs[]=$qt['id_alternatif'];
-		}
-		$kriteria=array_unique($kriterias);
+    $id_subkriteria_teori = array('id_sub_teori'=> $this->db->query("SELECT id,nama FROM subkriteria WHERE nama LIKE 'Nilai T%'")->row()->id);
+    extract($id_subkriteria_teori);
+
+    $jumlah_asisten_teori_praktikum = $this->db->query("SELECT COUNT(DISTINCT(dap.id_asisten)) 'jumlah_asisten' FROM data_asisten_praktikum dap JOIN matakuliah mk ON (mk.id=dap.id_matakuliah) JOIN asisten a ON (a.id=dap.id_asisten) JOIN tahun_ajaran ta ON (ta.id=a.id_tahun_ajaran) WHERE ta.status='1' AND mk.nama LIKE '%(P)'")->result();
+
+    foreach ($konversi_nilai_teori as $knt) {
+
+    	$query = $this->db->get_where('nilai_subkriteria', array(//making selection
+    		'id_alternatif' => $knt->id_alternatif,
+    		'id_subkriteria'   => $id_sub_teori
+    		));
+
+        $count = $query->num_rows(); //counting result from query
+
+        if ($count === 0) {
+
+        	$this->db->insert("nilai_subkriteria", array(
+        		'id_alternatif'		=> $knt->id_alternatif,
+        		'id_subkriteria'   => $id_sub_teori,
+        		'nilai'			=> $knt->rata2
+        		));
+        }else{
+
+        	$this->db->set('nilai', '$knt->rata2', FALSE);
+        	$this->db->where('id_alternatif', '$knt->id_alternatif');
+        	$this->db->where('id_subkriteria', '$id_sub_teori');
+        	$this->db->update('nilai_subkriteria');
+
+        }
+
+
+    }}
+
+    public function tambahnilaisub($data_nilai_sub){
+    	$id_alt= $data_nilai_sub['alternatif'];
+
+    	foreach ($data_nilai_sub['subkriteria'] as $sk_id => $nilai) {
+    		$this->db->insert("nilai_subkriteria", array(
+    			'id_alternatif'		=> $id_alt,
+    			'id_subkriteria'   => $sk_id,
+    			'nilai'			=> $nilai
+    			));
+    	}
+
+    }
+
+    public function perangkingan_saw(){
+
+    	$query_jml_kriteria= array('jumlah'=>$this->db->query("SELECT COUNT(DISTINCT(id_kriteria)) as jumlah FROM subkriteria")->row()->jumlah);
+    	extract($query_jml_kriteria);
+
+    	$query_kriteria= $this->db->query("SELECT DISTINCT(id_kriteria) as kriteria FROM subkriteria")->result_array();
+    	$idkriteria= array();
+    	foreach ($query_kriteria as $row) {
+    		if(!in_array($row['kriteria'],$idkriteria)){
+    			$idkriteria[]=$row['kriteria'];
+    		}
+    	}
+
+    	for ($i=0; $i < $jumlah; $i++) { 
+
+    		$ranking= $this->db->query("SELECT a.id_alternatif 'id_alternatif',d.id_kriteria 'id_kriteria',SUM( IF(c.kategori='benefit', a.nilai/c.normalization, c.normalization/a.nilai) * c.bobot ) 'nilai' FROM nilai_subkriteria a JOIN alternatif b ON (b.id=a.id_alternatif IN((SELECT id from alternatif WHERE id_asisten IN(SELECT id from asisten WHERE id_tahun_ajaran = (SELECT id from tahun_ajaran WHERE status='1') AND tipe='Praktikum')))) JOIN ( SELECT a.id_subkriteria, ROUND(IF(b.kategori='benefit',MAX(a.nilai),MIN(a.nilai)),1) AS normalization, b.kategori, b.bobot FROM nilai_subkriteria a JOIN subkriteria b ON(b.id=a.id_subkriteria) WHERE b.id_kriteria='$idkriteria[$i]' AND a.id_alternatif IN ((SELECT id from alternatif WHERE id_asisten IN(SELECT id from asisten WHERE id_tahun_ajaran = (SELECT id from tahun_ajaran WHERE status='1') AND tipe='Praktikum'))) GROUP BY a.id_subkriteria ) c ON (c.id_subkriteria=a.id_subkriteria)JOIN subkriteria d ON(a.id_subkriteria=d.id) GROUP BY a.id_alternatif ORDER BY `id_alternatif` ASC")->result_array();
+
+    		foreach ($ranking as $ar) {
+    			$data_ar= array(
+    				'id_alternatif'=> $ar['id_alternatif'],
+    				'id_kriteria' => $ar['id_kriteria'],
+    				'nilai'=> $ar['nilai']
+    				);
+
+    			$query = $this->db->get_where('nilai_kriteria', array(
+    				'id_alternatif'	=> $data_ar['id_alternatif'],
+    				'id_kriteria'   => $data_ar['id_kriteria']
+    				));
+
+    			$count = $query->num_rows();
+
+    			if ($count == '0') {
+    				$this->db->insert('nilai_kriteria',$data_ar);
+    			} else {
+
+    				$this->db->where('id_alternatif',"{$data_ar['id_alternatif']}");
+    				$this->db->where('id_kriteria',"{$data_ar['id_kriteria']}");
+    				$this->db->update("nilai_kriteria",$data_ar);
+
+    			}
+
+    		}
+    	}
+    }
+    public function reset_nilai_sub($id){
+    	$this->db->where('id_alternatif', $id);
+    	$this->db->delete('nilai_subkriteria');
+    }
+
+    public function terima($id){
+
+    	$query= $this->db->query("SELECT status FROM asisten WHERE id=$id")->row()->status;
+
+    	if ($query == '0') {
+    		$this->db->update("asisten", array(
+    			'status'	=> '1',
+    			), "id = '{$id}'");
+    	} else {
+    		$this->db->update("asisten", array(
+    			'status'	=> '0',
+    			), "id = '{$id}'");
+    	}
+    }
+
+
+    public function tambahnilaikri($data_nilai_kri){
+
+    	$id_alt= $data_nilai_kri['alternatif'];
+
+    	$this->db->where('id_alternatif',$id_alt);
+    	$this->db->delete('nilai_kriteria');
+
+    	foreach ($data_nilai_kri['kriteria'] as $k_id => $nilai) {
+    		$this->db->insert("nilai_kriteria", array(
+    			'id_alternatif'		=> $id_alt,
+    			'id_kriteria'   => $k_id,
+    			'nilai'			=> $nilai
+    			));
+    	}
+    }
+
+    public function perangkingan_topsis(){
+
+    	$query_topsis = $this->db->query("SELECT a.id 'id_alternatif', a.nama 'nama_alternatif', k.nama 'nama_kriteria', n.nilai 'nilai', k.bobot 'bobot', k.kategori 'kategori' FROM nilai_kriteria n JOIN alternatif a ON (a.id=n.id_alternatif) AND n.id_alternatif IN(SELECT id from alternatif WHERE id_asisten IN(SELECT id from asisten WHERE id_tahun_ajaran = (SELECT id from tahun_ajaran WHERE status='1') AND tipe='Praktikum')) JOIN kriteria k ON(k.id=n.id_kriteria)
+    		")->result_array();
+
+
+    	$data=array();
+    	$kriterias=array();
+    	$id_alternatifs=array();
+    	$bobot=array();
+    	$atribut=array();
+    	$nilai_kuadrat=array();
+
+    	foreach ($query_topsis as $qt) {
+    		if(!isset($data[$qt['nama_alternatif']])){
+    			$data[$qt['nama_alternatif']]=array();
+    		}
+    		if(!isset($data[$qt['nama_alternatif']][$qt['nama_kriteria']])){
+    			$data[$qt['nama_alternatif']][$qt['nama_kriteria']]=array();
+    		}
+    		if(!isset($nilai_kuadrat[$qt['nama_kriteria']])){
+    			$nilai_kuadrat[$qt['nama_kriteria']]=0;
+    		}
+    		$bobot[$qt['nama_kriteria']]=$qt['bobot'];
+    		$atribut[$qt['nama_kriteria']]=$qt['kategori'];
+    		$data[$qt['nama_alternatif']][$qt['nama_kriteria']]=$qt['nilai'];
+    		$nilai_kuadrat[$qt['nama_kriteria']]+=pow($qt['nilai'],2);
+    		$kriterias[]=$qt['nama_kriteria'];
+    		$id_alternatifs[]=$qt['id_alternatif'];
+    	}
+    	$kriteria=array_unique($kriterias);
 		// var_dump($kriteria);exit;
-		$id_alternatif=$this->db->query("SELECT id from alternatif WHERE id_asisten IN(SELECT id from asisten WHERE id_tahun_ajaran = (SELECT id from tahun_ajaran WHERE status='1'))
-			")->result_array();
-		$id_alternatif=array_unique($id_alternatifs);
-		$id_alternatif = array_values($id_alternatif);
+    	$id_alternatif=$this->db->query("SELECT id from alternatif WHERE id_asisten IN(SELECT id from asisten WHERE id_tahun_ajaran = (SELECT id from tahun_ajaran WHERE status='1'))
+    		")->result_array();
+    	$id_alternatif=array_unique($id_alternatifs);
+    	$id_alternatif = array_values($id_alternatif);
 
-		$jml_kriteria=count($kriteria);
-		$i=0;
-		$y=array();
-		foreach($data as $nama=>$krit){
-			++$i;
-			foreach($kriteria as $k){  
-				$y[$k][$i-1]=round(($krit[$k]/sqrt($nilai_kuadrat[$k])),4)*$bobot[$k];       
-			}
+    	$jml_kriteria=count($kriteria);
+    	$i=0;
+    	$y=array();
+    	foreach($data as $nama=>$krit){
+    		++$i;
+    		foreach($kriteria as $k){  
+    			$y[$k][$i-1]=round(($krit[$k]/sqrt($nilai_kuadrat[$k])),4)*$bobot[$k];       
+    		}
 
-		}
+    	}
 
-		$yplus=array();
-		foreach($kriteria as $k){
-			$yplus[$k]=($atribut[$k]=='benefit'?max($y[$k]):min($y[$k]));
-		}
+    	$yplus=array();
+    	foreach($kriteria as $k){
+    		$yplus[$k]=($atribut[$k]=='benefit'?max($y[$k]):min($y[$k]));
+    	}
 		// var_dump($yplus);exit;
 
-		$ymin=array();
-		foreach($kriteria as $k){
-			$ymin[$k]=$atribut[$k]=='cost'?max($y[$k]):min($y[$k]);
+    	$ymin=array();
+    	foreach($kriteria as $k){
+    		$ymin[$k]=$atribut[$k]=='cost'?max($y[$k]):min($y[$k]);
 
-		}
+    	}
 		// var_dump($ymin);exit;
 
-		$i=0;
-		$dplus=array();
-		foreach($data as $nama=>$krit){
-			++$i;
-			foreach($kriteria as $k){  
-				if(!isset($dplus[$i-1])) $dplus[$i-1]=0;
-				$dplus[$i-1]+=pow($yplus[$k]-$y[$k][$i-1],2);
+    	$i=0;
+    	$dplus=array();
+    	foreach($data as $nama=>$krit){
+    		++$i;
+    		foreach($kriteria as $k){  
+    			if(!isset($dplus[$i-1])) $dplus[$i-1]=0;
+    			$dplus[$i-1]+=pow($yplus[$k]-$y[$k][$i-1],2);
 
-			}
-			
-		}
+    		}
 
-		$i=0;
-		$dmin=array();
-		foreach($data as $nama=>$krit){
-			++$i;
-			foreach($kriteria as $k){  
-				if(!isset($dmin[$i-1]))$dmin[$i-1]=0;
-				$dmin[$i-1]+=pow($ymin[$k]-$y[$k][$i-1],2);
-			}
+    	}
 
-		}
+    	$i=0;
+    	$dmin=array();
+    	foreach($data as $nama=>$krit){
+    		++$i;
+    		foreach($kriteria as $k){  
+    			if(!isset($dmin[$i-1]))$dmin[$i-1]=0;
+    			$dmin[$i-1]+=pow($ymin[$k]-$y[$k][$i-1],2);
+    		}
 
-		$i=0;
-		$V=array();
-		foreach($data as $nama=>$krit){
-			++$i;
-			foreach($kriteria as $k){  
-				$V[$i-1]=round(sqrt($dmin[$i-1]),6)/(round(sqrt($dmin[$i-1]),6)+round(sqrt($dplus[$i-1]),6));
+    	}
 
-				$object=array(
-					'hasil' => $V[$i-1]
-					);
-				$this->db->where('id',$id_alternatif[$i-1]);
-				$this->db->update("alternatif",$object);
-			}
+    	$i=0;
+    	$V=array();
+    	foreach($data as $nama=>$krit){
+    		++$i;
+    		foreach($kriteria as $k){  
+    			$V[$i-1]=round(sqrt($dmin[$i-1]),6)/(round(sqrt($dmin[$i-1]),6)+round(sqrt($dplus[$i-1]),6));
 
-		}
-	}
+    			$object=array(
+    				'hasil' => $V[$i-1]
+    				);
+    			$this->db->where('id',$id_alternatif[$i-1]);
+    			$this->db->update("alternatif",$object);
+    		}
 
-
-	public function ubahnilaikriteria($id){
-
-		$query=$this->db->query("SELECT alt.id 'id',alt.nama 'nama_alt', kri.id 'id_kri',kri.nama 'nama_kri',nilaikri.nilai FROM alternatif alt CROSS JOIN kriteria kri LEFT JOIN nilai_kriteria nilaikri ON (kri.id=nilaikri.id_kriteria) AND (alt.id=nilaikri.id_alternatif) WHERE alt.id_asisten IN ( SELECT id FROM asisten WHERE id_tahun_ajaran = (SELECT id FROM tahun_ajaran WHERE status='1') AND tipe = 'Praktikum') AND alt.id='$id'");
-		return $query->result();
-	}
-
-public function get_graph_data() {
-		$sql = "SELECT alt.nama, mhs.angkatan, alt.hasil
-			FROM alternatif alt JOIN asisten a ON (alt.id_asisten=a.id) JOIN mahasiswa mhs ON (mhs.id=a.id_mahasiswa)
-			WHERE alt.id_asisten IN ( SELECT id FROM asisten WHERE id_tahun_ajaran = (SELECT id FROM tahun_ajaran WHERE status='1') AND tipe = 'Praktikum') order by hasil desc";
-		$query = $this->db->query($sql, FALSE);
-		return $query->result();
-	}
+    	}
+    }
 
 
-	public function pengumuman(){
+    public function ubahnilaikriteria($id){
 
-		$query=$this->db->query("SELECT mahasiswa.nama, ta.semester,ta.tahun FROM asisten a join tahun_ajaran ta on(ta.id=a.id_tahun_ajaran) join mahasiswa on(mahasiswa.id= a.id_mahasiswa) WHERE a.status = '1' AND tipe='Praktikum'");
-		return $query->result();
-	}
+    	$query=$this->db->query("SELECT alt.id 'id',alt.nama 'nama_alt', kri.id 'id_kri',kri.nama 'nama_kri',nilaikri.nilai FROM alternatif alt CROSS JOIN kriteria kri LEFT JOIN nilai_kriteria nilaikri ON (kri.id=nilaikri.id_kriteria) AND (alt.id=nilaikri.id_alternatif) WHERE alt.id_asisten IN ( SELECT id FROM asisten WHERE id_tahun_ajaran = (SELECT id FROM tahun_ajaran WHERE status='1') AND tipe = 'Praktikum') AND alt.id='$id'");
+    	return $query->result();
+    }
+
+    public function get_graph_data() {
+    	$sql = "SELECT alt.nama, mhs.angkatan, alt.hasil
+    	FROM alternatif alt JOIN asisten a ON (alt.id_asisten=a.id) JOIN mahasiswa mhs ON (mhs.id=a.id_mahasiswa)
+    	WHERE alt.id_asisten IN ( SELECT id FROM asisten WHERE id_tahun_ajaran = (SELECT id FROM tahun_ajaran WHERE status='1') AND tipe = 'Praktikum') order by hasil desc";
+    	$query = $this->db->query($sql, FALSE);
+    	return $query->result();
+    }
+
+
+    public function pengumuman(){
+
+    	$query=$this->db->query("SELECT mahasiswa.nama, ta.semester,ta.tahun FROM asisten a join tahun_ajaran ta on(ta.id=a.id_tahun_ajaran) join mahasiswa on(mahasiswa.id= a.id_mahasiswa) WHERE a.status = '1' AND tipe='Praktikum'");
+    	return $query->result();
+    }
 
 }
 

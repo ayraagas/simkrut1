@@ -29,6 +29,18 @@ class Login extends CI_Controller {
 
 	}
 
+	function penguji(){
+
+		if($this->session->userdata('logged_in_pgj')){
+			redirect('home_penguji','refresh');
+		} else {
+			$this->load->helper(array('form'));
+			$this->load->view('loginPenguji');
+		}
+
+
+	}
+
 }
 
 ?>

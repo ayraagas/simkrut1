@@ -30,6 +30,7 @@ class Home extends CI_Controller {
  {
    $this->session->unset_userdata('logged_in_mhs');
    $this->session->unset_userdata('logged_in');
+   $this->session->unset_userdata('logged_in_pgj');
    session_destroy();
    redirect('/', 'refresh');
  }

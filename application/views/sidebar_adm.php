@@ -44,6 +44,8 @@
     <ul class="treeview-menu">
       <li><a href="datamk"><i class="fa fa-circle-o"></i>Data Matakuliah</a></li>
       <li><a href="datadosen"><i class="fa fa-circle-o"></i>Data Dosen</a></li>
+      <li><a href="datapenguji"><i class="fa fa-circle-o"></i>Data Penguji</a></li>
+      <li><a href="datapenguji/penilai"><i class="fa fa-circle-o"></i>Data Penilai</a></li>
     </ul>
   </li>
   <li class="treeview">
