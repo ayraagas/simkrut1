@@ -149,7 +149,7 @@ class Home_penguji extends CI_Controller {
 					$this->penguji_model->tambahnilaisub($data_nilai_sub);
 				}
 
-				// $this->penguji_model->masuknilaikrisub();
+				$this->penguji_model->masuknilai();
 
 				redirect('home_penguji','refresh');
 			}

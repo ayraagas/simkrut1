@@ -60,7 +60,7 @@ class Penguji_model extends CI_Model {
 	public function ubahnilaisubkriteria($id,$id_penguji){
 
 		$query=$this->db->query("SELECT alt.id 'id',alt.nama 'nama_alt', kri.id 'id_kri',kri.nama 'nama_kri',nilaikri.nilai 'nilai' FROM alternatif alt CROSS JOIN subkriteria kri LEFT JOIN nilai_penguji_subkriteria nilaikri ON (kri.id=nilaikri.id_subkriteria) AND (alt.id=nilaikri.id_alternatif) AND nilaikri.id_penguji='$id_penguji' WHERE alt.id_asisten IN ( SELECT id FROM asisten WHERE id_tahun_ajaran = (SELECT id FROM tahun_ajaran WHERE status='1') AND tipe = 'Praktikum') AND alt.id='$id' AND kri.id_kriteria IN (SELECT id_kriteria FROM penguji_kriteria WHERE id_penguji='$id_penguji')
-");
+			");
 		return $query->result();
 	}
 
@@ -73,56 +73,82 @@ class Penguji_model extends CI_Model {
 
 
 
-    public function tambahnilaikri($data_nilai_kri){
+	public function tambahnilaikri($data_nilai_kri){
 
-    	$id_alt= $data_nilai_kri['alternatif'];
-    	$id_penguji = $data_nilai_kri['id_penguji'];
-
-
-    	$this->db->where('id_alternatif',$id_alt);
-    	$this->db->where('id_penguji',$id_penguji);
-    	$this->db->delete('nilai_penguji_kriteria');
-
-    	foreach ($data_nilai_kri['kriteria'] as $k_id => $nilai) {
-    		$this->db->insert("nilai_penguji_kriteria", array(
-    			'id_penguji'	=> $data_nilai_kri['id_penguji'],
-    			'id_alternatif'		=> $id_alt,
-    			'id_kriteria'   => $k_id,
-    			'nilai'			=> $nilai
-    			));
-    	}
-    }
+		$id_alt= $data_nilai_kri['alternatif'];
+		$id_penguji = $data_nilai_kri['id_penguji'];
 
 
-    public function tambahnilaisub($data_nilai_sub){
+		$this->db->where('id_alternatif',$id_alt);
+		$this->db->where('id_penguji',$id_penguji);
+		$this->db->delete('nilai_penguji_kriteria');
 
-    	$id_alt= $data_nilai_sub['alternatif'];
+		foreach ($data_nilai_kri['kriteria'] as $k_id => $nilai) {
+			$this->db->insert("nilai_penguji_kriteria", array(
+				'id_penguji'	=> $data_nilai_kri['id_penguji'],
+				'id_alternatif'		=> $id_alt,
+				'id_kriteria'   => $k_id,
+				'nilai'			=> $nilai
+				));
+		}
+	}
+
+
+	public function tambahnilaisub($data_nilai_sub){
+
+		$id_alt= $data_nilai_sub['alternatif'];
 		$id_penguji = $data_nilai_sub['id_penguji'];
 
-    	$this->db->where('id_alternatif',$id_alt);
-    	$this->db->where('id_penguji',$id_penguji);
-    	$this->db->delete('nilai_penguji_subkriteria');
+		$this->db->where('id_alternatif',$id_alt);
+		$this->db->where('id_penguji',$id_penguji);
+		$this->db->delete('nilai_penguji_subkriteria');
 
-    	foreach ($data_nilai_sub['subkriteria'] as $sk_id => $nilai) {
-    		$this->db->insert("nilai_penguji_subkriteria", array(
-    			'id_penguji'	=> $id_penguji ,
-    			'id_alternatif'		=> $id_alt,
-    			'id_subkriteria'   => $sk_id,
-    			'nilai'			=> $nilai
-    			));
-    	}
-    }
+		foreach ($data_nilai_sub['subkriteria'] as $sk_id => $nilai) {
+			$this->db->insert("nilai_penguji_subkriteria", array(
+				'id_penguji'	=> $id_penguji ,
+				'id_alternatif'		=> $id_alt,
+				'id_subkriteria'   => $sk_id,
+				'nilai'			=> $nilai
+				));
+		}
+	}
 
-    public function masuknilaisub(){
-    		$this->db->query("SELECT alt.id 'id',alt.nama 'nama_alt',sub.nama 'nama_sub', AVG(nilaisub.nilai) 'rata' FROM alternatif alt CROSS JOIN subkriteria sub LEFT JOIN nilai_penguji_subkriteria nilaisub ON (sub.id=nilaisub.id_subkriteria) AND (alt.id=nilaisub.id_alternatif) WHERE alt.id_asisten IN ( SELECT id FROM asisten WHERE id_tahun_ajaran = (SELECT id FROM tahun_ajaran WHERE status='1') AND tipe = 'Praktikum') GROUP BY nama_alt,nama_sub HAVING rata IS NOT NULL")->result();
-    }
+	public function masuknilai(){
+		$nilaisub = $this->db->query("SELECT alt.id 'id',alt.nama 'nama_alt',sub.nama 'nama_sub',sub.id 'id_sub', AVG(nilaisub.nilai) 'rata' FROM alternatif alt CROSS JOIN subkriteria sub LEFT JOIN nilai_penguji_subkriteria nilaisub ON (sub.id=nilaisub.id_subkriteria) AND (alt.id=nilaisub.id_alternatif) WHERE alt.id_asisten IN ( SELECT id FROM asisten WHERE id_tahun_ajaran = (SELECT id FROM tahun_ajaran WHERE status='1') AND tipe = 'Praktikum') GROUP BY nama_alt,nama_sub HAVING rata IS NOT NULL")->result();
+
+		foreach ($nilaisub as $nsub) {
+
+    		
+		 	$this->db->where('id_alternatif', '$nsub->id');
+		 	$this->db->where('id_subkriteria', '$nsub->id_sub');
+		 	$this->db->delete('nilai_subkriteria');
+
+
+		 	$this->db->insert("nilai_subkriteria", array(
+		 		'id_alternatif'		=> $nsub->id,
+		 		'id_subkriteria'   => $nsub->id_sub,
+		 		'nilai'			=> $nsub->rata
+		 		));
+		 }
+	
+
+	$nilaikri = $this->db->query("SELECT alt.id 'id',alt.nama 'nama_alt', kri.id 'id_kri',kri.nama 'nama_kri',nilaikri.nilai 'nilai', AVG(nilaikri.nilai) 'rata' FROM alternatif alt CROSS JOIN kriteria kri LEFT JOIN nilai_penguji_kriteria nilaikri ON (kri.id=nilaikri.id_kriteria) AND (alt.id=nilaikri.id_alternatif) WHERE alt.id_asisten IN ( SELECT id FROM asisten WHERE id_tahun_ajaran = (SELECT id FROM tahun_ajaran WHERE status='1') AND tipe = 'Praktikum') AND kri.id NOT IN (SELECT id_kriteria FROM subkriteria) GROUP BY nama_alt,nama_kri HAVING rata IS NOT NULL")->result();
+	foreach ($nilaikri as $nkri) {
 
 
 
+	 	$this->db->where('id_alternatif', '$nkri->id');
+	 	$this->db->where('id_kriteria', '$nkri->id_kri');
+	 	$this->db->delete('nilai_kriteria');
 
+	 	$this->db->insert("nilai_kriteria", array(
+	 		'id_alternatif'		=> $nkri->id,
+	 		'id_kriteria'   => $nkri->id_kri,
+	 		'nilai'			=> $nkri->rata
+	 		));
 
-
-}
+	 }
+}}
 
 /* End of file penguji_model.php */
 /* Location: ./application/models/penguji_model.php */
